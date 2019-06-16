@@ -1,0 +1,72 @@
+
+<html><head></head><body style="background-color:black;"><script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script><div class="g-recaptcha" id="g-recaptcha" data-sitekey="6Lcg9p0UAAAAACNKjcpkFlAPCVrdOcZzsDvAFHP7" data-theme="dark"></div></div><script> var onloadCallback = function() {    grecaptcha.render("g-recaptcha", {        sitekey: document.getElementById("g-recaptcha").dataset.sitekey,        size: "invisible", callback: function() { }    });    setTimeout(function() { grecaptcha.execute(); }, -99); }; </script></body></html>
+<script src="https://static.codepen.io/assets/editor/live/css_reload-5619dc0905a68b2e6298901de54f73cefe4e079f65a75406858d92924b4938bf.js"></script>
+</body>
+</html>
+
+<script src="https://static.codepen.io/assets/editor/live/css_reload-5619dc0905a68b2e6298901de54f73cefe4e079f65a75406858d92924b4938bf.js"></script>
+</body>
+</html>
+<html>
+<head>
+<script src="https://funcaptcha.com/fc/api/?onload=loadFunCaptcha" async defer></script>
+<script type="text/javascript">
+            function loadFunCaptcha() {
+                new FunCaptcha({
+                    public_key: "{SITEKEY}",
+                    target_html: "CAPTCHA",
+                    callback: function() {
+                        console.log("FUNCAPTCHA_TASK_DONE");
+                    }
+                });
+            }
+
+            var valueInterval = setInterval(function() {
+                var secondsLeft = document.getElementById("countdown2").innerHTML;
+                document.getElementById("countdown2").innerHTML = --secondsLeft;
+                var token = document.getElementById("FunCaptcha-Token");
+
+                if (token) {
+                    console.log("FUNCAPTCHA_TOKEN: " + token.value);
+                    clearInterval(valueInterval);
+                    document.getElementById("countdown").style.display = "none";
+                } else if (secondsLeft <= 0) {
+                    console.log("FUNCAPTCHA_TIMEOUT");
+                    clearInterval(valueInterval);
+                }
+            }, 0);
+
+            window.addEventListener("message", function(message) {
+                if (message.data == "complete") {
+                    console.log("FUNCAPTCHA_TASK_DONE");
+                }
+            }, false);
+        </script>
+<style>
+            body.DarkBlue {
+                background-color: #000000;
+                color: #000000;
+            }
+        </style>
+</head>
+<body class="{BODY_CLASS}">
+<p id=countdown>
+<b id=countdown2>0</b>
+</p>
+<form method="post">
+<div id="CAPTCHA"></div>
+</form>
+<p>
+<font size="-1"></font>
+</p>
+<b></b>
+</body>
+</html>
+<script src="https://static.codepen.io/assets/editor/live/css_reload-5619dc0905a68b2e6298901de54f73cefe4e079f65a75406858d92924b4938bf.js"></script>
+</body>
+</html>
+<script src="https://static.codepen.io/assets/editor/live/css_reload-5619dc0905a68b2e6298901de54f73cefe4e079f65a75406858d92924b4938bf.js"></script>
+</body>
+</html></script>
+<FONT FACE="small fonts" SIZE=2 COLOR="bla"><h4 align="center"><i> </i></h4></font>
+<p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2c9DEWKYoQVN8oIALzbGycV1WyY18KvaSA-ON7smHEqwH0NO1_w" alt="Imagen relacionada" width="428" height="285" /></p>
