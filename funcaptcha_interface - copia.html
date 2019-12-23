@@ -1,0 +1,112 @@
+<html>
+    <head>
+        <script
+                src="https://funcaptcha.com/fc/api/?onload=loadFunCaptcha"
+                async
+                defer></script>
+        <script type="text/javascript">
+            function loadFunCaptcha() {
+                new FunCaptcha({
+                    public_key: "69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC",
+                    target_html: "CAPTCHA",
+                    callback: function() {
+                        console.log("FUNCAPTCHA_TASK_DONE");
+                    }
+                });
+            }<html>
+    <head>
+        <script
+                src="https://funcaptcha.com/fc/api/?onload=loadFunCaptcha"
+                async
+                defer></script>
+        <script type="text/javascript">
+            function loadFunCaptcha() {
+                new FunCaptcha({
+                    public_key: "69A21A01-CC7B-B9C6-0F9A-E7FA06677FFC",
+                    target_html: "CAPTCHA",
+                    callback: function() {
+                        console.log("FUNCAPTCHA_TASK_DONE");
+                    }
+                });
+            }
+
+            var valueInterval = setInterval(function() {
+                var secondsLeft = document.getElementById("countdown2").innerHTML;
+                document.getElementById("countdown2").innerHTML = --secondsLeft;
+                var token = document.getElementById("FunCaptcha-Token");
+
+                if (token) {
+                    console.log("FUNCAPTCHA_TOKEN: " + token.value);
+                    clearInterval(valueInterval);
+                    document.getElementById("countdown").style.display = "none";
+                } else if (secondsLeft <= 0) {
+                    console.log("FUNCAPTCHA_TIMEOUT");
+                    clearInterval(valueInterval);
+                }
+            }, 1000);
+
+            window.addEventListener("message", function(message) {
+                if (message.data == "complete") {
+                    console.log("FUNCAPTCHA_TASK_DONE");
+                }
+            }, false);
+        </script>
+        <style>
+            body.DarkBlue {
+                background-color: #1C2732;
+                color: #BBBBBB;
+            }
+        </style>
+    </head>
+    
+        <p id=countdown>Please wait...
+            <b id=countdown2>20</b>
+        </p>
+        <form method="post">
+            <div id="CAPTCHA"></div>
+        </form>
+
+        
+    </body>
+</html>
+
+            var valueInterval = setInterval(function() {
+                var secondsLeft = document.getElementById("countdown2").innerHTML;
+                document.getElementById("countdown2").innerHTML = --secondsLeft;
+                var token = document.getElementById("FunCaptcha-Token");
+
+                if (token) {
+                    console.log("FUNCAPTCHA_TOKEN: " + token.value);
+                    clearInterval(valueInterval);
+                    document.getElementById("countdown").style.display = "none";
+                } else if (secondsLeft <= 0) {
+                    console.log("FUNCAPTCHA_TIMEOUT");
+                    clearInterval(valueInterval);
+                }
+            }, 1000);
+
+            window.addEventListener("message", function(message) {
+                if (message.data == "complete") {
+                    console.log("FUNCAPTCHA_TASK_DONE");
+                }
+            }, false);
+        </script>
+        <style>
+            body.DarkBlue {
+                background-color: #1C2732;
+                color: #BBBBBB;
+            }
+        </style>
+    </head>
+    <body class="{BODY_CLASS}">
+	
+        <p id=countdown>Please wait...
+            <b id=countdown2>20</b>
+        </p>
+        <form method="post">
+            <div id="CAPTCHA"></div>
+        </form>
+
+        
+    </body>
+</html>
