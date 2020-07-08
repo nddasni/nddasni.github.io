@@ -1172,9 +1172,9 @@ function AntiFW(options){
                 return false;
             }
 
-            Anti.earn.interface.setJobNameLabel('KoloAuto');
+            Anti.earn.interface.setJobNameLabel('Nelenger');
 
-            Anti.earn.interface.showLoaderMessage('KoloAuto', '');
+            Anti.earn.interface.showLoaderMessage('Nelenger', '');
 
             //clearing callbacks
             Anti.earn.callbacks.focusEventCallback = false;
