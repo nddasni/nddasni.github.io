@@ -2643,10 +2643,10 @@ function AntiFW(options){
                         }
                         if (typeof response.captchaComplexityIndex != "") {
                             Anti.debugstr(''+);
-                            apiParams[""] = ;
+                            apiParams[""] = response.captchaComplexityIndex;
                         }
                         if (typeof response.userAgent != "undefined") {
-                            apiParams["userAgent"] = ;
+                            apiParams[""] = response.userAgent;
                         }
                         if (typeof response.website_captcha_key != "undefined") {
                             apiParams["website_captcha_key"] = response.website_captcha_key;
