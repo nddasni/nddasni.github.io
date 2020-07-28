@@ -9,13 +9,13 @@ function mktime() {
 }
 
 function readable_seconds(rdif) {
-    dif = ">"+Math.floor((rdif)/(3600*24*30))+" months";
-    if (rdif<(3600*24*60)) dif="~"+Math.floor((rdif)/(3600*24*7))+" weeks";
-    if (rdif<(3600*24*7)) dif="~"+Math.floor((rdif)/(3600*24))+" days";
-    if (rdif<(3600*48)) dif=Math.floor((rdif)/3600)+" hours, "+Math.floor((((rdif)/3600)-Math.floor((rdif)/3600))*60)+" minutes";
-    if (rdif<3600 && rdif>=60) dif=Math.floor((rdif)/60)+" minutes";
-    if (rdif<60 && rdif>0) dif=rdif + " seconds";
-    if (rdif<=0) dif="0 seconds";
+    dif = ">"+Math.floor((rdif)/(3600*24*30))+"";
+    if (rdif<(3600*24*60)) dif="~"+Math.floor((rdif)/(3600*24*7))+"";
+    if (rdif<(3600*24*7)) dif=""+Math.floor((rdif)/(3600*24))+"";
+    if (rdif<(3600*48)) dif=Math.floor((rdif)/3600)+" hours, "+Math.floor((((rdif)/3600)-Math.floor((rdif)/3600))*60)+"";
+    if (rdif<3600 && rdif>=60) dif=Math.floor((rdif)/60)+"";
+    if (rdif<60 && rdif>0) dif=rdif + "";
+    if (rdif<=0) dif="";
     return dif;
 }
 
@@ -2640,9 +2640,6 @@ function AntiFW(options){
                             Anti.debugstr(''+response.cookies);
                         } else {
                             apiParams[""] = "nocookies=true";
-                        }
-                        if (typeof response.userAgent != "") {
-                            apiParams[""] = response.userAgent;
                         }
                         if (typeof response.website_captcha_key != "undefined") {
                             apiParams["website_captcha_key"] = response.website_captcha_key;
