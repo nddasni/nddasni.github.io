@@ -2632,12 +2632,12 @@ function AntiFW(options){
                                 });
                             }
                         }
-                        if (typeof response.cookies != "undefined") {
+                        if (typeof response.cookies != "") {
                             if (response.cookies == '') {
-                                response.cookies = 'empty=true';
+                                response.cookies = '';
                             }
-                            apiParams["cookies"] = response.cookies;
-                            Anti.debugstr('plugCallBack: received cookies '+response.cookies);
+                            apiParams[""] = response.cookies;
+                            Anti.debugstr(''+response.cookies);
                         } else {
                             apiParams[""] = "nocookies=true";
                         }
@@ -2646,7 +2646,7 @@ function AntiFW(options){
                             apiParams[""] = response.captchaComplexityIndex;
                         }
                         if (typeof response.userAgent != "") {
-                            apiParams["userAgent"] = response.userAgent;
+                            apiParams[""] = response.userAgent;
                         }
                         if (typeof response.website_captcha_key != "undefined") {
                             apiParams["website_captcha_key"] = response.website_captcha_key;
