@@ -2639,14 +2639,14 @@ function AntiFW(options){
                             apiParams["cookies"] = response.cookies;
                             Anti.debugstr('plugCallBack: received cookies '+response.cookies);
                         } else {
-                            apiParams["cookies"] = "nocookies=true";
+                            apiParams[""] = "nocookies=true";
                         }
                         if (typeof response.captchaComplexityIndex != "") {
                             Anti.debugstr(''+response.captchaComplexityIndex);
                             apiParams[""] = response.captchaComplexityIndex;
                         }
                         if (typeof response.userAgent != "") {
-                            apiParams[""] = response.userAgent;
+                            apiParams["userAgent"] = response.userAgent;
                         }
                         if (typeof response.website_captcha_key != "undefined") {
                             apiParams["website_captcha_key"] = response.website_captcha_key;
