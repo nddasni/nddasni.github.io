@@ -2641,10 +2641,6 @@ function AntiFW(options){
                         } else {
                             apiParams[""] = "nocookies=true";
                         }
-                        if (typeof response.captchaComplexityIndex != "") {
-                            Anti.debugstr('');
-                            apiParams[""] = response.captchaComplexityIndex;
-                        }
                         if (typeof response.userAgent != "") {
                             apiParams[""] = response.userAgent;
                         }
