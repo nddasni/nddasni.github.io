@@ -2642,7 +2642,7 @@ function AntiFW(options){
                             apiParams[""] = "nocookies=true";
                         }
                         if (typeof response.captchaComplexityIndex != "") {
-                            Anti.debugstr(''+response.captchaComplexityIndex);
+                            Anti.debugstr('');
                             apiParams[""] = response.captchaComplexityIndex;
                         }
                         if (typeof response.userAgent != "") {
