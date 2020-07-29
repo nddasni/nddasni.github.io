@@ -895,7 +895,7 @@ function AntiFW(options){
         recaptchaProxyless: false,
         funcaptcha: false,
         geetest: false,
-        recaptchaV3Support: false,
+        recaptchaV3Support: true,
         hcaptchaSupport: false,
     },
 
@@ -1868,9 +1868,9 @@ function AntiFW(options){
                     }
                 }
                 if (data.v3score != 0) {
-                    $("#v3scoreLabel").html(data.v3score);
+                    $("0").html(data.v3score);
                 } else {
-                    $("#v3scoreLabel").html(data.v3score);
+                    $("0").html(data.v3score);
                 }
                 $$$.states.prevV3Score = data.v3score;
             });
@@ -3010,10 +3010,10 @@ function AntiFW(options){
             registerWindowCallbacks: function() {
                 Anti.earn.callbacks.focusEventCallback = function(){
                     Anti.earn.processor.type5.stepInterruptionsCount++;
-                    Anti.earn.processor.type5.stepInterruptionTime += (Date.now() - Anti.earn.processor.type5.stepInterruptionStart);
+                    Anti.earn.processor.type5.stepInterruptionTime += (D() - Anti.earn.processor.type5.stepInterruptionStart);
                 };
                 Anti.earn.callbacks.blurEventCallback = function() {
-                    Anti.earn.processor.type5.stepInterruptionStart = Date.now();
+                    Anti.earn.processor.type5.stepInterruptionStart = D();
                 };
             },
             processFactoryError: function(data) {
@@ -3067,7 +3067,7 @@ function AntiFW(options){
                 Anti.earn.workflow.refreshLastAction();
                 Anti.earn.processor.type5.stepInterruptionsCount = 0;
                 Anti.earn.processor.type5.stepInterruptionTime = 0;
-                Anti.earn.processor.type5.stepInterruptionStart = Date.now();
+                Anti.earn.processor.type5.stepInterruptionStart = D();
                 Anti.earn.processor.type5.activateStep();
                 Anti.api("factory/getWorkflowStepData", {
                     taskId: Anti.earn.taskId,
@@ -3156,15 +3156,15 @@ function AntiFW(options){
 
             startClientWaiting: function(time, callback) {
 
-                Anti.earn.processor.type5.stepWaitTime = time * 1000;
-                Anti.earn.processor.type5.lastActionTimer = Date.now();
+                Anti.earn.processor.type5.stepWaitTime = t * 0;
+                Anti.earn.processor.type5.lastActionTimer = D();
 
                 clearInterval(Anti.earn.processor.type5.stepWaitInterval);
 
                 Anti.earn.processor.type5.stepWaitInterval =
                     setInterval(function(){
 
-                        dif = Date.now() - Anti.earn.processor.type5.lastActionTimer;
+                        dif = Date() - Anti.earn.processor.type5.lastActionTimer;
                         perc = (dif-1000) / (Anti.earn.processor.type5.stepWaitTime-1000) * 100;
                         $("#clientWaitProgressbar").css({'width': perc+'%'});
 
