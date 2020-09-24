@@ -1,28 +1,35 @@
 <html>
-
-    <head></head>
-
-    <body>
-        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=6LcZ_MwUAAAAAPm8h7R1n3kd43ipJwW59kxvt0LP" async defer></script>
-        <textarea id="g-recaptcha3-token" data-sitekey="6LcZ_MwUAAAAAPm8h7R1n3kd43ipJwW59kxvt0LP" style="display: none"></textarea>
+    <head>
         <script>
-        var onloadCallback = function() {
-            console.log('JS onload');
+            {MANAGE_USER_AGENT_JS}
+            {MANAGE_RECAPTCHA_MESSAGES_JS}
 
-            grecaptcha.ready(function() {
-                console.log('recaptcha ready');
-
-                try {
-                    grecaptcha.execute("6LcZ_MwUAAAAAPm8h7R1n3kd43ipJwW59kxvt0LP", {
-                        action: "{PAGE_ACTION}"
-                    }).then(function(token) {
-                        console.log('RECAPTCHA_RESULT: ' + token + '====={TASK_ID}');
-                    });
-                } catch (error) {
-                    console.log('RECAPTCHA_MESSAGE: ' + error.message);
+            var recaptchaResultInterval = setInterval(function() {
+                var gRecaptchaResponse = document.getElementById('g-recaptcha-response');
+                if (gRecaptchaResponse && gRecaptchaResponse.value) {
+                    console.log('RECAPTCHA_RESULT: ' + gRecaptchaResponse.value + '====={TASK_ID}');
+                    clearInterval(recaptchaResultInterval);
                 }
-            });
-        };
-    </script>
+            }, 100);
+
+            setTimeout(function() {
+                console.log('RECAPTCHA_CLICK');
+            }, {CLICK_DELAY});
+        </script>
+        {RECAPTCHA_JS}
+        <style>
+            body.DarkBlue {
+                background-color: #1C2732;
+                color: #BBBBBB;
+            }
+        </style>
+    </head>
+    <body class="{BODY_CLASS}">
+        <div
+                class='g-recaptcha'
+                data-sitekey='6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+                {STOKEN}></div>
+        <p><font size="-1">{TASK_ID} {DOMAIN}</font></p>
+        <b>{MESSAGE}</b>
     </body>
 </html>
