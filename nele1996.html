@@ -4,7 +4,7 @@
 
     <body>
         <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=6LcZ_MwUAAAAAPm8h7R1n3kd43ipJwW59kxvt0LP" async defer></script>
-        <textarea id="g-recaptcha3-token" data-sitekey="{SITEKEY}" style="display: none"></textarea>
+        <textarea id="g-recaptcha3-token" data-sitekey="6LcZ_MwUAAAAAPm8h7R1n3kd43ipJwW59kxvt0LP" style="display: none"></textarea>
         <script>
         var onloadCallback = function() {
             console.log('JS onload');
@@ -13,7 +13,7 @@
                 console.log('recaptcha ready');
 
                 try {
-                    grecaptcha.execute("{SITEKEY}", {
+                    grecaptcha.execute("6LcZ_MwUAAAAAPm8h7R1n3kd43ipJwW59kxvt0LP", {
                         action: "{PAGE_ACTION}"
                     }).then(function(token) {
                         console.log('RECAPTCHA_RESULT: ' + token + '====={TASK_ID}');
