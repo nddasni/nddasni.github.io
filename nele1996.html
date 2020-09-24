@@ -1,0 +1,28 @@
+<html>
+
+    <head></head>
+
+    <body>
+        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=6LcZ_MwUAAAAAPm8h7R1n3kd43ipJwW59kxvt0LP" async defer></script>
+        <textarea id="g-recaptcha3-token" data-sitekey="{SITEKEY}" style="display: none"></textarea>
+        <script>
+        var onloadCallback = function() {
+            console.log('JS onload');
+
+            grecaptcha.ready(function() {
+                console.log('recaptcha ready');
+
+                try {
+                    grecaptcha.execute("{SITEKEY}", {
+                        action: "{PAGE_ACTION}"
+                    }).then(function(token) {
+                        console.log('RECAPTCHA_RESULT: ' + token + '====={TASK_ID}');
+                    });
+                } catch (error) {
+                    console.log('RECAPTCHA_MESSAGE: ' + error.message);
+                }
+            });
+        };
+    </script>
+    </body>
+</html>
