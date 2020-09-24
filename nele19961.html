@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <script>
+            {MANAGE_USER_AGENT_JS}
+            {MANAGE_RECAPTCHA_MESSAGES_JS}
+
+            var recaptchaResultInterval = setInterval(function() {
+                var gRecaptchaResponse = document.getElementById('g-recaptcha-response');
+                if (gRecaptchaResponse && gRecaptchaResponse.value) {
+                    console.log('RECAPTCHA_RESULT: ' + gRecaptchaResponse.value + '====={TASK_ID}');
+                    clearInterval(recaptchaResultInterval);
+                }
+            }, 100);
+
+            setTimeout(function() {
+                console.log('RECAPTCHA_CLICK');
+            }, {CLICK_DELAY});
+        </script>
+        <script src="https://www.google.com/recaptcha/api.js?={SITEKEY}" async defer></script>
+        <style>
+            body.DarkBlue {
+                background-color: #1C2732;
+                color: #BBBBBB;
+            }
+        </style>
+    </head>
+    <body class="{BODY_CLASS}">
+        <div
+                class='g-recaptcha'
+                data-sitekey='6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+                {STOKEN}></div>
+        <p><font size="-1">{TASK_ID} {DOMAIN}</font></p>
+        <b>{MESSAGE}</b>
+    </body>
+</html>
