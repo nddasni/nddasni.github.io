@@ -1,3 +1,4 @@
+
 var intervals = new Array();
 var minWindowSize       = 560;
 var middleWindowSize    = 780;
@@ -81,45 +82,46 @@ function copyToClipboard(value) {
   $temp.remove();
 }
 
-function AntiFW(options){
+function Anti(options){
+
 
     $("#loadingDiv").html('starting framework..');
-    this.middleWindowSize    = 780;
-    this.currentClass        = '';
-    this.currentClassName    = '';
-    this.intervals           = [];
-    this.panelPath           = options.path;
-    this.defaultRoute        = options.defaultRoute;
-    this.authCookie          = options.authCookie;
-    this.authCookieValue     = '';
-    this.loginLocation       = options.loginLocation;
-    this.classParameters     = [];
-    this.loaderStartTime     = 0;
-    this.loaderTimeOut       = 0;
-    this.initLocationPath    = document.location.pathname.replace('/'+options.path+'/','');
-    this.disableAutoNavigation = false;
-    this.disableAutoNavigationTimer = 0;
-    this.currentLocation     = '';
-    this.versionUpdateRequired = false;
-    this.lastDebugStamp      = 0;
-    this.debugLevel          = 'production';
-    this.transitionEventTimeout = 0;
-    this.pageSection         = '';
-    this.activeNotifications = (typeof options.activeNotifications != "undefined") ? options.activeNotifications : true;
-    this.notificationsPeriod = 60000;
-    this.isFirstLoad         = true;
-    this.runDubleScaleEventTimer =   0;
-    this.searchBarEnabled    = false;
-    this.failedRedirectsCount= 0;
+    Anti.middleWindowSize    = 780;
+    Anti.currentClass        = '';
+    Anti.currentClassName    = '';
+    Anti.intervals           = [];
+    Anti.panelPath           = options.path;
+    Anti.defaultRoute        = options.defaultRoute;
+    Anti.authCookie          = options.authCookie;
+    Anti.authCookieValue     = '';
+    Anti.loginLocation       = options.loginLocation;
+    Anti.classParameters     = [];
+    Anti.loaderStartTime     = 0;
+    Anti.loaderTimeOut       = 0;
+    Anti.initLocationPath    = document.location.pathname.replace('/'+options.path+'/','');
+    Anti.disableAutoNavigation = false;
+    Anti.disableAutoNavigationTimer = 0;
+    Anti.currentLocation     = '';
+    Anti.versionUpdateRequired = false;
+    Anti.lastDebugStamp      = 0;
+    Anti.debugLevel          = 'production';
+    Anti.transitionEventTimeout = 0;
+    Anti.pageSection         = '';
+    Anti.activeNotifications = (typeof options.activeNotifications != "undefined") ? options.activeNotifications : true;
+    Anti.notificationsPeriod = 60000;
+    Anti.isFirstLoad         = true;
+    Anti.runDubleScaleEventTimer =   0;
+    Anti.searchBarEnabled    = false;
+    Anti.failedRedirectsCount= 0;
     
-    if (typeof options.apiPrePath != "undefined") this.apiPrePath = options.apiPrePath;
-    if (typeof options.debugLevel != "undefined") this.debugLevel = options.debugLevel;
-    if (typeof options.notificationsPeriod != "undefined") this.notificationsPeriod = options.notificationsPeriod;
-    if (typeof options.searchBar != "undefined") this.searchBarEnabled = options.searchBar;
+    if (typeof options.apiPrePath != "undefined") Anti.apiPrePath = options.apiPrePath;
+    if (typeof options.debugLevel != "undefined") Anti.debugLevel = options.debugLevel;
+    if (typeof options.notificationsPeriod != "undefined") Anti.notificationsPeriod = options.notificationsPeriod;
+    if (typeof options.searchBar != "undefined") Anti.searchBarEnabled = options.searchBar;
 
-    this.classes = {menu:'menu',start:'start',entrance:'entrance',earn:'earn',reports_stats:'stats',reports_systemstats:'systemstats',captchas_errors:'cerrors',captchas_toplist:'toplist',info_app:'app',info_ratingsinfo:'ratingsinfo',captchas_sleeping:'sleeping',captchas_lazy:'lazy',finance_history:'history',finance_withdraw:'withdraw',finance_mycards:'mycards',settings_account:'account',settings_profile:'profile',tools_referrals:'referrals',tools_unban:'unban',info_faq:'faq',tools_story:'story',info_cert:'cert',info_plugin:'plugin',info_priority:'priority',info_recaptchaupdates:'recaptchaupdates',factory_directory:'directory',reports_fstats:'fstats',tools_pump:'pump',info_referrermessage:'referrermessage',tools_reftop:'reftop',tools_fingerprint:'fingerprint',tools_retest:'retest'};this.menu = {
+    this.classes = {menu:'menu',start:'start',entrance:'entrance',earn:'earn',reports_stats:'stats',reports_systemstats:'systemstats',captchas_errors:'cerrors',captchas_toplist:'toplist',info_app:'app',info_ratingsinfo:'ratingsinfo',captchas_sleeping:'sleeping',captchas_lazy:'lazy',finance_history:'history',finance_withdraw:'withdraw',finance_mycards:'mycards',settings_account:'account',settings_profile:'profile',tools_referrals:'referrals',tools_unban:'unban',info_faq:'faq',tools_story:'story',info_cert:'cert',info_plugin:'plugin',info_priority:'priority',info_recaptchaupdates:'recaptchaupdates',tools_pump:'pump',info_referrermessage:'referrermessage',tools_reftop:'reftop',tools_fingerprint:'fingerprint',tools_retest:'retest',finance_cryptoswapp:'cryptoswapp',finance_applyexchanger:'applyexchanger'};Anti.menu = {
 
-    currentVersion: '1.0.129',
+    currentVersion: '1.0.139',
 
     updateTopMenu: function() {
         Anti.api("notifications", { }, function(data){
@@ -156,13 +158,12 @@ function AntiFW(options){
     checkRecaptchaNews: function(data) {
         if (data.recaptchaNews) {
             $("#recaptchaNews").show();
-            messageTitle = sprintf('%s nuevas tareas de Gmail disponibles',data.gmailTasksCount);
+            messageTitle = sprintf('%s new Gmail tasks available',data.gmailTasksCount);
 
             this.setNotifications.push({
                 id:       Math.floor(Math.random()*10000),
-                priority: 'mail',
-                type:     'news',
-                title:    'Nuevas noticias sobre Recaptcha están disponibles!',
+                icon:     'news',
+                title:    'Recaptcha news update available!',
                 message:  null,
                 instantCallback: true,
                 callback: function(){
@@ -177,12 +178,11 @@ function AntiFW(options){
 
     checkGmailTasks: function(data) {
         if (data.gmailTasksCount > 0) {
-            messageTitle = sprintf('%s nuevas tareas de Gmail disponibles',data.gmailTasksCount);
+            messageTitle = sprintf('%s new Gmail tasks available',data.gmailTasksCount);
 
             this.setNotifications.push({
                 id:       Math.floor(Math.random()*10000),
-                priority: 'mail',
-                type:     'message',
+                icon:     'mail',
                 title:    messageTitle,
                 message:  null,
                 instantCallback: true,
@@ -199,12 +199,11 @@ function AntiFW(options){
     checkRefMessage: function(data) {
         if (data.newRefMessage) {
 
-            messageTitle = 'Nuevo mensaje del usuario que te ha recomendado';
+            messageTitle = 'New message from user who had referred you';
 
             this.setNotifications.push({
                 id:       Math.floor(Math.random()*10000),
-                priority: 'mail',
-                type:     'news',
+                icon:     'mail',
                 title:    messageTitle,
                 message:  null,
                 instantCallback: true,
@@ -227,7 +226,7 @@ function AntiFW(options){
         });
     }
 
-};this.start = {
+};Anti.start = {
 
     recaptchaNews: false,
     windowTitle: 'Start Page',
@@ -260,7 +259,7 @@ function AntiFW(options){
         Anti.earn.interface.clearWorkArea("start page call");
         Anti.firstLoad(function() {
             Anti.start.checkPluginCompatibility();
-            Anti.start.loadJobSettings();
+            Anti.start.loadJobSettings(false);
             Anti.api("account", {action : 'check'});
         });
 
@@ -280,12 +279,11 @@ function AntiFW(options){
 
         Anti.hideLoader({"auth":{"id":963101,"sign":"726399f8394acd1eaaeff108ca50aebb","key":"b94b2e1cdb765daf13981be6f2593bec"},"data":{"taskId":12345,"errorType":"slow"}});
 
-        this.checkFactoryAccess();
-        this.checkRecaptchaAccess();
-        this.updatePriorityData();
-        this.updateNews();
-        this.getAverageBids();
-
+        // $$$.checkFactoryAccess();
+        $$$.checkRecaptchaAccess();
+        $$$.updatePriorityData();
+        $$$.updateNews();
+        $$$.getAverageBids();
 
     },
 
@@ -322,24 +320,25 @@ function AntiFW(options){
     getAverageBids: function() {
         Anti.api("stats/getAverageBids", {}, function(data){
             $("#imageAverageBidLabel").html(data.imageBid+" / 1000");
+            $("#moderationAverageBidLabel").html(data.moderationBid+" / 1000");
             $("#avgRecaptchaBid").html(data.recaptchaBid);
             $("#funcaptchaAverageBidLabel").html(data.funcaptchaBid+" / 1000");
             $("#geetestAverageBidLabel").html(data.geetestBid+" / 1000");
             $("#hcaptchaAverageBidLabel").html(data.hcaptchaBid+" / 1000");
 
-            $("#imageLoadLabel").attr('title',data.imageLoad+'% demanda');
+            $("#imageLoadLabel").attr('title',data.imageLoad+'% demand');
             $("#imageLoadProgress").css({'width': data.imageLoad+'%', 'background-color': '#'+data.imageLoadColor});
 
-            $("#recaptchaLoadLabel").attr('title',data.recaptchaLoad+'% demanda');
+            $("#recaptchaLoadLabel").attr('title',data.recaptchaLoad+'% demand');
             $("#recaptchaLoadProgress").css({'width': data.recaptchaLoad+'%', 'background-color': '#'+data.recaptchaLoadColor});
 
-            $("#funcaptchaLoadLabel").attr('title',data.funcaptchaLoad+'% demanda');
+            $("#funcaptchaLoadLabel").attr('title',data.funcaptchaLoad+'% demand');
             $("#funcaptchaLoadProgress").css({'width': data.funcaptchaLoad+'%', 'background-color': '#'+data.funcaptchaLoadColor});
 
-            $("#geetestLoadLabel").attr('title',data.geetestLoad+'% demanda');
+            $("#geetestLoadLabel").attr('title',data.geetestLoad+'% demand');
             $("#geetestLoadProgress").css({'width': data.geetestLoad+'%', 'background-color': '#'+data.geetestLoadColor});
 
-            $("#hcaptchaLoadLabel").attr('title',data.hCaptchaLoad+'% demanda');
+            $("#hcaptchaLoadLabel").attr('title',data.hCaptchaLoad+'% demand');
             $("#hcaptchaLoadProgress").css({'width': data.hCaptchaLoad+'%', 'background-color': '#'+data.hCaptchaLoadColor});
         });
     },
@@ -358,10 +357,10 @@ function AntiFW(options){
                 if (data.banType == "permanent") {
                     $("#recaptchaAccountStatusLabel").removeClass("thick-green").addClass("error").html('Banned for cheating with unofficial applications or plugins.<br>Use clean browser installation, remove all other plugins.');
                 } else {
-                    $("#recaptchaAccountStatusLabel").removeClass("thick-green").addClass("error").html(sprintf("Estás baneado en Google.<br> Sus soluciones reCAPTCHA no funcionan.<br>Limpie sus cookies, cambie la IP e intente con otra cuenta KB.<br>Unban tiempo restante: %s", data.unbanTimeLeft));
+                    $("#recaptchaAccountStatusLabel").removeClass("thick-green").addClass("error").html(sprintf("You are banned in Google.<br> Your reCAPTCHA solutions are not working.<br>Clean your cookies, change IP and try at another KB account.<br>Unban time left: %s", data.unbanTimeLeft));
                 }
             } else {
-                $("#recaptchaAccountStatusLabel").removeClass("error").addClass("thick-green").html("<b>Todo bien</b>");
+                $("#recaptchaAccountStatusLabel").removeClass("error").addClass("thick-green").html("<b>All fine</b>");
             }
             if (data.pumpAccess != false) {
                 $("#gmailPumpHintRow").show();
@@ -377,18 +376,17 @@ function AntiFW(options){
                 Anti.html(Anti.hb(template)(data), $("#gmailPumpLabel"));
             }
             if (data.ipbanned) {
-                $("#ipStatusLabel").addClass("error").html("IP PROHIBIDO por Google");
+                $("#ipStatusLabel").addClass("error").html("IP BANNED by Google");
             } else {
-                $("#ipStatusLabel").addClass("thick-green").html("<b>Todo bien</b>");
+                $("#ipStatusLabel").addClass("thick-green").html("<b>All fine</b>");
             }
 
             if (data.v3Access) {
 
                 Anti.start.v3domain = data.v3domain;
                 Anti.start.v3path   = data.v3path;
-                console.log(data.v3domain);
-                console.log(data.v3path);
 
+                Anti.earn.states.v3checkedAtInit = true;
 
                 //delayed v3 start
                 clearInterval(Anti.start.v3RunCheckDelay);
@@ -396,7 +394,7 @@ function AntiFW(options){
                     Anti.debugstr('running v3RunCheck');
                     Anti.start.v3RunCheck();
                     setTimeout(function(){
-                        Anti.start.getV3Score(9);
+                        Anti.start.getV3Score(1);
                     }, 10000);
                 }, 5000);
 
@@ -406,83 +404,119 @@ function AntiFW(options){
     },
 
     showIPBannedHint: function() {
-        Anti.dialogsManager.message('Esto muestra su estado de autorización de IP. ' +
-            'Si está en verde todo está bien y puede trabajar. ' +
-            'Si es rojo y la IP está prohibida, entonces necesita obtener una nueva IP de su proveedor de internet reconectando su internet o usando un servicio VPN. ' +
-            'Las cuentas con IP prohibidas no pueden recibir tareas de Recaptcha.');
+        Anti.dialogsManager.message('This shows your IP clearance status. ' +
+            'If it is green, then everything is fine and you can work. ' +
+            'If it is red and IP is banned then you need to get new IP from your internet provider by reconnecting your internet or by using a VPN service. ' +
+            'Accounts with banned IPs are not able to receive Recaptcha tasks.');
     },
+    //
+    // checkFactoryAccess: function() {
+    //     Anti.api("factory/getFactoryAccess", {}, function(data) {
+    //         /*if (data.emptyProfile) {
+    //             Anti.navigate("settings/profile");
+    //         }*/
+    //         if (data.hasAccess) {
+    //             //$("#factoryButton").show();
+    //             Anti.start.loadMyFactories();
+    //             if (data.newCount > 0) {
+    //                 $("#newCount").show().html(data.newCount + ' new');
+    //             } else {
+    //                 $("#newCount").hide();
+    //             }
+    //         }
+    //     });
+    // },
+    //
+    // loadMyFactories: function() {
+    //     Anti.api("factory/getMyFactories", {}, function(data) {
+    //         for (i in data) {
+    //             Anti.htmlAppend(Anti.hb("startpageFactoryCard")(data[i]), $(".professions-list"));
+    //         }
+    //     });
+    // },
+    //
+    // saveFactoryStatus: function(factoryId, isEnabled) {
+    //     Anti.api("factory/saveFactoryStatus", {
+    //         factoryId: factoryId,
+    //         enabled: isEnabled
+    //     });
+    // },
+    //
+    // removeFactory: function(factoryId) {
+    //     Anti.directory.dialog.removeFactory(factoryId);
+    //     $("#factoryWidget"+factoryId).remove();
+    // },
 
-    checkFactoryAccess: function() {
-        Anti.api("factory/getFactoryAccess", {}, function(data) {
-            /*if (data.emptyProfile) {
-                Anti.navigate("settings/profile");
-            }*/
-            if (data.hasAccess) {
-                //$("#factoryButton").show();
-                Anti.start.loadMyFactories();
-                if (data.newCount > 0) {
-                    $("#newCount").show().html(data.newCount + ' new');
-                } else {
-                    $("#newCount").hide();
-                }
-            }
-        });
-    },
-
-    loadMyFactories: function() {
-        Anti.api("factory/getMyFactories", {}, function(data) {
-            for (i in data) {
-                Anti.htmlAppend(Anti.hb("startpageFactoryCard")(data[i]), $(".professions-list"));
-            }
-        });
-    },
-
-    saveFactoryStatus: function(factoryId, isEnabled) {
-        Anti.api("factory/saveFactoryStatus", {
-            factoryId: factoryId,
-            enabled: isEnabled
-        });
-    },
-
-    removeFactory: function(factoryId) {
-        Anti.directory.dialog.removeFactory(factoryId);
-        $("#factoryWidget"+factoryId).remove();
-    },
-
-    loadJobSettings: function() {
+    loadJobSettings: function(calledFromEarningsPage) {
         Anti.api("settings/tune", {action: 'get'}, function (data) {
             Anti.hideLoader();
-            $(".professions-list, .quick-access, .card-blue").animate({opacity:1},500);
 
             Anti.earn.settings.recaptchaEnabled = (data.enable_recaptcha == 'true' || data.enable_recaptcha == '');
-            Anti.settingsManager.setValue('enableRecaptcha', Anti.earn.settings.recaptchaEnabled);
-
             Anti.earn.settings.imageCaptchaEnabled = (data.enable_imagecaptcha == 'true' || data.enable_imagecaptcha == '');
-            Anti.settingsManager.setValue('enableImageCaptcha', Anti.earn.settings.imageCaptchaEnabled);
-
             Anti.earn.settings.funcaptchaEnabled = (data.enable_funcaptcha == 'true' || data.enable_funcaptcha == '');
-            Anti.settingsManager.setValue('enableFunCaptcha', Anti.earn.settings.funcaptchaEnabled);
-
             Anti.earn.settings.geeTestEnabled = (data.enable_geetest == 'true' || data.enable_geetest == '');
-            Anti.settingsManager.setValue('enableGeetest', Anti.earn.settings.geeTestEnabled);
-
             Anti.earn.settings.hcaptchaEnabled = (data.enable_hcaptcha == 'true' || data.enable_hcaptcha == '');
-            Anti.settingsManager.setValue('enableHCaptcha', Anti.earn.settings.hcaptchaEnabled);
+            Anti.earn.settings.moderationsEnabled = (data.enable_moderations == 'true' || data.enable_moderations == '');
 
+            if (calledFromEarningsPage) {
+                if (data.theme != '') Anti.earn.interface.setTheme(data.theme, false);
+                else Anti.earn.interface.setTheme(Anti.earn.settings.themeName, false);
+                if (data.captcha_sound != '') Anti.earn.settings.enabledSound = data.captcha_sound == 'true';
+                if (data.captcha_zoom != '') {
+                    Anti.earn.settings.zoomLevel = parseFloat(data.captcha_zoom);
+                }
+                Anti.earn.settings.pluginOpenTarget = data.pluginOpenTarget == '' ? 'iframe' : data.pluginOpenTarget;
+                Anti.earn.settings.discountValue = data.discount;
+                Anti.earn.interface.setSoundLabel();
+                Anti.earn.interface.setZoomLevel();
+                Anti.earn.interface.updateDiscountButtons();
+                Anti.earn.interface.updatePluginOptions();
+                Anti.earn.interface.updateCookiesAutocleanState();
+                Anti.earn.stats.updateSysloadWidgets();
 
-            if (Anti.start.recaptchaNews) {
-                $("#recaptchaNews").show();
-            }
-            if (data.imageCaptchaSuspended) {
-                $("#imageCaptchaBanned").show();
-                Anti.earn.settings.imageCaptchaEnabled = false;
-                Anti.settingsManager.setValue('enableImageCaptcha', false);
-            }
+                //image gauges
+                if (!Anti.earn.settings.imageCaptchaEnabled) {
+                    $(".imagecaptcha-gauge").addClass("disabled");
+                    $("#imageCaptchasDisabledLabel").show();
+                    if ($("#nextLevelInfo").is(":visible")) {
+                        $("#imageCaptchasDisabledLabel").html('image captchas disabled');
+                    } else {
+                        $("#imageCaptchasDisabledLabel").html('img.capt off');
+                    }
+                }
+            } else {
 
-            $$$.settings.hideAndroidPromo = data.hide_android_promo == 'true';
-            $$$.settings.hideUnbanPromo   = data.hide_unban_promo == 'true';
-            if ($$$.settings.hideUnbanPromo) {
-                $("#unbanSuggestbox").hide();
+                Anti.settingsManager.setValue('enableRecaptcha', Anti.earn.settings.recaptchaEnabled);
+                Anti.settingsManager.setValue('enableImageCaptcha', Anti.earn.settings.imageCaptchaEnabled);
+                Anti.settingsManager.setValue('enableFunCaptcha', Anti.earn.settings.funcaptchaEnabled);
+                Anti.settingsManager.setValue('enableGeetest', Anti.earn.settings.geeTestEnabled);
+                Anti.settingsManager.setValue('enableHCaptcha', Anti.earn.settings.hcaptchaEnabled);
+                Anti.settingsManager.setValue('enableModerations', Anti.earn.settings.moderationsEnabled);
+
+                if (Anti.start.recaptchaNews) {
+                    $("#recaptchaNews").show();
+                }
+                if (data.imageCaptchaSuspended) {
+                    $("#imageCaptchaBanned").show();
+                    Anti.earn.settings.imageCaptchaEnabled = false;
+                    Anti.settingsManager.setValue('enableImageCaptcha', false);
+                }
+                if (data.imStatus) {
+                    if (data.imStatus.status === 'banned') {
+                        $("#moderationBanned").show();
+                        Anti.earn.settings.moderationsEnabled = false;
+                        Anti.settingsManager.setValue('enableModerations', false);
+                    }
+                    $("#moderationLevel").html(data.imStatus.status);
+                    $("#moderationPoints").html(data.imStatus.points);
+                    $("#moderationVotes").html(data.imStatus.votes);
+                }
+
+                $$$.settings.hideAndroidPromo = data.hide_android_promo == 'true';
+                $$$.settings.hideUnbanPromo = data.hide_unban_promo == 'true';
+                if ($$$.settings.hideUnbanPromo) {
+                    $("#unbanSuggestbox").hide();
+                }
             }
 
         });
@@ -527,6 +561,10 @@ function AntiFW(options){
             Anti.earn.settings.hcaptchaEnabled = value;
             Anti.api("settings/tune", { action: 'save', enable_hcaptcha : value ? 'true' : 'false' });
         }
+        if (param == 'enableModerations') {
+            Anti.earn.settings.moderationsEnabled = value;
+            Anti.api("settings/tune", { action: 'save', enable_moderations : value ? 'true' : 'false' });
+        }
     },
 
     murmur: function() {
@@ -538,6 +576,7 @@ function AntiFW(options){
             Fingerprint2.get({excludes: {userAgent: true, language: true}}, function (components) {
 
                 Anti.api("tools/reportTelemetry", {
+                    "type": "murmur",
                     "murmur": Fingerprint2.x64hash128(components.map(function (pair) {
                         return pair.value
                     }).join(), 31),
@@ -556,7 +595,7 @@ function AntiFW(options){
             $("#recaptchaFollowTitlte").hide();
 
             var signtoken = new Date().getTime().toString()+"_"+Math.random().toString();
-            Anti.earn.processor.type9.plugApi({
+            Anti.earn.processor.pluginCaptchas.plugApi({
                 token: signtoken,
                 type: 'version'
             }, function(response){
@@ -598,11 +637,11 @@ function AntiFW(options){
                 if (version >= Anti.start.settings.pluginVersion) {
                     Anti.html(Anti.hb("pluginVersionCorrectLabel")({version :version}), $("#pluginVersionLabel"));
                 } else {
-                    $("#currentPluginVersionLabel").html(sprintf(' (versión %s disponible)', Anti.start.settings.pluginVersion));
+                    $("#currentPluginVersionLabel").html(sprintf(' (version %s available)', Anti.start.settings.pluginVersion));
                     Anti.html(Anti.hb("pluginVersionIncorrectLabel")({version :version, newversion: Anti.start.settings.pluginVersion}), $("#pluginVersionLabel"));
                 }
 
-                Anti.start.loadJobSettings();
+                Anti.start.loadJobSettings(false);
                 Anti.start.settings.userRecaptchaSettingsChecked = true;
 
                 // Anti.start.murmur();
@@ -625,6 +664,7 @@ function AntiFW(options){
     },
 
     checkPluginCompatibility: function() {
+        Anti.start.addPrecacheIframe();
         $.ajax({
             url: 'https://cert.kolotibablo.com/api/tools/checkCert',
             type: 'POST',
@@ -652,7 +692,7 @@ function AntiFW(options){
         //     checkType = 'proxyon';
         // }
 
-        Anti.earn.processor.type9.plugApi({'type': 'proxyon'}, function (response) {
+        Anti.earn.processor.pluginCaptchas.plugApi({'type': 'proxyon'}, function (response) {
             if (typeof response != "undefined") {
                 if (response == false) {
                     Anti.debugstr('no browser support');
@@ -673,11 +713,12 @@ function AntiFW(options){
                     Anti.debugstr("updating user agents");
                     Anti.start.updateUserAgents();
 
-                    Anti.debugstr("sending auth data to plugin");
-                    Anti.earn.processor.type9.plugApi({
-                        type: 'setAuth',
-                        auth: Anti.getAuthData()
-                    }, function(){});
+                    //turns out it is disabled
+                    // Anti.debugstr("sending auth data to plugin");
+                    // Anti.earn.processor.pluginCaptchas.plugApi({
+                    //     type: 'setAuth',
+                    //     auth: Anti.getAuthData()
+                    // }, function(){});
 
                 }
             } else {
@@ -709,7 +750,7 @@ function AntiFW(options){
 
     updateUserAgents: function() {
         Anti.api("tools/getUserAgents", {}, function(data) {
-            Anti.earn.processor.type9.plugApi({'type': 'setPredefinedUserAgentList', userAgentList: data});
+            Anti.earn.processor.pluginCaptchas.plugApi({'type': 'setPredefinedUserAgentList', userAgentList: data});
         });
     },
 
@@ -728,13 +769,13 @@ function AntiFW(options){
     enablePlugin: function() {
         //Anti.start.saveSettings('enableRecaptcha', true);
         //Anti.start.settings.pluginDisabledManually = false;
-        Anti.earn.processor.type9.plugApi({'type': 'proxyon'}, function(){
+        Anti.earn.processor.pluginCaptchas.plugApi({'type': 'proxyon'}, function(){
             Anti.start.checkPluginCompatibility();
         });
     },
     disablePlugin: function() { //not using this
         Anti.start.saveSettings('enableRecaptcha', false);
-        Anti.earn.processor.type9.plugApi({'type': 'proxyoff'}, function(){
+        Anti.earn.processor.pluginCaptchas.plugApi({'type': 'proxyoff'}, function(){
             //Anti.start.settings.pluginDisabledManually = true;
             Anti.start.checkPluginCompatibility();
         });
@@ -747,10 +788,10 @@ function AntiFW(options){
         console.log('debug status', Anti.earn.states.enableDebug);
     },
 
-    manageRemoteData: function(factoryId) {
-        Anti.navigate("factory/directory");
-        Anti.directory.dialog.manageRemoteData(factoryId);
-    },
+    // manageRemoteData: function(factoryId) {
+    //     Anti.navigate("factory/directory");
+    //     Anti.directory.dialog.manageRemoteData(factoryId);
+    // },
 
     checkInstallation: function() {
         document.location = '/workers/start';
@@ -767,15 +808,13 @@ function AntiFW(options){
 
     getV3Score: function(attempt) {
         if (attempt >= 20) {
-            Anti.html('--&nbsp;&nbsp;&nbsp;Instalar certificado y complemento primero', $("#"));
+            Anti.html('--&nbsp;&nbsp;&nbsp;install certificate and plugin first', $("#recaptchaScoreLabel"));
             return;
         }
         setTimeout(function(){
 
             Anti.api("stats/getV3Score", {clientVersion: Anti.start.settings.userPluginVersion}, function(data){
                 var message = '';
-                data.score=0.9
-                data.v3score=0.9
                 if (data.status == 'failed') {
                     Anti.start.getV3Score(attempt+1);
                 } else {
@@ -790,17 +829,17 @@ function AntiFW(options){
                     message += '&nbsp;&nbsp;&nbsp;';
                     message += "<span class='dash-button' button-action='explainV3'>";
                     if (data.score == 0.1) {
-                        message += 'Eres 100% robot';
+                        message += 'You are 100% robot';
                         Anti.deleteInterval("checkRecaptchaAccessUpdate");
                     }
                     if (data.score == 0.3) {
-                        message += "recaptcha muy lento.\nTareas V3 disponibles.";
+                        message += "Very slow recaptcha.\nV3 tasks available.";
                     }
                     if (data.score == 0.7) {
-                        message += "Velocidad de recaptcha promedio.\nTareas V3 con tasas más altas.";
+                        message += "Average recaptcha speed.\nV3 tasks with higher rates.";
                     }
                     if (data.score == 0.9) {
-                        message += "Buena velocidad de recaptcha.\nTareas V3 con la tasa más alta.";
+                        message += "Good recaptcha speed.\nV3 tasks with highest rate.";
                     }
                     message += "</span>";
                 }
@@ -812,25 +851,34 @@ function AntiFW(options){
 
     explainV3: function() {
         Anti.dialogsManager.message(
-            'Este puntaje es medido por Google. Es un valor entre 0 y 1. ' +
-            'Cuanto mayor sea el valor, más fácil es Recaptcha.<br><br>' +
-            '0.1: Google está 100% seguro de que eres un bot, tus respuestas recaptcha no funcionarán.<br>' +
-            '0.3: Google está casi seguro de que eres un bot y te da tareas de recaptcha más lentas.. También comienza a recibir tareas de Recaptcha V3.<br>' +
-            '0.4-0.7 Buen valor de promedio.<br>' +
-            '0.8-0.9 Google cree que eres un humano, Recaptcha de resolución rápida.<br><br>' +
-            'Cómo mejorarlo:<br>' +
-            '- Utiliza nuestra herramienta bombeo Gmail.<br>' +
-            '- Cambiar entre cuentas de Gmail.<br>' +
-            '- Registre tantas cuentas de Gmail como pueda. Use los números de teléfono de sus familiares y amigos para verificaciones por SMS.<br>' +
-            '- Limpie las cookies, cambie los Agentes de usuario, cambie las IP.',
+            'This score is measured by Google. It is a value between 0 and 1. ' +
+            'The higher the value, the easier is Recaptcha.<br><br>' +
+            '0.1: Google is 100% sure you are a bot, your recaptcha answers will not work.<br>' +
+            '0.3: Google is almost sure you are a bot and gives you slowest recaptcha tasks.. You also start receiving Recaptcha V3 tasks.<br>' +
+            '0.4-0.7 Good average value.<br>' +
+            '0.8-0.9 Google thinks you are a human, fast solving Recaptcha.<br><br>' +
+            'How to improve it:<br>' +
+            '- Use our Gmail pump tool.<br>' +
+            '- Switch between Gmail accounts.<br>' +
+            '- Register as much Gmail accounts as you can. Use your relatives and friends phone numbers for SMS verifications.<br>' +
+            '- Clean cookies, change User Agents, change IPs.',
 
-            '¿Qué es el puntaje?',
+            'What is score?',
             'tal'
         );
+    },
+
+    addPrecacheIframe: function() {
+        console.warn('adding iframe');
+        $('#contentbox').append('<iframe src="/cache.html" width="1" height="1" id="preloadIframe"></iframe>');
+    },
+    cacheLoaded: function() {
+        console.warn('removing preload iframe');
+        $("#preloadIframe").remove();
     }
 
 
-};var a0a=['tabLabelClickEvent','tab_auth_register','#recaptchaForm','nrTwO','YKOkB','GsChP','0|2|4|1|3','sCgyO','czJAN','rktpN','PxSnN','pgvNE','dimmed','UCnmk','zZpDj','jISqJ','MD5','workers','bNrmw','defaultRoute','undefined','formsManager','#tab_password_reset','efKPr','val','igwiH','vOgkK','uhvsq','fail_email_ban','yacounterEvent','fail_email_allowed','Enlme','IfFDT','FtAuM','HEXsN','gYCCA','GDFnW','getPanelPath','KB\x20Login','xjUuy','QxTfg','aXUcf','warn','nUd','#recoveremail','active','HUcfa','XXHFw','SIidN','aouxP','ihYws','xGvYb','FgnZV','pDmNi','slice','GGtZe','type','uddme','session','return\x20/\x22\x20+\x20this\x20+\x20\x22/','pexav','.result-msg','fHeiy','ubNrr','uInnS','SJnqZ','html','vOijT','Incorrect\x20login\x20or\x20password','pow','#confirmcode,\x20#password_reset','#password','split','BGyiQ','EcZLl','deg)','expired','Your\x20password\x20has\x20been\x20expired.\x20We\x27ve\x20sent\x20recover\x20code\x20to\x20your\x20email\x20%s.','floor','WKRID','showFormError','tap','<div\x20class=tac>checking..</div>','tzGfG','#tab_troubles','quRrB','showCaptcha','MJPFi','entering\x20system..','signature','#tab_auth_register','2|1|3|0|4','EYaCO','lfdGq','showLoginTab','#reglogin','#passwordResetForm','virpZ','slideDownQuick','#password_reset','zyUNo','#codeSentMessage','mZOzl','DLOMh','Bad\x20login\x20name','psFxz','restore','BIsou','bad_passwords','HJbHr','kQJnK','vBhPI','.main-content','htmlAfter','bVkhZ','fadeIn','AcjOV','api','code_sent','uvNoE','10|6|5|11|0|3|9|12|2|8|4|7|1','QJCgu','Bad\x20confirmation\x20code.','test','odjBM','IHbQN','blockFormProcessing','Email\x20with\x20this\x20provider\x20not\x20allowed','CrQYn','bLcOc','#redirectAfterLogin','CTszy','Referral\x20code\x20installed:\x20','gbBnJ','PcQTj','compile','VnkCh','nrpBw','dCRts','passwordStrength','bad','hideLoader','ofhWh','toString','body','GFnIP','bGgHp','events','recover','attr','clearAllIntervals','fHZjr','sendData','loadLanguageMenu','Low\x20password\x20strength.','captchaId','XtFNz','captchaText','currentClass','#tab_captcha','fKfDo','mwKAr','Please\x20select\x20better\x20password','recaptchaHash','ZKGcQ','resumeFormProcessing','#enterlogin','4|1|2|3|6|5|7|0','email','lErxq','#setPasswordButton','bad_confirmation','KzvZK','aNoay','Rgqga','SNkdA','ZHzyQ','eUfyb','YkEXT','NRmyY','too\x20many\x20login\x20attempts,\x20try\x20again\x20later','fail_login','RPrDm','WLUul','0|1|3|2|4|5','cleared\x20all\x20session\x20cookies','hide','checkAuth','cookie','XyZfS','getInterfaceLanguages','KKtcQ','same_password','KZHjD','3jfn&@jmn&d3v7jsd39lds','vtoken','first','login:\x20setting\x20logged\x20on\x20mode','xTlqQ','zdrNz','xGqPe','showPasswordResetForm','log','zhpzR','IFwKq','$(\x22#','wZZqG','bWren','setFormError','loginName','NnRev','jolMa','#regemail','sNimI','ptaXU','toggleClass','captcha_id','\x22).trigger(\x22tap\x22);','HONqU','auth-mode','RPLLc','RDZyL','oSQSx','cyubT','YJQKM','qGTne','4|3|2|0|6|5|1','good','Ccwws','DrtQC','ejU73jslk9ns*jwDela','#pass-strength','DjEqF','10|5|0|8|2|6|7|1|11|9|13|12|4|3|14','rlogin','YzPjP','tabsManager','fail_email','panelPath','tiaOX','addClass','removeClass','Please\x20use\x20password\x20with\x20numbers\x20and\x20letters\x20of\x20both\x20lower\x20and\x20upper\x20case.','mRdIZ','VkCLF','bind','.side-main\x20>\x20.header','reachGoal','.buttons','oNdXb','med','constructor','scorePassword','checkRecover','GsCYH','IGvTG','KxKTl','navigateEvent','UzzmO','authCookie','mjYnP','.lang-flags','MAKOH','ok_register','YJOcZ','lsduj','#recoverForm','znlaC','qwVun','WLnvt','We\x20have\x20sent\x20the\x20code\x20to\x20%s.\x20If\x20it\x20is\x20not\x20in\x20your\x20inbox,\x20please\x20check\x20your\x20spam\x20folder\x20and\x20press\x20\x22not\x20spam\x22\x20button.','gresponse','setLoggedOffMode','cmtBx','\x22\x20style=\x22display:table;\x20margin:\x2020px\x20auto;\x22></div>','iPBye','KkCOR','tab_auth_login','JhUwq','BoOmW','gOIAJ','BurlY','.pass-thumb','#tab_password_reset\x20>\x20.result-msg','joRPM','div[style*=\x272000000000\x27]','bmiES','siEdZ','checkRegister','daxne','KDgBD','#recoverMessage','AlDQt','setLoggedOnMode','hideFormError','vRmGm','UCBma','register','#captchaText','entrance','LzvEW','hKpXl','setting\x20logged\x20off\x20mode','UozCk','recaptcha','YKMhb','remove','vAxlZ','CLCud','rwWpd','skbec','#confirmcode','indexOf','KMYvl','checkPasswordResetAttempt','yIyID','ok_auth','currentActiveTab','jCkQv','incorrect','3|0|2|5|4|1','ChphY','captcha','AOOeS','showInputError','PhmeH','xGcam','bhUxG','check','captchaAction','show','Incorrect\x20email\x20address','nDQOS','QhiGv','navigate','/workers/entrance','debugstr','blankForm','Iedbx','#captchaForm','#stayLogged','nzoAj','ENwaR','account','49DS83mdei32','0|5|3|7|11|4|2|9|10|8|12|6|1','result','loginLocation','drkaj','#registerForm','QeLRV','jzeck','setpassword','Wmwgn','jM9','gwPnJ','animate','buildMenu','USZdf','MEYBU','lySMN','accountLogin','FVSLN','OfFpT','LukeQ','xDaWn','checkLogin','#userSessionToken','length','login','#tab_auth_login','checked','gcsTC','Zaxob','XQIph','^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}','BFcbS','rdpkh','#refcode','css','sUpTV','BcNBP','#loginForm','HokkC','mainDocumentLayoutLanguageSelector','RYzcX'];(function(a,b){var c=function(e){while(--e){a['push'](a['shift']());}};var d=function(){var e={'data':{'key':'cookie','value':'timeout'},'setCookie':function(k,l,m,n){n=n||{};var o=l+'='+m;var p=0x0;for(var q=0x0,r=k['length'];q<r;q++){var s=k[q];o+=';\x20'+s;var t=k[s];k['push'](t);r=k['length'];if(t!==!![]){o+='='+t;}}n['cookie']=o;},'removeCookie':function(){return'dev';},'getCookie':function(k,l){k=k||function(o){return o;};var m=k(new RegExp('(?:^|;\x20)'+l['replace'](/([.$?*|{}()[]\/+^])/g,'$1')+'=([^;]*)'));var n=function(o,p){o(++p);};n(c,b);return m?decodeURIComponent(m[0x1]):undefined;}};var f=function(){var k=new RegExp('\x5cw+\x20*\x5c(\x5c)\x20*{\x5cw+\x20*[\x27|\x22].+[\x27|\x22];?\x20*}');return k['test'](e['removeCookie']['toString']());};e['updateCookie']=f;var i='';var j=e['updateCookie']();if(!j){e['setCookie'](['*'],'counter',0x1);}else if(j){i=e['getCookie'](null,'counter');}else{e['removeCookie']();}};d();}(a0a,0x192));var a0b=function(a,b){a=a-0x0;var c=a0a[a];return c;};var a0e=function(){var a=!![];return function(b,c){var d=a?function(){if(c){var e=c['apply'](b,arguments);c=null;return e;}}:function(){};a=![];return d;};}();var a0f=a0e(this,function(){var a={'xjUuy':a0b('0x167'),'Zaxob':function(c){return c();}};var b=function(){var c=b[a0b('0xeb')](a0b('0x2b'))()[a0b('0x77')](a[a0b('0x17')]);return!c['test'](a0f);};return a[a0b('0x165')](b);});a0f();this[a0b('0x11b')]={'activeTab':a0b('0x141'),'windowTitle':a0b('0x16'),'captcha_id':0x0,'sendData':{},'captchaAction':'','isSavePassword':![],'password_hash':'','loginName':'','passwordStrength':0x0,'recaptchaHash':'','currentActiveTab':'','vtoken':'','setParameters':function(a){var b={'uInnS':'refcode','vRmGm':function(c,d){return c!=d;},'NRmyY':a0b('0x4'),'BoOmW':function(c,d){return c!=d;},'UCBma':function(c,d){return c(d);},'efKPr':a0b('0x16a'),'eUfyb':function(c,d){return c+d;},'ptaXU':a0b('0x161'),'dCRts':a0b('0x105'),'drkaj':'register','vAxlZ':a0b('0x173'),'oAZvm':function(c,d,e){return c(d,e);},'WKRID':a0b('0x84'),'MblPX':'tab_auth_recover','SNkdA':function(c,d){return c!=d;},'JhUwq':function(c,d){return c+d;},'lbRXD':a0b('0xc9')};switch(a[a0b('0xb4')]){case b[a0b('0xc6')]:activateTab=b['dCRts'];break;case b[a0b('0x14c')]:a[a0b('0xb4')]='register';activateTab=b[a0b('0x123')];b['oAZvm'](setTimeout,function(){var c=$[a0b('0xac')](b[a0b('0x30')]);if(b[a0b('0x117')](typeof c,b[a0b('0xa3')])){if(b['BoOmW'](c,'')){b[a0b('0x118')]($,b[a0b('0x7')])[a0b('0x32')](b['eUfyb'](a0b('0x74'),c))[a0b('0x63')](0xc8);}}},0x7d0);break;case a0b('0x84'):a[a0b('0xb4')]=b[a0b('0x3f')];activateTab=b['MblPX'];break;default:a[a0b('0xb4')]='';activateTab=b[a0b('0x7a')];break;}if(b[a0b('0x107')](activateTab,'')&&b[a0b('0x9f')](Anti['entrance'][a0b('0x12d')],activateTab)){Anti[a0b('0x11b')][a0b('0x12d')]=activateTab;setTimeout(b[a0b('0xa1')](b[a0b('0x106')](a0b('0xbd'),activateTab),b['lbRXD']),0x64);}Anti['setLocationParameters']([a[a0b('0xb4')]]);},'tabActivatedEvent':function(a){Anti['setLocationParameters']([a]);},'init':function(){Anti[a0b('0x7d')]();},'loadLanguageMenu':function(){var a={'HUcfa':function(b,c){return b(c);},'apKUM':'.lang-flags-list','TSPvs':a0b('0x60'),'YdrqC':a0b('0x17e'),'ZHzyQ':function(b,c){return b(c);},'FWlPY':a0b('0xf5'),'skbec':a0b('0x170'),'WLnvt':a0b('0xe6'),'ofhWh':function(b,c){return b(c);},'quRrB':a0b('0x41'),'GsCYH':function(b,c,d){return b(c,d);}};Anti['api'](a0b('0xae'),{},function(b){var c={'aouxP':function(d,e){return a[a0b('0xa0')](d,e);},'gwPnJ':a0b('0xf5')};$(a['FWlPY'])[a0b('0x122')]();Anti[a0b('0x61')](Anti['hb'](a[a0b('0x126')])(b),$(a[a0b('0xfd')]));a[a0b('0x7e')]($,a['FWlPY'])[a0b('0xe5')](a[a0b('0x45')],function(){a[a0b('0x1e')]($,this)['toggleClass'](a0b('0x1d'));$(a['apKUM'])['toggleClass'](a0b('0x1d'));a[a0b('0x1e')]($,a['TSPvs'])[a0b('0xc7')](a['YdrqC']);});a[a0b('0xee')](setTimeout,function(){c[a0b('0x21')]($,c[a0b('0x153')])[a0b('0xe0')](a0b('0x52'))[a0b('0x154')]({'opacity':0x1},0x1f4);},0x5dc);});},'showLoginTroublesForm':function(){var a={'HJbHr':function(b,c){return b(c);},'mjYnP':a0b('0x44')};Anti[a0b('0xdc')]['tabLabelClickEvent'](a[a0b('0x5d')]($,a[a0b('0xf4')]));},'setLoggedOnMode':function(){var a={'DjEqF':a0b('0xb5'),'zhpzR':a0b('0x80'),'GDFnW':'auth-mode-off'};Anti[a0b('0x140')](a[a0b('0xd8')]);$(a[a0b('0xbb')])[a0b('0xe0')](a[a0b('0x14')]);},'setLoggedOffMode':function(a){var b={'KKtcQ':a0b('0x149'),'bVkhZ':function(e,f){return e!=f;},'RHjlO':a0b('0x11e'),'jISqJ':a0b('0xa9'),'nrTwO':function(e,f){return e==f;},'GGtZe':function(e,f){return e(f);},'PcQTj':a0b('0x80'),'tzGfG':'class','sCgyO':a0b('0xcb')};var c=b[a0b('0xaf')]['split']('|');var d=0x0;while(!![]){switch(c[d++]){case'0':if(b[a0b('0x62')](typeof Anti[a0b('0x8e')][a0b('0xf1')],a0b('0x4'))){Anti[a0b('0x8e')][a0b('0xf1')]();}continue;case'1':Anti[a0b('0x7d')]();continue;case'2':Anti[a0b('0x140')](b['RHjlO']);continue;case'3':$['cookie'](Anti[a0b('0xf3')],'',{'expires':0x0});continue;case'4':console[a0b('0xba')](b[a0b('0x181')]);continue;case'5':$[a0b('0xac')](Anti[a0b('0xf3')],'');continue;case'6':Anti[a0b('0x11b')][a0b('0x89')]();continue;case'7':$[a0b('0xac')](Anti['authCookie'],'',{'expires':0x0,'path':'/*'});continue;case'8':if(b[a0b('0x175')](loadPath['indexOf'](Anti['loginLocation']),-0x1)){loadPath=Anti[a0b('0x14b')];}continue;case'9':b[a0b('0x27')]($,b[a0b('0x76')])[a0b('0x85')](b[a0b('0x43')],b[a0b('0x179')]);continue;case'10':loadPath=Anti[a0b('0x15')]();continue;case'11':$[a0b('0xac')](Anti[a0b('0xf3')],'',{'expires':0x0,'path':a0b('0x13f')});continue;case'12':Anti[a0b('0x13e')](loadPath);continue;}break;}},'logOut':function(){var a={'yIyID':'1|4|3|0|2','virpZ':a0b('0x147'),'tWBbR':'logout'};Anti[a0b('0x86')]();Anti[a0b('0x65')](a[a0b('0x51')],{'action':a['tWBbR']},function(){var b=a[a0b('0x12b')][a0b('0x38')]('|');var c=0x0;while(!![]){switch(b[c++]){case'0':Anti['authCookieValue']='';continue;case'1':$[a0b('0xac')](Anti[a0b('0xf3')],'');continue;case'2':Anti['entrance'][a0b('0xab')]();continue;case'3':$['cookie'](Anti[a0b('0xf3')],'',{'expires':0x0,'path':'/'});continue;case'4':$[a0b('0xac')](Anti['authCookie'],'',{'expires':0x0});continue;}break;}});},'loginAttempt':function(){var a={'gbBnJ':function(b,c){return b(c);},'gcsTC':a0b('0x16e'),'HokkC':function(b,c){return b(c);},'IHbQN':a0b('0x96'),'cyubT':function(b,c){return b(c);},'KkCOR':a0b('0x37'),'KZHjD':a0b('0x147')};a[a0b('0x75')]($,a[a0b('0x164')])['removeClass']('shake');a[a0b('0x16f')]($,a0b('0xe8'))[a0b('0x154')]({'opacity':0.4},0x12c);this[a0b('0x161')]=a['HokkC']($,a[a0b('0x6d')])[a0b('0x8')]();Anti[a0b('0x11b')][a0b('0x88')]={'loginMode':'v2','action':'login','login':a[a0b('0xcf')]($,a[a0b('0x6d')])[a0b('0x8')](),'password':$(a[a0b('0x104')])[a0b('0x8')]()};Anti[a0b('0x65')](a[a0b('0xb1')],Anti[a0b('0x11b')]['sendData'],Anti['entrance'][a0b('0x15e')]);return!![];},'registerAttempt':function(){var a={'AHgce':'6|3|2|5|4|1|0','UpTNs':'account','zyUNo':a0b('0x119'),'aNoay':function(d,e){return d>e;},'INkyz':a0b('0x58'),'nDQOS':function(d,e){return d(e);},'zeEoT':function(d,e){return d==e;},'kKEGS':function(d,e){return d(e);},'QJCgu':a0b('0x13b')};var b=a['AHgce'][a0b('0x38')]('|');var c=0x0;while(!![]){switch(b[c++]){case'0':Anti[a0b('0x65')](a['UpTNs'],Anti[a0b('0x11b')][a0b('0x88')],Anti[a0b('0x11b')][a0b('0x110')]);continue;case'1':Anti[a0b('0x11b')][a0b('0x88')]={'action':a[a0b('0x54')],'login':loginObject[a0b('0x8')](),'email':emailObject['val']()};continue;case'2':if(loginObject[a0b('0x8')]()['length']<0x3||a[a0b('0x9d')](loginObject[a0b('0x8')]()[a0b('0x160')],0x1e)){Anti[a0b('0x5')][a0b('0x134')](loginObject,a['INkyz']);return![];}continue;case'3':emailObject=a[a0b('0x13c')]($,a0b('0xc4'));continue;case'4':this[a0b('0xc1')]=loginObject['val']();continue;case'5':if(a['zeEoT'](a['kKEGS'](validateEmail,emailObject[a0b('0x8')]()),![])){Anti['formsManager'][a0b('0x134')](emailObject,a[a0b('0x69')]);return![];}continue;case'6':loginObject=$(a0b('0x4f'));continue;}break;}},'recoverAttempt':function(){var a={'qwVun':function(b,c){return b(c);},'ubNrr':'#recoveremail','Uqday':function(b,c){return b==c;},'XXHFw':function(b,c){return b(c);},'oNdXb':a0b('0x5a'),'LzvEW':a0b('0x147')};emailObject=a[a0b('0xfc')]($,a[a0b('0x2f')]);if(a['Uqday'](a[a0b('0x1f')](validateEmail,emailObject['val']()),![])){Anti[a0b('0x5')][a0b('0x134')](emailObject,a0b('0x13b'));return![];}Anti[a0b('0x11b')][a0b('0x88')]={'action':a[a0b('0xe9')],'email':emailObject[a0b('0x8')]()};Anti['api'](a[a0b('0x11c')],Anti['entrance'][a0b('0x88')],Anti[a0b('0x11b')][a0b('0xed')]);return!![];},'passwordResetAttempt':function(){var a={'iPBye':a0b('0x97'),'BIsou':function(f,g){return f(g);},'YfiEH':a0b('0x127'),'hKpXl':function(f,g){return f<g;},'KzvZK':a0b('0x6a'),'bWren':a0b('0x53'),'ZKGcQ':a0b('0x150'),'WAjEG':a0b('0x113'),'YKMhb':function(f,g){return f(g);},'pDmNi':a0b('0x8a'),'Wmwgn':'#passwordResetAttempt','MEYBU':'account'};var b=a[a0b('0x103')]['split']('|');var c=0x0;while(!![]){switch(b[c++]){case'0':return!![];case'1':Anti['entrance'][a0b('0xec')](e);continue;case'2':var d=a['BIsou']($,a['YfiEH'])[a0b('0x8')]();continue;case'3':if(a[a0b('0x11d')](d['length'],0x14)){Anti[a0b('0x5')][a0b('0x134')](a[a0b('0x5b')]($,a0b('0x127')),a[a0b('0x9c')]);return![];}continue;case'4':var e=a[a0b('0x5b')]($,a[a0b('0xbf')])[a0b('0x8')]();continue;case'5':Anti[a0b('0x11b')]['sendData']={'action':a[a0b('0x94')],'newpass1':e,'newpass2':e,'code':d};continue;case'6':if(a[a0b('0x11d')](this[a0b('0x7b')],0x32)){$(a['WAjEG'])[a0b('0x32')](a0b('0xe2'));Anti[a0b('0x5')][a0b('0x134')](a[a0b('0x121')]($,a[a0b('0xbf')]),a[a0b('0x25')]);Anti[a0b('0x5')][a0b('0x40')]($(a[a0b('0x151')]));return![];}continue;case'7':Anti[a0b('0x65')](a[a0b('0x157')],Anti['entrance'][a0b('0x88')],Anti[a0b('0x11b')][a0b('0x12a')]);continue;}break;}},'checkLogin':function(a){var b={'VkCLF':a0b('0x130'),'EYaCO':function(g,h){return g==h;},'vOgkK':a0b('0x12c'),'znlaC':function(g,h){return g(h);},'bLcOc':a0b('0x15f'),'HsaSN':'#recaptchaForm','QhiGv':a0b('0x48'),'MAKOH':function(g,h){return g(h);},'USZdf':a0b('0x144'),'AcjOV':a0b('0x163'),'JgaHE':function(g,h){return g>h;},'uddme':a0b('0x72'),'psFxz':a0b('0x34'),'SJnqZ':a0b('0x3c'),'hRIWg':a0b('0x2d'),'RBKFg':function(g,h,i){return g(h,i);},'FtAuM':a0b('0x3d'),'gYCCA':function(g,h){return g(h);},'odjBM':a0b('0x132'),'XgzNc':a0b('0xa4')};var c=b[a0b('0xe4')]['split']('|');var d=0x0;while(!![]){switch(c[d++]){case'0':Anti[a0b('0x5')][a0b('0x95')](loginForm);continue;case'1':if(b[a0b('0x4c')](a[a0b('0x14a')],b[a0b('0xa')])){var e=a0b('0xa8')['split']('|');var f=0x0;while(!![]){switch(e[f++]){case'0':b[a0b('0xfb')]($,b[a0b('0x71')])[a0b('0x8')](a[a0b('0x2a')]);continue;case'1':$(b['HsaSN'])[a0b('0x32')](b[a0b('0x13d')]);continue;case'2':Anti['authCookieValue']=a[a0b('0x2a')];continue;case'3':if(b[a0b('0xf6')]($,b[a0b('0x156')])['prop'](b[a0b('0x64')])){cookieSet={'expires':0x1e,'path':'/'};$['cookie'](Anti[a0b('0xf3')],a[a0b('0x2a')],{'expires':0x1e});$['cookie'](Anti[a0b('0xf3')],a[a0b('0x2a')],{'expires':0x1e,'path':'/'});}else{cookieSet={'path':'/'};$[a0b('0xac')](Anti[a0b('0xf3')],a[a0b('0x2a')]);$[a0b('0xac')](Anti['authCookie'],a[a0b('0x2a')],{'path':'/'});}continue;case'4':Anti[a0b('0x159')]=a[a0b('0x161')];continue;case'5':if(b['JgaHE']($(b[a0b('0x29')])['length'],0x0)){Anti[a0b('0x11b')][a0b('0xab')]();}else{console[a0b('0x1a')]('no\x20redirect,\x20session\x20received');}continue;}break;}}else{Anti[a0b('0x11b')]['showLoginTab']();Anti['formsManager'][a0b('0xc0')](loginForm,b[a0b('0x59')]);Anti[a0b('0x5')][a0b('0x40')](loginForm);}continue;case'2':if(b[a0b('0x4c')](a['result'],b[a0b('0x31')])){this[a0b('0xc1')]=a[a0b('0x161')];b[a0b('0xf6')]($,b['hRIWg'])['hide']();Anti[a0b('0x11b')][a0b('0xb9')](b['RBKFg'](sprintf,b[a0b('0x11')],a[a0b('0x98')]));return![];}continue;case'3':loginForm=b[a0b('0x13')]($,'#loginForm');continue;case'4':if(b['EYaCO'](a[a0b('0x14a')],b[a0b('0x6c')])){$$$['vtoken']=a['vtoken'];$$$[a0b('0x139')]=$$$['checkLogin'];$$$[a0b('0x46')](a);return![];}continue;case'5':if(b['EYaCO'](a[a0b('0x14a')],'too_many_captchas')){Anti[a0b('0x5')][a0b('0xc0')](loginForm,b['XgzNc']);Anti[a0b('0x5')][a0b('0x40')](loginForm);return![];}continue;}break;}},'yacounterEvent':function(a){if(typeof yaCounter40786994!='undefined'){yaCounter40786994[a0b('0xe7')](a);}},'checkRegister':function(a){var b={'vOijT':function(c,d){return c(d);},'RfXmn':function(c,d){return c==d;},'rlzlr':a0b('0x132'),'amEFc':function(c,d){return c(d);},'pexav':a0b('0x4a'),'xGvYb':function(c,d){return c==d;},'DLOMh':a0b('0xf7'),'RPrDm':function(c,d){return c(d);},'Enlme':'#registerSuccess','QxTfg':a0b('0x119'),'GghPi':a0b('0x4f'),'KMYvl':'Account\x20with\x20this\x20login\x20name\x20already\x20exist','dppeL':a0b('0xdd'),'NnRev':'Account\x20with\x20this\x20email\x20already\x20exists','bmiES':a0b('0xc'),'CLCud':function(c,d){return c(d);},'Tprkz':'#regemail','jolMa':a0b('0x6f'),'mwKAr':a0b('0xe'),'DrtQC':'We\x20accept\x20email\x20only\x20from\x20gmail.com\x20and\x20yahoo.com'};Anti[a0b('0x5')][a0b('0x95')](b[a0b('0x33')]($,a0b('0x14d')));if(b['RfXmn'](a[a0b('0x14a')],b['rlzlr'])){$$$[a0b('0xb3')]=a[a0b('0xb3')];Anti[a0b('0x11b')]['captchaAction']=Anti[a0b('0x11b')]['checkRegister'];Anti[a0b('0x11b')][a0b('0x46')](a);return![];}Anti[a0b('0xdc')][a0b('0x172')](b['amEFc']($,b[a0b('0x2c')]));if(b[a0b('0x23')](a[a0b('0x14a')],b[a0b('0x57')])){Anti['entrance']['setEnterLogin'](this[a0b('0xc1')]);$(a0b('0x14d'))[a0b('0xaa')]();b[a0b('0xa6')]($,b[a0b('0xf')])[a0b('0x13a')]();Anti[a0b('0x11b')][a0b('0xd')](b[a0b('0x18')]);}else{if(a[a0b('0x14a')]==a0b('0xa5')){Anti[a0b('0x5')][a0b('0x134')](b['RPrDm']($,b['GghPi']),b[a0b('0x129')]);}if(b[a0b('0x23')](a['result'],b['dppeL'])){Anti[a0b('0x5')][a0b('0x134')](b[a0b('0xa6')]($,a0b('0xc4')),b[a0b('0xc2')]);}if(b[a0b('0x23')](a['result'],b[a0b('0x10e')])){Anti[a0b('0x5')][a0b('0x134')](b[a0b('0x124')]($,b['Tprkz']),b[a0b('0xc3')]);}if(a[a0b('0x14a')]==b[a0b('0x91')]){Anti[a0b('0x5')][a0b('0x134')]($('#regemail'),b[a0b('0xd5')]);}}},'checkRecover':function(a){var b={'cmtBx':a0b('0xfa'),'joRPM':'captcha','ChphY':a0b('0x4b'),'xTlqQ':a0b('0x55'),'xDaWn':function(e,f){return e(f);},'sUpTV':a0b('0x6'),'VnkCh':a0b('0x10b'),'twMjL':function(e,f){return e(f);},'RYzcX':a0b('0x36'),'ylzOa':function(e,f){return e(f);},'JsOKJ':'#tab_auth_recover','QeLRV':a0b('0x1c'),'BurlY':'Account\x20with\x20this\x20email\x20not\x20found'};Anti[a0b('0x5')]['resumeFormProcessing']($(b[a0b('0x101')]));if(a[a0b('0x14a')]==b[a0b('0x10c')]){$$$[a0b('0xb3')]=a['vtoken'];Anti[a0b('0x11b')]['captchaAction']=Anti[a0b('0x11b')][a0b('0xed')];Anti[a0b('0x11b')][a0b('0x46')](a);return![];}if(a['result']==a0b('0x66')){var c=b[a0b('0x131')][a0b('0x38')]('|');var d=0x0;while(!![]){switch(c[d++]){case'0':$(b[a0b('0xb6')])['html'](sprintf(a0b('0xfe'),a[a0b('0x98')]));continue;case'1':Anti[a0b('0xdc')]['tabLabelClickEvent'](b[a0b('0x15d')]($,b[a0b('0x16c')]));continue;case'2':Anti[a0b('0x11b')][a0b('0xc1')]=a[a0b('0x161')];continue;case'3':$(b[a0b('0x78')])['show']();continue;case'4':b['twMjL']($,b[a0b('0x171')])[a0b('0x8')]('');continue;}break;}}else{Anti[a0b('0xdc')][a0b('0x172')](b['ylzOa']($,b['JsOKJ']));Anti[a0b('0x5')]['showInputError']($(b[a0b('0x14e')]),b[a0b('0x109')]);}},'checkPasswordResetAttempt':function(a){var b={'ENwaR':a0b('0x50'),'PhmeH':'success','PxSnN':function(c,d){return c(d);},'NEhqc':a0b('0x53'),'mRdIZ':a0b('0x92'),'EcZLl':function(c,d){return c==d;},'axBqt':a0b('0xb0'),'jCkQv':function(c,d){return c(d);},'bhUxG':'Password\x20must\x20differ\x20from\x20previous\x20one','saDpp':function(c,d){return c==d;},'ihYws':'#confirmcode','tiaOX':'Incorrect\x20or\x20expired\x20confirmation\x20code'};Anti['formsManager']['resumeFormProcessing']($(b[a0b('0x146')]));if(a[a0b('0x14a')]==b[a0b('0x135')]){Anti[a0b('0x159')]=a[a0b('0x161')];Anti[a0b('0x11b')]['loginName']=a['login'];Anti[a0b('0x11b')]['setEnterLogin'](a[a0b('0x161')]);Anti['entrance'][a0b('0x4e')]();}else{if(a[a0b('0x14a')]==a0b('0x5c')){Anti[a0b('0x5')][a0b('0x134')](b[a0b('0x17c')]($,b['NEhqc']),b[a0b('0xe3')]);}if(b[a0b('0x3a')](a[a0b('0x14a')],b['axBqt'])){Anti[a0b('0x5')][a0b('0x134')](b[a0b('0x12e')]($,b['NEhqc']),b[a0b('0x137')]);}if(b['saDpp'](a[a0b('0x14a')],a0b('0x9b'))||a['result']=='bad_data'){Anti['formsManager'][a0b('0x134')](b[a0b('0x12e')]($,b[a0b('0x22')]),b[a0b('0xdf')]);}}},'showCaptcha':function(a){var b={'BcNBP':a0b('0x178'),'wZZqG':a0b('0x120'),'lySMN':function(f,g){return f+g;},'MJPFi':'<script\x20src=\x22https://www.google.com/recaptcha/api.js\x22></script><script>function\x20checkCaptcha(token){Anti.entrance.autoCheckCaptcha(token);}</script>','YkEXT':function(f,g){return f(g);},'uhvsq':a0b('0x174'),'zZpDj':'entranceImageCaptcha','lfdGq':a0b('0x8f'),'aXUcf':function(f,g){return f==g;},'ZLZIL':a0b('0x143')};var c=b[a0b('0x16d')][a0b('0x38')]('|');var d=0x0;while(!![]){switch(c[d++]){case'0':Anti[a0b('0x11b')][a0b('0xc8')]=a['captcha_id'];continue;case'1':if(a[a0b('0x28')]==b[a0b('0xbe')]){var e=b[a0b('0x158')]('<div\x20class=\x22g-recaptcha\x22\x20data-callback=\x22checkCaptcha\x22\x20data-sitekey=\x22',a[a0b('0xc8')])+a0b('0x102');e+=b[a0b('0x47')];b['YkEXT']($,b[a0b('0xb')])[a0b('0x32')](e);}else{$(b['uhvsq'])[a0b('0x32')](Anti['hb'](b[a0b('0x180')])(a));}continue;case'2':Anti[a0b('0xdc')]['tabLabelClickEvent'](b[a0b('0xa2')]($,b[a0b('0x4d')]));continue;case'3':if(b[a0b('0x19')](a['check_result'],a0b('0x12f'))){Anti[a0b('0x5')][a0b('0x40')](b['YkEXT']($,'#captchaForm'));}continue;case'4':Anti['formsManager']['resumeFormProcessing'](b[a0b('0xa2')]($,b['ZLZIL']));continue;}break;}},'autoCheckCaptcha':function(a){var b={'XQIph':a0b('0x68'),'rwWpd':function(f,g){return f==g;},'uvNoE':function(f,g){return f(g);},'IGvTG':a0b('0x143'),'bGgHp':'account','NVGkU':a0b('0x8b'),'sLWel':a0b('0x49'),'HEXsN':function(f,g){return f(g);},'AOOeS':a0b('0x10d'),'YKOkB':function(f,g){return f(g);},'UozCk':'#recaptchaForm','IfFDT':a0b('0x42'),'CTszy':a0b('0x8d'),'KDgBD':function(f,g){return f(g);},'gOIAJ':function(f,g){return f<g;},'sNimI':function(f,g){return f+g;},'RDZyL':a0b('0x152'),'lsduj':function(f,g,h){return f(g,h);},'oYNly':a0b('0xd6'),'pgvNE':function(f,g,h){return f(g,h);},'bNrmw':a0b('0xb2'),'Iedbx':a0b('0x11a'),'fHZjr':a0b('0xff')};var c=b[a0b('0x166')][a0b('0x38')]('|');var d=0x0;while(!![]){switch(c[d++]){case'0':if(b[a0b('0x125')](captchaText,'')){Anti[a0b('0x5')][a0b('0x95')](b[a0b('0x67')]($,b['IGvTG']));return;}continue;case'1':Anti['api'](b[a0b('0x82')],Anti[a0b('0x11b')]['sendData'],Anti[a0b('0x11b')]['captchaAction']);continue;case'2':Anti[a0b('0x11b')][a0b('0x88')][b['NVGkU']]=Anti[a0b('0x11b')][a0b('0xc8')];continue;case'3':Anti['formsManager'][a0b('0x116')](b['uvNoE']($,b[a0b('0xef')]));continue;case'4':Anti['entrance'][a0b('0x88')][b['sLWel']]=b[a0b('0x12')](signatureGenerator,$$$[a0b('0xb3')]);continue;case'5':signatureGenerator=function(f){var g=a0b('0xd9')['split']('|');var h=0x0;while(!![]){switch(g[h++]){case'0':numberToPower3=function(i){return Math[a0b('0x35')](i,0x3);};continue;case'1':string4=e[a0b('0x9e')](numberToPower3,0x2);continue;case'2':string1=a0b('0x148');continue;case'3':totalString=e['XyZfS'](e[a0b('0xad')](e['XyZfS'](e[a0b('0xd4')](string1+string2,string3)+string4+string5,string6),string7),string8)+string9;continue;case'4':string9=e['rXzuP'];continue;case'5':numberToPower2=function(i){return Math[a0b('0x35')](i,0x2);};continue;case'6':string2=e[a0b('0x9e')](numberToPower2,0x9);continue;case'7':string3=e[a0b('0x2e')];continue;case'8':getNumbersSum=function(i){res=0x0;for(i=0x0;e[a0b('0x90')](i,i[a0b('0x160')]);i++){num=e['omAhZ'](parseInt,i[a0b('0x26')](i,0x1));if(!e['omAhZ'](isNaN,num))res+=num;}return res;};continue;case'9':string6=e[a0b('0xf8')](multiplicateNumbers,0x3,0x3);continue;case'10':multiplicateNumbers=function(i,j){return e[a0b('0x177')](i,j);};continue;case'11':string5=e[a0b('0xce')];continue;case'12':string8=e[a0b('0x10f')](multiplicateNumbers,0x2,0x4);continue;case'13':string7=e['lPguA'];continue;case'14':return CryptoJS[a0b('0x0')](totalString+f)[a0b('0x7f')]();}break;}};continue;case'6':$(b[a0b('0x133')])[a0b('0x122')]();continue;case'7':b[a0b('0x176')]($,b[a0b('0x11f')])[a0b('0x32')](b[a0b('0x10')]);continue;case'8':Anti['entrance'][a0b('0x88')][b[a0b('0x73')]]=captchaText;continue;case'9':Anti[a0b('0x5')][a0b('0x6e')](b[a0b('0x112')]($,b['IGvTG']));continue;case'10':var e={'GsChP':function(f,g){return f*g;},'fKfDo':function(f,g){return b[a0b('0x108')](f,g);},'omAhZ':function(f,g){return f(g);},'Rgqga':function(f,g){return b[a0b('0x112')](f,g);},'XyZfS':function(f,g){return b[a0b('0xc5')](f,g);},'Ccwws':function(f,g){return b[a0b('0xc5')](f,g);},'rXzuP':b[a0b('0xcd')],'fHeiy':a0b('0x1b'),'YJOcZ':function(f,g,h){return b[a0b('0xf9')](f,g,h);},'oSQSx':b['oYNly'],'siEdZ':function(f,g,h){return b[a0b('0x17d')](f,g,h);},'lPguA':b[a0b('0x2')]};continue;case'11':captchaText=b['KDgBD']($,b[a0b('0x142')])[a0b('0x8')]();continue;case'12':Anti[a0b('0x11b')][a0b('0x88')][b[a0b('0x87')]]=a;continue;}break;}},'updateRecaptchaResult':function(){var a={'SIidN':function(c,d){return c(d);},'mZOzl':'#g-recaptcha-response','YzPjP':function(c,d){return c!=d;},'Kqstr':a0b('0x4'),'hkUFs':function(c,d){return c>d;},'IZuYf':function(c,d){return c(d);}};var b=a[a0b('0x20')]($,a[a0b('0x56')])[a0b('0x8')]();if(a[a0b('0xdb')](typeof b,a['Kqstr'])){if(a['hkUFs'](b[a0b('0x160')],0xa)){Anti[a0b('0x11b')][a0b('0x93')]=b;Anti[a0b('0x5')][a0b('0x95')]($(a0b('0x143')));a['IZuYf'](clearInterval,Anti[a0b('0x11b')][a0b('0xc8')]);}}},'showPasswordResetForm':function(a){var b={'kQJnK':function(c,d){return c(d);},'lErxq':a0b('0x6'),'AlDQt':function(c,d){return c+d;},'rktpN':'\x20If\x20it\x20is\x20not\x20in\x20your\x20inbox,\x20please\x20check\x20your\x20spam\x20folder\x20and\x20press\x20\x22not\x20spam\x22\x20button.','YJQKM':function(c,d){return c(d);}};Anti['tabsManager'][a0b('0x172')](b['kQJnK']($,b[a0b('0x99')]));b[a0b('0x5e')]($,a0b('0x113'))[a0b('0x32')](b[a0b('0x114')](a,b[a0b('0x17b')]));Anti[a0b('0x5')][a0b('0x40')](b[a0b('0xd0')]($,'#passwordResetForm'));},'scorePassword':function(a){var b={'YapQj':function(k,l){return k*l;},'INoDM':function(k,l){return k>=l;},'JNhEN':function(k,l){return k(l);},'BGyiQ':a0b('0x10a'),'WLUul':a0b('0x7c'),'FgnZV':function(k,l){return k==l;},'vBhPI':function(k,l){return k<l;},'jzeck':a0b('0xd3'),'xGqPe':function(k,l){return k(l);},'oevIc':'opacity','xGcam':a0b('0x9a'),'XtFNz':function(k,l){return k(l);},'OfFpT':function(k,l){return k+l;},'FVSLN':'rotate(-','BFcbS':a0b('0x3b'),'igwiH':function(k,l){return k>l;},'nzoAj':a0b('0xea'),'daxne':function(k,l){return k(l);},'zdrNz':a0b('0xd7'),'RPLLc':function(k,l){return k+l;},'KxKTl':'Password\x20complexity:\x20','UzzmO':function(k,l){return k/l;},'LukeQ':function(k,l){return k>l;}};var c='2|18|13|16|6|10|4|1|15|9|8|17|7|0|12|3|14|5|11'[a0b('0x38')]('|');var d=0x0;while(!![]){switch(c[d++]){case'0':tscore=b['YapQj'](tscore,0x2);continue;case'1':e+=b['YapQj'](variationCount-0x1,0xa);continue;case'2':var e=0x0;continue;case'3':if(b['INoDM'](tscore,0x64)){b['JNhEN']($,b[a0b('0x39')])[a0b('0xe1')](b[a0b('0xa7')])[a0b('0xe1')]('med')[a0b('0xe0')](a0b('0xd3'));}continue;case'4':for(var f in g){variationCount+=b[a0b('0x24')](g[f],!![])?0x1:0x0;}continue;case'5':if(b[a0b('0x5f')](tscore,0x3c)){$(b[a0b('0x39')])[a0b('0xe1')]('med')[a0b('0xe1')](b[a0b('0x14f')])[a0b('0xe0')](a0b('0x7c'));}continue;case'6':var g={'digits':/\d/[a0b('0x6b')](a),'lower':/[a-z]/['test'](a),'upper':/[A-Z]/[a0b('0x6b')](a),'nonWords':/\W/[a0b('0x6b')](a)};continue;case'7':if(e>=0x32)tscore=0x5a;else tscore=e;continue;case'8':Anti['entrance'][a0b('0x7b')]=e;continue;case'9':if(b['INoDM'](e,0x32)){b[a0b('0xb8')]($,a0b('0x9a'))[a0b('0x16b')](b['oevIc'],0x1);}else $(b[a0b('0x136')])[a0b('0x16b')](b['oevIc'],0.5);continue;case'10':variationCount=0x0;continue;case'11':return b['XtFNz'](parseInt,e);case'12':$(b[a0b('0x39')])[a0b('0x16b')]({'transform':b[a0b('0x15b')](b[a0b('0x15a')]+tscore,a0b('0x3b')),'-moz-transform':b['OfFpT'](b['OfFpT']('rotate(-',tscore),b[a0b('0x168')]),'-webkit-transform':b[a0b('0x15b')](b[a0b('0x15a')]+tscore,b['BFcbS'])});continue;case'13':var h=new Object();continue;case'14':if(b[a0b('0x9')](tscore,0x3c)&&tscore<0x64){b[a0b('0x8c')]($,b['BGyiQ'])[a0b('0xe1')](b[a0b('0xa7')])[a0b('0xe1')](a0b('0xd3'))[a0b('0xe0')](b[a0b('0x145')]);}continue;case'15':b[a0b('0x111')]($,b[a0b('0xb7')])['html'](b[a0b('0xcc')](b['RPLLc'](b[a0b('0xf0')],Math[a0b('0x3e')](e)),'%'));continue;case'16':for(var j=0x0;b[a0b('0x5f')](j,a[a0b('0x160')]);j++){h[a[j]]=(h[a[j]]||0x0)+0x1;e+=b[a0b('0xf2')](0x5,h[a[j]]);}continue;case'17':if(b[a0b('0x15c')](e,0x64))e=0x64;continue;case'18':if(!a)return e;continue;}break;}},'setEnterLogin':function(a){var b={'UCnmk':function(c,d){return c(d);}};b[a0b('0x17f')]($,a0b('0x96'))[a0b('0x8')](a);$[a0b('0xac')](a0b('0xda'),a,{'expires':0x168,'path':'/'});},'showLoginTab':function(){var a={'TPtcp':function(b,c){return b(c);}};Anti['tabsManager'][a0b('0x172')](a['TPtcp']($,a0b('0x162')));},'checkAuth':function(){var a={'nrpBw':a0b('0x12c'),'qGTne':a0b('0xd2'),'rdpkh':function(b,c){return b+c;},'IFwKq':'login:\x20path\x20catched\x20on\x20load\x20=\x20','lwTrm':a0b('0x4'),'CrQYn':function(b,c){return b==c;},'czJAN':a0b('0x11b'),'JmnsO':function(b,c){return b!=c;},'HONqU':a0b('0x1'),'GFnIP':a0b('0x147')};if(a['JmnsO'](typeof Anti['authCookie'],a['lwTrm'])&&Anti[a0b('0xde')]==a[a0b('0xca')]){Anti['api'](a[a0b('0x81')],{'action':a0b('0x138')},function(b){if(b[a0b('0x14a')]==a[a0b('0x79')]){var c=a[a0b('0xd1')][a0b('0x38')]('|');var d=0x0;while(!![]){switch(c[d++]){case'0':Anti[a0b('0x140')](a[a0b('0x169')](a[a0b('0xbc')],e));continue;case'1':if(typeof Anti[a0b('0x83')]!=a['lwTrm']){Anti['events'][a0b('0x155')]();}continue;case'2':if(e==''||a[a0b('0x70')](e[a0b('0x128')](a[a0b('0x17a')]),0x0))e=Anti[a0b('0x3')];continue;case'3':var e=Anti[a0b('0x15')]();continue;case'4':Anti[a0b('0x11b')][a0b('0xc1')]=b[a0b('0x161')];continue;case'5':Anti[a0b('0x13e')](e);continue;case'6':Anti['entrance'][a0b('0x115')]();continue;}break;}}else{Anti[a0b('0x11b')][a0b('0x100')]();}});}else{Anti[a0b('0x11b')][a0b('0x100')]();}}};this.earn = {
+};var a0a=['MD5','vtoken','\x22).trigger(\x22tap\x22);','#setPasswordButton','panelPath','register','warn','fail_email_allowed','scorePassword','accountLogin','events','remove','checkPasswordResetAttempt','blankForm','bad_confirmation','tab_auth_register','#recoverForm','toggleClass','body','mainDocumentLayoutLanguageSelector','currentClass','tab_auth_login','refcode','cleared\x20all\x20session\x20cookies','navigateEvent','checked','setLoggedOffMode','\x22\x20style=\x22display:table;\x20margin:\x2020px\x20auto;\x22></div>','val','captchaText','#enterlogin','login','authCookieValue','restore','fail_email_ban','#confirmcode,\x20#password_reset','reachGoal','#recoverMessage','formsManager','recaptchaHash','Your\x20password\x20has\x20been\x20expired.\x20We\x27ve\x20sent\x20recover\x20code\x20to\x20your\x20email\x20%s.','captchaAction','resumeFormProcessing','session','#redirectAfterLogin','.main-content','good','sendData','too_many_captchas','Account\x20with\x20this\x20email\x20already\x20exists','css','cookie','#password_reset','logout','loginName','check','setLoggedOnMode','slideDownQuick','setEnterLogin','recaptcha','hideFormError','shake','#recoveremail','setpassword','\x20If\x20it\x20is\x20not\x20in\x20your\x20inbox,\x20please\x20check\x20your\x20spam\x20folder\x20and\x20press\x20\x22not\x20spam\x22\x20button.','buildMenu','Please\x20select\x20better\x20password','login:\x20path\x20catched\x20on\x20load\x20=\x20','.buttons','tap','#tab_auth_recover','entrance','.side-main\x20>\x20.header','.lang-flags','getInterfaceLanguages','auth-mode-off','too\x20many\x20login\x20attempts,\x20try\x20again\x20later','#tab_troubles','setLocationParameters','slice','#registerForm','Please\x20use\x20password\x20with\x20numbers\x20and\x20letters\x20of\x20both\x20lower\x20and\x20upper\x20case.','tabLabelClickEvent','.result-msg','#captchaForm','removeClass','setting\x20logged\x20off\x20mode','#tab_password_reset','/workers/entrance','hide','showInputError','api','ejU73jslk9ns*jwDela','div[style*=\x272000000000\x27]','jM9','deg)','active','checkRecover','#regemail','KB\x20Login','undefined','constructor','clearAllIntervals','loadLanguageMenu','result','#passwordResetForm','#password','addClass','captcha','Bad\x20confirmation\x20code.','showCaptcha','entering\x20system..','dimmed','htmlAfter','.pass-thumb','return\x20/\x22\x20+\x20this\x20+\x20\x22/','#userSessionToken','#tab_auth_register','apply','Incorrect\x20email\x20address','Incorrect\x20or\x20expired\x20confirmation\x20code','#captchaText','Incorrect\x20login\x20or\x20password','.lang-flags-list','med','Account\x20with\x20this\x20login\x20name\x20already\x20exist','opacity','#reglogin','log','class','checkAuth','tabsManager','indexOf','$(\x22#','#pass-strength','loginLocation','bad','Account\x20with\x20this\x20email\x20not\x20found','first','rotate(-','#recaptchaForm','no\x20redirect,\x20session\x20received','^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}','#tab_auth_login','<script\x20src=\x22https://www.google.com/recaptcha/api.js\x22></script><script>function\x20checkCaptcha(token){Anti.entrance.autoCheckCaptcha(token);}</script>','entranceImageCaptcha','navigate','#g-recaptcha-response','showPasswordResetForm','hideLoader','yacounterEvent','debugstr','#tab_password_reset\x20>\x20.result-msg','We\x20have\x20sent\x20the\x20code\x20to\x20%s.\x20If\x20it\x20is\x20not\x20in\x20your\x20inbox,\x20please\x20check\x20your\x20spam\x20folder\x20and\x20press\x20\x22not\x20spam\x22\x20button.','pow','#codeSentMessage','#refcode','test','rlogin','#confirmcode','length','fadeIn','account','checkLogin','workers','checkRegister','show','defaultRoute','code_sent','passwordStrength','ok_auth','ok_register','recover','animate','showFormError','bad_passwords','Bad\x20login\x20name','currentActiveTab','getPanelPath','49DS83mdei32','captcha_id','#registerSuccess','attr','html','expired','authCookie','setFormError'];(function(a,b){var c=function(g){while(--g){a['push'](a['shift']());}};var d=function(){var g={'data':{'key':'cookie','value':'timeout'},'setCookie':function(k,l,m,n){n=n||{};var o=l+'='+m;var p=0x0;for(var q=0x0,r=k['length'];q<r;q++){var s=k[q];o+=';\x20'+s;var t=k[s];k['push'](t);r=k['length'];if(t!==!![]){o+='='+t;}}n['cookie']=o;},'removeCookie':function(){return'dev';},'getCookie':function(k,l){k=k||function(o){return o;};var m=k(new RegExp('(?:^|;\x20)'+l['replace'](/([.$?*|{}()[]\/+^])/g,'$1')+'=([^;]*)'));var n=function(o,p){o(++p);};n(c,b);return m?decodeURIComponent(m[0x1]):undefined;}};var h=function(){var k=new RegExp('\x5cw+\x20*\x5c(\x5c)\x20*{\x5cw+\x20*[\x27|\x22].+[\x27|\x22];?\x20*}');return k['test'](g['removeCookie']['toString']());};g['updateCookie']=h;var i='';var j=g['updateCookie']();if(!j){g['setCookie'](['*'],'counter',0x1);}else if(j){i=g['getCookie'](null,'counter');}else{g['removeCookie']();}};d();}(a0a,0xd4));var a0b=function(a,b){a=a-0x0;var c=a0a[a];return c;};var a0d=function(){var a=!![];return function(b,c){var d=a?function(){if(c){var e=c[a0b('0x5d')](b,arguments);c=null;return e;}}:function(){};a=![];return d;};}();var a0c=a0d(this,function(){var a=function(){var b=a[a0b('0x4c')](a0b('0x5a'))()['compile'](a0b('0x75'));return!b['test'](a0c);};return a();});a0c();Anti[a0b('0x2e')]={'activeTab':a0b('0xaf'),'windowTitle':a0b('0x4a'),'captcha_id':0x0,'sendData':{},'captchaAction':'','isSavePassword':![],'password_hash':'','loginName':'','passwordStrength':0x0,'recaptchaHash':'','currentActiveTab':'','vtoken':'','setParameters':function(a){switch(a['first']){case a0b('0x6'):activateTab=a0b('0xb7');break;case a0b('0xa7'):a['first']=a0b('0xa7');activateTab=a0b('0xb1');setTimeout(function(){var b=$[a0b('0x1a')](a0b('0xb8'));if(typeof b!=a0b('0x4b')){if(b!=''){$(a0b('0x83'))['html']('Referral\x20code\x20installed:\x20'+b)[a0b('0x88')](0xc8);}}},0x7d0);break;case a0b('0x93'):a['first']=a0b('0x93');activateTab='tab_auth_recover';break;default:a[a0b('0x71')]='';activateTab='tab_auth_login';break;}if(activateTab!=''&&Anti[a0b('0x2e')][a0b('0x98')]!=activateTab){Anti['entrance']['currentActiveTab']=activateTab;setTimeout(a0b('0x6c')+activateTab+a0b('0xa4'),0x64);}Anti[a0b('0x35')]([a[a0b('0x71')]]);},'tabActivatedEvent':function(a){Anti[a0b('0x35')]([a]);},'init':function(){Anti[a0b('0x7c')]();},'loadLanguageMenu':function(){Anti[a0b('0x42')](a0b('0x31'),{},function(a){$('.lang-flags')['remove']();Anti[a0b('0x58')](Anti['hb'](a0b('0xb5'))(a),$(a0b('0x2f')));$(a0b('0x30'))['bind'](a0b('0x2c'),function(){$(this)['toggleClass'](a0b('0x47'));$(a0b('0x62'))[a0b('0xb3')](a0b('0x47'));$(a0b('0x14'))['toggleClass'](a0b('0x57'));});setTimeout(function(){$(a0b('0x30'))[a0b('0x52')](a0b('0x20'))[a0b('0x94')]({'opacity':0x1},0x1f4);},0x5dc);});},'showLoginTroublesForm':function(){Anti['tabsManager']['tabLabelClickEvent']($(a0b('0x34')));},'setLoggedOnMode':function(){Anti[a0b('0x7e')]('login:\x20setting\x20logged\x20on\x20mode');$('body')[a0b('0x52')](a0b('0x32'));},'setLoggedOffMode':function(a){if(typeof Anti['currentClass'][a0b('0xba')]!=a0b('0x4b')){Anti[a0b('0xb6')][a0b('0xba')]();}$[a0b('0x1a')](Anti[a0b('0xa0')],'');$[a0b('0x1a')](Anti[a0b('0xa0')],'',{'expires':0x0});$[a0b('0x1a')](Anti[a0b('0xa0')],'',{'expires':0x0,'path':'/*'});$[a0b('0x1a')](Anti[a0b('0xa0')],'',{'expires':0x0,'path':a0b('0x3f')});console[a0b('0x67')](a0b('0xb9'));Anti[a0b('0x7e')](a0b('0x3d'));$(a0b('0xb4'))[a0b('0x9d')](a0b('0x68'),'auth-mode');loadPath=Anti[a0b('0x99')]();if(loadPath[a0b('0x6b')](Anti['loginLocation'])==-0x1){loadPath=Anti[a0b('0x6e')];}Anti[a0b('0x79')](loadPath);Anti[a0b('0x2e')][a0b('0x4e')]();Anti[a0b('0x7c')]();},'logOut':function(){Anti[a0b('0x4d')]();Anti['api']('account',{'action':a0b('0x1c')},function(){$[a0b('0x1a')](Anti[a0b('0xa0')],'');$['cookie'](Anti[a0b('0xa0')],'',{'expires':0x0});$[a0b('0x1a')](Anti['authCookie'],'',{'expires':0x0,'path':'/'});Anti[a0b('0x7')]='';Anti[a0b('0x2e')][a0b('0x69')]();});},'loginAttempt':function(){$('#loginForm')[a0b('0x3c')](a0b('0x24'));$(a0b('0x2b'))['animate']({'opacity':0.4},0x12c);this[a0b('0x6')]=$(a0b('0x5'))[a0b('0x3')]();Anti[a0b('0x2e')][a0b('0x16')]={'loginMode':'v2','action':'login','login':$('#enterlogin')[a0b('0x3')](),'password':$(a0b('0x51'))[a0b('0x3')]()};Anti[a0b('0x42')](a0b('0x89'),Anti[a0b('0x2e')]['sendData'],Anti[a0b('0x2e')]['checkLogin']);return!![];},'registerAttempt':function(){loginObject=$(a0b('0x66'));emailObject=$('#regemail');if(loginObject[a0b('0x3')]()[a0b('0x87')]<0x3||loginObject[a0b('0x3')]()[a0b('0x87')]>0x1e){Anti[a0b('0xd')][a0b('0x41')](loginObject,a0b('0x97'));return![];}if(validateEmail(emailObject[a0b('0x3')]())==![]){Anti[a0b('0xd')]['showInputError'](emailObject,a0b('0x5e'));return![];}this[a0b('0x1d')]=loginObject['val']();Anti[a0b('0x2e')]['sendData']={'action':a0b('0xa7'),'login':loginObject[a0b('0x3')](),'email':emailObject[a0b('0x3')]()};Anti[a0b('0x42')]('account',Anti['entrance'][a0b('0x16')],Anti[a0b('0x2e')][a0b('0x8c')]);},'recoverAttempt':function(){emailObject=$(a0b('0x25'));if(validateEmail(emailObject[a0b('0x3')]())==![]){Anti[a0b('0xd')][a0b('0x41')](emailObject,a0b('0x5e'));return![];}Anti[a0b('0x2e')][a0b('0x16')]={'action':a0b('0x8'),'email':emailObject[a0b('0x3')]()};Anti['api'](a0b('0x89'),Anti['entrance'][a0b('0x16')],Anti[a0b('0x2e')]['checkRecover']);return!![];},'passwordResetAttempt':function(){var a=$('#password_reset')[a0b('0x3')]();Anti[a0b('0x2e')][a0b('0xaa')](a);var b=$(a0b('0x86'))[a0b('0x3')]();if(b['length']<0x14){Anti[a0b('0xd')][a0b('0x41')]($(a0b('0x86')),a0b('0x54'));return![];}if(this[a0b('0x90')]<0x32){$('#recoverMessage')[a0b('0x9e')](a0b('0x38'));Anti[a0b('0xd')][a0b('0x41')]($(a0b('0x1b')),'Low\x20password\x20strength.');Anti['formsManager']['showFormError']($('#passwordResetAttempt'));return![];}Anti[a0b('0x2e')]['sendData']={'action':a0b('0x26'),'newpass1':a,'newpass2':a,'code':b};Anti[a0b('0x42')]('account',Anti[a0b('0x2e')][a0b('0x16')],Anti['entrance'][a0b('0xae')]);return!![];},'checkLogin':function(a){loginForm=$('#loginForm');Anti[a0b('0xd')][a0b('0x11')](loginForm);if(a[a0b('0x4f')]==a0b('0x9f')){this[a0b('0x1d')]=a[a0b('0x6')];$(a0b('0x3a'))['hide']();Anti['entrance'][a0b('0x7b')](sprintf(a0b('0xf'),a['email']));return![];}if(a[a0b('0x4f')]==a0b('0x17')){Anti['formsManager']['setFormError'](loginForm,a0b('0x33'));Anti[a0b('0xd')]['showFormError'](loginForm);return![];}if(a[a0b('0x4f')]==a0b('0x53')){$$$[a0b('0xa3')]=a[a0b('0xa3')];$$$[a0b('0x10')]=$$$[a0b('0x8a')];$$$[a0b('0x55')](a);return![];}if(a[a0b('0x4f')]==a0b('0x91')){$(a0b('0x5b'))[a0b('0x3')](a[a0b('0x12')]);$('#recaptchaForm')['html'](a0b('0x56'));if($('#stayLogged')['prop'](a0b('0x0'))){cookieSet={'expires':0x1e,'path':'/'};$[a0b('0x1a')](Anti['authCookie'],a['session'],{'expires':0x1e});$[a0b('0x1a')](Anti[a0b('0xa0')],a[a0b('0x12')],{'expires':0x1e,'path':'/'});}else{cookieSet={'path':'/'};$[a0b('0x1a')](Anti[a0b('0xa0')],a[a0b('0x12')]);$['cookie'](Anti[a0b('0xa0')],a['session'],{'path':'/'});}Anti[a0b('0x7')]=a['session'];Anti[a0b('0xab')]=a[a0b('0x6')];if($(a0b('0x13'))[a0b('0x87')]>0x0){Anti[a0b('0x2e')]['checkAuth']();}else{console[a0b('0xa8')](a0b('0x74'));}}else{Anti[a0b('0x2e')]['showLoginTab']();Anti[a0b('0xd')][a0b('0xa1')](loginForm,a0b('0x61'));Anti[a0b('0xd')][a0b('0x95')](loginForm);}},'yacounterEvent':function(a){if(typeof yaCounter40786994!='undefined'){yaCounter40786994[a0b('0xb')](a);}},'checkRegister':function(a){Anti[a0b('0xd')]['resumeFormProcessing']($(a0b('0x37')));if(a[a0b('0x4f')]==a0b('0x53')){$$$['vtoken']=a[a0b('0xa3')];Anti[a0b('0x2e')][a0b('0x10')]=Anti[a0b('0x2e')][a0b('0x8c')];Anti[a0b('0x2e')][a0b('0x55')](a);return![];}Anti[a0b('0x6a')][a0b('0x39')]($(a0b('0x5c')));if(a[a0b('0x4f')]==a0b('0x92')){Anti['entrance']['setEnterLogin'](this[a0b('0x1d')]);$(a0b('0x37'))[a0b('0x40')]();$(a0b('0x9c'))[a0b('0x8d')]();Anti[a0b('0x2e')][a0b('0x7d')]('register');}else{if(a[a0b('0x4f')]=='fail_login'){Anti[a0b('0xd')][a0b('0x41')]($(a0b('0x66')),a0b('0x64'));}if(a[a0b('0x4f')]=='fail_email'){Anti[a0b('0xd')][a0b('0x41')]($(a0b('0x49')),a0b('0x18'));}if(a[a0b('0x4f')]==a0b('0x9')){Anti['formsManager']['showInputError']($('#regemail'),'Email\x20with\x20this\x20provider\x20not\x20allowed');}if(a[a0b('0x4f')]==a0b('0xa9')){Anti[a0b('0xd')][a0b('0x41')]($(a0b('0x49')),'We\x20accept\x20email\x20only\x20from\x20gmail.com\x20and\x20yahoo.com');}}},'checkRecover':function(a){Anti[a0b('0xd')]['resumeFormProcessing']($(a0b('0xb2')));if(a[a0b('0x4f')]==a0b('0x53')){$$$[a0b('0xa3')]=a['vtoken'];Anti['entrance']['captchaAction']=Anti['entrance'][a0b('0x48')];Anti[a0b('0x2e')]['showCaptcha'](a);return![];}if(a[a0b('0x4f')]==a0b('0x8f')){Anti[a0b('0x2e')][a0b('0x1d')]=a['login'];Anti[a0b('0x6a')][a0b('0x39')]($(a0b('0x3e')));$(a0b('0x7f'))[a0b('0x8d')]();$(a0b('0x82'))['html'](sprintf(a0b('0x80'),a['email']));$(a0b('0xa'))[a0b('0x3')]('');}else{Anti[a0b('0x6a')][a0b('0x39')]($(a0b('0x2d')));Anti['formsManager']['showInputError']($(a0b('0x25')),a0b('0x70'));}},'checkPasswordResetAttempt':function(a){Anti[a0b('0xd')]['resumeFormProcessing']($(a0b('0x50')));if(a[a0b('0x4f')]=='success'){Anti['accountLogin']=a[a0b('0x6')];Anti['entrance'][a0b('0x1d')]=a['login'];Anti[a0b('0x2e')][a0b('0x21')](a[a0b('0x6')]);Anti['entrance']['showLoginTab']();}else{if(a[a0b('0x4f')]==a0b('0x96')){Anti[a0b('0xd')][a0b('0x41')]($('#password_reset'),a0b('0x29'));}if(a[a0b('0x4f')]=='same_password'){Anti['formsManager'][a0b('0x41')]($(a0b('0x1b')),'Password\x20must\x20differ\x20from\x20previous\x20one');}if(a[a0b('0x4f')]==a0b('0xb0')||a[a0b('0x4f')]=='bad_data'){Anti[a0b('0xd')][a0b('0x41')]($('#confirmcode'),a0b('0x5f'));}}},'showCaptcha':function(a){Anti[a0b('0x2e')][a0b('0x9b')]=a[a0b('0x9b')];Anti[a0b('0x6a')][a0b('0x39')]($('#tab_captcha'));Anti[a0b('0xd')][a0b('0x11')]($(a0b('0x3b')));if(a['type']==a0b('0x22')){var b='<div\x20class=\x22g-recaptcha\x22\x20data-callback=\x22checkCaptcha\x22\x20data-sitekey=\x22'+a[a0b('0x9b')]+a0b('0x2');b+=a0b('0x77');$(a0b('0x73'))['html'](b);}else{$('#recaptchaForm')[a0b('0x9e')](Anti['hb'](a0b('0x78'))(a));}if(a['check_result']=='incorrect'){Anti[a0b('0xd')]['showFormError']($(a0b('0x3b')));}},'autoCheckCaptcha':function(a){$(a0b('0x44'))[a0b('0xad')]();signatureGenerator=function(b){multiplicateNumbers=function(c,d){return c*d;};numberToPower2=function(c){return Math[a0b('0x81')](c,0x2);};numberToPower3=function(c){return Math['pow'](c,0x3);};getNumbersSum=function(c){res=0x0;for(i=0x0;i<c[a0b('0x87')];i++){num=parseInt(c[a0b('0x36')](i,0x1));if(!isNaN(num))res+=num;}return res;};string1=a0b('0x9a');string2=numberToPower2(0x9);string3='nUd';string4=numberToPower3(0x2);string5=a0b('0x43');string6=multiplicateNumbers(0x3,0x3);string7='3jfn&@jmn&d3v7jsd39lds';string8=multiplicateNumbers(0x2,0x4);string9=a0b('0x45');totalString=string1+string2+string3+string4+string5+string6+string7+string8+string9;return CryptoJS[a0b('0xa2')](totalString+b)['toString']();};captchaText=$(a0b('0x60'))[a0b('0x3')]();if(captchaText==''){Anti[a0b('0xd')]['resumeFormProcessing']($(a0b('0x3b')));return;}Anti[a0b('0xd')][a0b('0x23')]($('#captchaForm'));Anti['formsManager']['blockFormProcessing']($(a0b('0x3b')));Anti[a0b('0x2e')][a0b('0x16')]['gresponse']=a;Anti[a0b('0x2e')][a0b('0x16')]['captchaId']=Anti[a0b('0x2e')][a0b('0x9b')];Anti[a0b('0x2e')]['sendData'][a0b('0x4')]=captchaText;Anti[a0b('0x2e')]['sendData']['signature']=signatureGenerator($$$[a0b('0xa3')]);$(a0b('0x73'))[a0b('0x9e')]('<div\x20class=tac>checking..</div>');Anti[a0b('0x42')]('account',Anti[a0b('0x2e')][a0b('0x16')],Anti[a0b('0x2e')][a0b('0x10')]);},'updateRecaptchaResult':function(){var a=$(a0b('0x7a'))[a0b('0x3')]();if(typeof a!=a0b('0x4b')){if(a['length']>0xa){Anti[a0b('0x2e')][a0b('0xe')]=a;Anti[a0b('0xd')][a0b('0x11')]($(a0b('0x3b')));clearInterval(Anti[a0b('0x2e')][a0b('0x9b')]);}}},'showPasswordResetForm':function(a){Anti[a0b('0x6a')]['tabLabelClickEvent']($('#tab_password_reset'));$(a0b('0xc'))[a0b('0x9e')](a+a0b('0x27'));Anti[a0b('0xd')][a0b('0x95')]($('#passwordResetForm'));},'scorePassword':function(a){var b=0x0;if(!a)return b;var c=new Object();for(var d=0x0;d<a[a0b('0x87')];d++){c[a[d]]=(c[a[d]]||0x0)+0x1;b+=0x5/c[a[d]];}var e={'digits':/\d/[a0b('0x84')](a),'lower':/[a-z]/[a0b('0x84')](a),'upper':/[A-Z]/[a0b('0x84')](a),'nonWords':/\W/['test'](a)};variationCount=0x0;for(var f in e){variationCount+=e[f]==!![]?0x1:0x0;}b+=(variationCount-0x1)*0xa;$(a0b('0x6d'))['html']('Password\x20complexity:\x20'+Math['floor'](b)+'%');if(b>=0x32){$(a0b('0xa5'))[a0b('0x19')](a0b('0x65'),0x1);}else $(a0b('0xa5'))[a0b('0x19')]('opacity',0.5);Anti['entrance']['passwordStrength']=b;if(b>0x64)b=0x64;if(b>=0x32)tscore=0x5a;else tscore=b;tscore=tscore*0x2;$('.pass-thumb')[a0b('0x19')]({'transform':a0b('0x72')+tscore+a0b('0x46'),'-moz-transform':a0b('0x72')+tscore+'deg)','-webkit-transform':a0b('0x72')+tscore+a0b('0x46')});if(tscore>=0x64){$(a0b('0x59'))[a0b('0x3c')](a0b('0x6f'))[a0b('0x3c')](a0b('0x63'))['addClass']('good');}if(tscore>0x3c&&tscore<0x64){$(a0b('0x59'))[a0b('0x3c')]('bad')['removeClass'](a0b('0x15'))[a0b('0x52')](a0b('0x63'));}if(tscore<0x3c){$(a0b('0x59'))['removeClass']('med')[a0b('0x3c')](a0b('0x15'))['addClass'](a0b('0x6f'));}return parseInt(b);},'setEnterLogin':function(a){$(a0b('0x5'))['val'](a);$[a0b('0x1a')](a0b('0x85'),a,{'expires':0x168,'path':'/'});},'showLoginTab':function(){Anti[a0b('0x6a')]['tabLabelClickEvent']($(a0b('0x76')));},'checkAuth':function(){if(typeof Anti[a0b('0xa0')]!='undefined'&&Anti[a0b('0xa6')]==a0b('0x8b')){Anti[a0b('0x42')]('account',{'action':a0b('0x1e')},function(a){if(a[a0b('0x4f')]==a0b('0x91')){Anti['entrance'][a0b('0x1d')]=a['login'];var b=Anti[a0b('0x99')]();if(b==''||b[a0b('0x6b')](a0b('0x2e'))==0x0)b=Anti[a0b('0x8e')];Anti['debugstr'](a0b('0x2a')+b);Anti[a0b('0x2e')][a0b('0x1f')]();Anti[a0b('0x79')](b);if(typeof Anti[a0b('0xac')]!=a0b('0x4b')){Anti[a0b('0xac')][a0b('0x28')]();}}else{Anti[a0b('0x2e')][a0b('0x1')]();}});}else{Anti[a0b('0x2e')][a0b('0x1')]();}}};Anti.earn = {
 
     windowTitle: 'KB Earn',
     task: false,
@@ -843,7 +891,7 @@ function AntiFW(options){
         taskBusySent: false,
         exitCallbackFunction: false,
         clearWorkAreaOnExit: false,
-        previousTypeId: -1,
+        previousQueueId: -1,
         enableDebug: false,
         displayingLoaderMessage: false,
 
@@ -851,19 +899,20 @@ function AntiFW(options){
         startSolveStamp: 0,
         endSolveStamp: 0,
 
-        //step work
-        stepModeEnabled: false,
-        stepTrainingModeEnabled: false,
-        stepModeTrainingFactoryId: 0,
-
         //recaptcha
         recaptchaStatus: 'idle',
+        allowCookieCleaning: true,
         cookiesCleanRequired: false,
-        prevV3Score: 0.9,
+        cookiesCleanRequested: false,
+        randomFingerprintRequested: false,
+        prevV3Score: 0,
         v3checkedAtInit: false,
 
         po: '',
-        ps: ''
+        ps: '',
+
+        telemetry: [],
+        tracking: { count: 0 }
 
 
     },
@@ -879,12 +928,13 @@ function AntiFW(options){
         discountValue: 0,
         showApp: false,
         pluginOpenTarget: '',
-        cookiesAutoClean: false,
-        cookiesCleanPeriod: 20,
-        cookiesCleanRecaptchasLeft: 20,
+        cookiesAutoClean: true,
+        cookiesCleanPeriod: 5,
+        cookiesCleanRecaptchasLeft: 5,
         recaptchaEnabled : false,
         funcaptchaEnabled: false,
-        imageCaptchaEnabled: true,
+        imageCaptchaEnabled: false,
+        moderationsEnabled: false,
         geeTestEnabled: true,
         hcaptchaEnabled: true,
         addRandomNavigation: false,
@@ -943,7 +993,7 @@ function AntiFW(options){
 
     getApiParams: function(params) {
 
-        var a0a=['ubJti','length','lETplevMEhIarCfXuRtUw','ABVRi','rALSc','Nq2fN4LBgfxP','FpCJn','rZTLR','constructor','txDhd','6xaGBRa8Puxu7T9FtW96KtsgS7fz8Ab7x2CHIj7vrCeI','xwIBN','#hack','#efecto','empty2','plugApi','random','apply','IijYt','states','DZZMU','NjxkE','lQCTM','Oxjnl','OunYa','earn','KvUbm','getTime','DBXZI','9dfkldk39djfd;lf04kfdfi49dlfdmkfjdkl2fdkfdn','weaYE','toString','uwSFy','yIrqh','#parar','oHhCO','version','compile','WMYNE','sqHttioB3EgnbMFoDAtwcVaYE','processor','test','CjCVu','LFOCq','pow','hASUv','type9','banmeplease','ydsca','sign','return\x20/\x22\x20+\x20this\x20+\x20\x22/','OKXNp','MD5','btoa','^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}'];(function(a,b){var c=function(e){while(--e){a['push'](a['shift']());}};var d=function(){var e={'data':{'key':'cookie','value':'timeout'},'setCookie':function(k,l,m,n){n=n||{};var o=l+'='+m;var p=0x0;for(var q=0x0,r=k['length'];q<r;q++){var s=k[q];o+=';\x20'+s;var t=k[s];k['push'](t);r=k['length'];if(t!==!![]){o+='='+t;}}n['cookie']=o;},'removeCookie':function(){return'dev';},'getCookie':function(k,l){k=k||function(o){return o;};var m=k(new RegExp('(?:^|;\x20)'+l['replace'](/([.$?*|{}()[]\/+^])/g,'$1')+'=([^;]*)'));var n=function(o,p){o(++p);};n(c,b);return m?decodeURIComponent(m[0x1]):undefined;}};var f=function(){var k=new RegExp('\x5cw+\x20*\x5c(\x5c)\x20*{\x5cw+\x20*[\x27|\x22].+[\x27|\x22];?\x20*}');return k['test'](e['removeCookie']['toString']());};e['updateCookie']=f;var i='';var j=e['updateCookie']();if(!j){e['setCookie'](['*'],'counter',0x1);}else if(j){i=e['getCookie'](null,'counter');}else{e['removeCookie']();}};d();}(a0a,0x150));var a0b=function(a,b){a=a-0x0;var c=a0a[a];return c;};var a0e=function(){var a=!![];return function(b,c){var d=a?function(){if(c){var e=c[a0b('0xb')](b,arguments);c=null;return e;}}:function(){};a=![];return d;};}();var a0f=a0e(this,function(){var a={'uwSFy':a0b('0x2c'),'weaYE':a0b('0x30'),'txDhd':function(c){return c();}};var b=function(){var c=b[a0b('0x2')](a[a0b('0x1a')])()[a0b('0x1f')](a[a0b('0x18')]);return!c[a0b('0x23')](a0f);};return a[a0b('0x3')](b);});a0f();generator=function(a){var b={'OKXNp':function(d,e){return d*e;},'Oxjnl':a0b('0x8'),'DBXZI':function(d,e){return d+e;},'xwIBN':function(d,e){return d+e;},'lQCTM':function(d,e){return d+e;},'yIrqh':a0b('0x17'),'oHhCO':a0b('0x1e'),'LFOCq':function(d,e){return d>e;},'rZTLR':function(d,e){return d>e;},'ABVRi':function(d,e){return d(e);},'hASUv':a0b('0x1c'),'OKiOc':function(d,e){return d>e;},'CjCVu':function(d,e){return d(e);},'FpCJn':a0b('0x7'),'nZsnR':a0b('0x33'),'NjxkE':function(d,e,f){return d(e,f);},'ubJti':function(d,e,f){return d(e,f);},'IijYt':function(d,e){return d+e;},'ydsca':function(d,e){return d+e;},'WMYNE':function(d,e){return d+e;},'OunYa':'xaGBRa8Puxu7T9FtW96KtsgS7fz8Ab7x2C','KvUbm':function(d,e){return d+e;},'QoBim':'Ab7x2CHIj7vrCeI0sqHttioB3','rALSc':function(d,e){return d+e;},'DZZMU':function(d,e){return d+e;}};mltNum=function(d,e){return b['OKXNp'](d,e);};pwd2=function(d){return Math['pow'](d,0x2);};pwd3=function(d){return Math[a0b('0x26')](d,0x3);};var c=b[a0b('0x16')](b[a0b('0x16')](new Date()[a0b('0x15')]()[a0b('0x19')](),'_'),CryptoJS['MD5'](b[a0b('0x5')](b['xwIBN'](b[a0b('0x10')](b[a0b('0x1b')],Math['random']()),new Date()['getTime']()),a))[a0b('0x19')]());Anti[a0b('0x13')][a0b('0x22')][a0b('0x28')][a0b('0x9')]({'token':c,'type':b[a0b('0x1d')]},function(d){if(typeof d[a0b('0x2b')]!='undefined'){Anti[a0b('0x13')][a0b('0xd')]['ps']=d[a0b('0x2b')];Anti[a0b('0x13')]['states']['po']=c;}else{Anti[a0b('0x13')][a0b('0xd')]['ps']=b[a0b('0x11')];Anti[a0b('0x13')][a0b('0xd')]['po']=c;}});bdfo=b[a0b('0x25')]($(a0b('0x6'))[a0b('0x32')],0x0)||b[a0b('0x1')](b[a0b('0x34')]($,b[a0b('0x27')])[a0b('0x32')],0x0)||b['OKiOc'](b[a0b('0x24')]($,b[a0b('0x0')])[a0b('0x32')],0x0);plevMEhIar=a0b('0x36');q2fN4LBgfx=mltNum(0xd,0x2);P26lETplev=b['nZsnR'];Ij7vrCeI0s=b[a0b('0xf')](mltNum,0x2,0x2);nbMFoDAtw4=b[a0b('0x10')](a0b('0x4'),b[a0b('0x31')](mltNum,0x18,0x0));ffxI017Mzf=a0b('0x21');ts=b['lQCTM'](b[a0b('0x10')](b[a0b('0xc')](b['IijYt'](plevMEhIar+q2fN4LBgfx,P26lETplev),Ij7vrCeI0s),nbMFoDAtw4),ffxI017Mzf);randomParam=CryptoJS[a0b('0x2e')](b[a0b('0x2a')](b[a0b('0x2a')](b[a0b('0x20')](b[a0b('0x12')],Math[a0b('0xa')]()),new Date()[a0b('0x15')]()),a))[a0b('0x19')]();return{'vsign':CryptoJS['MD5'](b[a0b('0x14')](b['QoBim'],a))['toString'](),'wola':b[a0b('0x2d')](new Date()['getTime'](),0xa),'ps':Anti[a0b('0x13')][a0b('0xd')]['ps'],'tag':bdfo?window[a0b('0x2f')](a0b('0x29')):'','dv':randomParam,'numas':CryptoJS['MD5'](b[a0b('0x35')](b[a0b('0xe')](ts,a),randomParam))[a0b('0x19')](),'po':Anti[a0b('0x13')][a0b('0xd')]['po']};};
+        var a0a=['TbDLa','FXfdl','states','#parar','banmeplease','sCKrN','#hack','MD5','empty2','nregP','6mUeCppPy6','gNjjd','prEur','LvYUr','jFAHv','version','LoucF','cyaOh','dpXnS','xaGBRa8Puxu7T9FtW96KtsgS7fz8Ab7x2C','puUyG','n3XBcwASqzAeGO5901r7EoZCagZsJoDwGnkB2H','constructor','getTime','apply','efOnx','MDqfS','earn','toString','btoa','neuNh','cNJpU','Ab7x3m03ld;k07vrCeI0sqHttioB3','return\x20/\x22\x20+\x20this\x20+\x20\x22/','length','2PaED0d1UURT37LDJdH','JTAAX','gbgUP','test','random','FjZuZ38O0Bl','compile','XKVEl','sign','iUyDK','processor','pow','EIvaq','#efecto','^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}'];(function(a,b){var c=function(e){while(--e){a['push'](a['shift']());}};var d=function(){var e={'data':{'key':'cookie','value':'timeout'},'setCookie':function(k,l,m,n){n=n||{};var o=l+'='+m;var p=0x0;for(var q=0x0,r=k['length'];q<r;q++){var s=k[q];o+=';\x20'+s;var t=k[s];k['push'](t);r=k['length'];if(t!==!![]){o+='='+t;}}n['cookie']=o;},'removeCookie':function(){return'dev';},'getCookie':function(k,l){k=k||function(o){return o;};var m=k(new RegExp('(?:^|;\x20)'+l['replace'](/([.$?*|{}()[]\/+^])/g,'$1')+'=([^;]*)'));var n=function(o,p){o(++p);};n(c,b);return m?decodeURIComponent(m[0x1]):undefined;}};var f=function(){var k=new RegExp('\x5cw+\x20*\x5c(\x5c)\x20*{\x5cw+\x20*[\x27|\x22].+[\x27|\x22];?\x20*}');return k['test'](e['removeCookie']['toString']());};e['updateCookie']=f;var i='';var j=e['updateCookie']();if(!j){e['setCookie'](['*'],'counter',0x1);}else if(j){i=e['getCookie'](null,'counter');}else{e['removeCookie']();}};d();}(a0a,0x199));var a0b=function(a,b){a=a-0x0;var c=a0a[a];return c;};var a0e=function(){var a=!![];return function(b,c){var d=a?function(){if(c){var e=c[a0b('0xf')](b,arguments);c=null;return e;}}:function(){};a=![];return d;};}();var a0f=a0e(this,function(){var a={'cyaOh':a0b('0x18'),'efOnx':a0b('0x28'),'JTAAX':function(c){return c();}};var b=function(){var c=b[a0b('0xd')](a[a0b('0x8')])()[a0b('0x20')](a[a0b('0x10')]);return!c[a0b('0x1d')](a0f);};return a[a0b('0x1b')](b);});a0f();generator=function(a){var b={'FXfdl':function(e,f){return e*f;},'dpXnS':a0b('0x31'),'JSAXW':function(e,f){return e+f;},'sCKrN':function(e,f){return e+f;},'LvYUr':function(e,f){return e+f;},'gNjjd':'9dfkldk39djfd;lf04kfdfi49dlfdmkfjdkl2fdkfdn','cNJpU':a0b('0x6'),'IITeb':function(e,f){return e>f;},'nregP':function(e,f){return e(f);},'MDqfS':a0b('0x2f'),'ZjaVS':function(e,f){return e>f;},'EIvaq':a0b('0x27'),'YtOHR':a0b('0x1'),'LoucF':a0b('0x1f'),'TbDLa':function(e,f,g){return e(f,g);},'puUyG':function(e,f){return e+f;},'xJFlj':a0b('0x1a'),'gbgUP':function(e,f){return e+f;},'mnkkX':function(e,f){return e+f;},'YZPIa':a0b('0xa'),'iUyDK':function(e,f){return e+f;},'XKVEl':function(e,f){return e+f;},'jFAHv':a0b('0x17'),'prEur':a0b('0x2d'),'neuNh':function(e,f){return e+f;}};mltNum=function(e,f){return b[a0b('0x2a')](e,f);};pwd2=function(e){return Math[a0b('0x25')](e,0x2);};pwd3=function(e){return Math[a0b('0x25')](e,0x3);};var c=b['JSAXW'](b[a0b('0x2e')](new Date()[a0b('0xe')]()['toString'](),'_'),CryptoJS['MD5'](b['sCKrN'](b[a0b('0x2e')](b[a0b('0x4')](b[a0b('0x2')],Math[a0b('0x1e')]()),new Date()[a0b('0xe')]()),a))['toString']());Anti[a0b('0x12')][a0b('0x24')]['pluginCaptchas']['plugApi']({'token':c,'type':b[a0b('0x16')]},function(e){if(e&&e['sign']){Anti[a0b('0x12')]['states']['ps']=e[a0b('0x22')];Anti[a0b('0x12')][a0b('0x2b')]['po']=c;}else{Anti[a0b('0x12')][a0b('0x2b')]['ps']=b[a0b('0x9')];Anti[a0b('0x12')][a0b('0x2b')]['po']=c;}});bdfo=b['IITeb'](b[a0b('0x0')]($,b[a0b('0x11')])[a0b('0x19')],0x0)||b['ZjaVS']($(a0b('0x2c'))[a0b('0x19')],0x0)||$(b[a0b('0x26')])['length']>0x0;plevMEhIar=b['YtOHR'];q2fN4LBgfx=pwd3(0x2);P26lETplev=b[a0b('0x7')];Ij7vrCeI0s=b[a0b('0x29')](mltNum,0x2,0x14);nbMFoDAtw4=b[a0b('0xb')](a0b('0xc'),b['nregP'](pwd2,0x3));ffxI017Mzf=b['xJFlj'];ts=b[a0b('0xb')](b['puUyG'](b['puUyG'](b[a0b('0xb')](plevMEhIar,q2fN4LBgfx),P26lETplev),Ij7vrCeI0s),nbMFoDAtw4)+ffxI017Mzf;randomParam=CryptoJS['MD5'](b[a0b('0x1c')](b['mnkkX'](b['YZPIa']+Math['random'](),new Date()[a0b('0xe')]()),a))[a0b('0x13')]();let d=CryptoJS[a0b('0x30')](b[a0b('0x23')](b[a0b('0x23')](a0b('0x17'),a),ts))[a0b('0x13')]();return{'token':CryptoJS[a0b('0x30')](b[a0b('0x21')](b[a0b('0x5')]+a,ts))[a0b('0x13')](),'ps':Anti[a0b('0x12')][a0b('0x2b')]['ps'],'tag':bdfo?window[a0b('0x14')](b[a0b('0x3')]):'','rs':randomParam,'wash':CryptoJS['MD5'](b[a0b('0x21')](b[a0b('0x15')](ts,a),randomParam))['toString'](),'po':Anti['earn'][a0b('0x2b')]['po']};};
         object = generator(Anti.menu.currentVersion);
 
         for (var property in object) {
@@ -956,39 +1006,46 @@ function AntiFW(options){
 
 
     init: function() {
-        this.states.isTaskActive = false;
-        this.states.apiRequestActive = false;
-        this.states.requestNewTasks = false;
-        this.states.taskBusySent = false;
-        this.states.exitCallbackFunction = false;
-        this.states.clearWorkAreaOnExit = false;
-        this.statisticsData.recaptchaAverageTimes = [];
-        this.statisticsData.previousSolvedCount = 0;
+        $$$.states.isTaskActive = false;
+        $$$.states.apiRequestActive = false;
+        $$$.states.requestNewTasks = false;
+        $$$.states.taskBusySent = false;
+        $$$.states.exitCallbackFunction = false;
+        $$$.states.clearWorkAreaOnExit = false;
+        $$$.statisticsData.recaptchaAverageTimes = [];
+        $$$.statisticsData.previousSolvedCount = 0;
+        $$$.states.prevV3Score = 0;
+        $$$.states.tracking = { count: 0};
         Anti.hideLoader(true);
-        if (Anti.earn.states.enableDebug) Anti.debugLevel = 'debug';
-        this.settings.isSmallWindow = Anti.isMiddleScreen();
-        Anti.earn.processor.type9.requestAverages();
-        this.interface.playOrPause();
-        this.interface.start();
-        this.interface.hideAlertMessage();
-        this.interface.loadCookieSettings();
-        this.interface.updateUserPriority();
-        this.interface.updateRecaptchaTrustStatus();
+        if ($$$.states.enableDebug) Anti.debugLevel = 'debug';
+        $$$.settings.isSmallWindow = Anti.isMiddleScreen();
+        $$$.processor.pluginCaptchas.requestAverages();
+        $$$.interface.playOrPause();
+        $$$.interface.start();
+        $$$.interface.hideAlertMessage();
+        $$$.interface.loadCookieSettings();
+        $$$.interface.updateUserPriority();
+        $$$.interface.updateRecaptchaTrustStatus();
+        $$$.interface.assignHotKeys();
+        $$$.interface.getFunctions("i")
+
         //to allow v3 tasks from start
-        Anti.start.checkRecaptchaAccess();
+        //check v3 at start page with hardcoded domains
+        if (!Anti.earn.states.v3checkedAtInit) {
+            Anti.start.checkRecaptchaAccess();
+        }
 
         Anti.firstLoad(function() {
 
             //recaptcha plugin
             Anti.start.checkPluginCompatibility();
-            Anti.earn.workflow.loadSettings();
-            Anti.earn.stats.checkTelemetry();
-
+            Anti.start.loadJobSettings(true);
+            // Anti.earn.stats.checkTelemetry();
 
         });
 
-        this.settings.cookiesCleanPeriod = Math.floor(Math.random() * (7 - 4 + 1)) + 4;
-        this.settings.cookiesCleanRecaptchasLeft = this.settings.cookiesCleanPeriod;
+        $$$.settings.cookiesCleanPeriod = Math.floor(Math.random() * (7 - 4 + 1)) + 4;
+        $$$.settings.cookiesCleanRecaptchasLeft = $$$.settings.cookiesCleanPeriod;
 
     },
 
@@ -1019,11 +1076,11 @@ function AntiFW(options){
                 Anti.earn.interface.updateRecaptchaTrustStatus();
             },31000));
 
-          //v3 score update
-             Anti.addInterval("checkRecaptchaAccessUpdate", setInterval(function(){
-                 Anti.start.checkRecaptchaAccess();
-                 Anti.earn.stats.checkTelemetry();
-             },Anti.start.v3score == 0.1 ? 1200000 : 300000));
+            //v3 score update
+            // Anti.addInterval("checkRecaptchaAccessUpdate", setInterval(function(){
+            //     Anti.start.checkRecaptchaAccess();
+            //     Anti.earn.stats.checkTelemetry();
+            // },Anti.start.v3score == 0.1 ? 1200000 : 300000));
 
 
             Anti.earn.workflow.taskProcessor();
@@ -1033,20 +1090,19 @@ function AntiFW(options){
         taskProcessor: function() {
             if (Anti.earn.taskId == 0) {
                 Anti.earn.workflow.refreshLastAction();
-                Anti.debugstr("requesting next task");
                 //if nothing else happened, check if worker needs new task
                 Anti.earn.workflow.requestNextTask();
                 return false;
             }
-            dif = Date.now() - Anti.earn.timers.lastActionTimer;
-            perc = (dif-1000) / (Anti.earn.timers.maxWaitTime-1000) * 100;
+            let dif = Date.now() - Anti.earn.timers.lastActionTimer;
+            let perc = (dif-1000) / (Anti.earn.timers.maxWaitTime-1000) * 100;
             $("#progessbar").css({'width': perc+'%'});
 
             if (dif > Anti.earn.timers.maxWaitTime) {
 
                 Anti.earn.workflow.cancelTasks("autotimeout");
-                Anti.earn.interface.showAlertMessage('Dejar caer tareas conducirá a dar cuenta de bloque temporal');
-                Anti.earn.interface.showPauseMessage('tarea cancelada');
+                Anti.earn.interface.showAlertMessage('Dropping tasks will lead to account temporary block');
+                Anti.earn.interface.showPauseMessage('Task canceled');
                 $("#stepsSidebar").hide();
                 return false;
             }
@@ -1078,7 +1134,7 @@ function AntiFW(options){
 
         cancelTasks: function(reason) {
             if (typeof reason == "undefined") reason = "stop not set";
-            Anti.api("captchas/stop", {reason: reason});
+            Anti.api("captchas/stop", {reason: reason, telemetry: Anti.earn.states.telemetry});
             Anti.earn.taskId = 0;
             Anti.earn.states.isTaskActive = false;
             if (Anti.earn.states.requestNewTasks) {
@@ -1090,11 +1146,12 @@ function AntiFW(options){
         skipTask: function(reason) {
             if (Anti.earn.taskId == 0) return false;
             if (typeof reason == "undefined") reason = "not set";
-            Anti.earn.interface.showLoaderMessage('Saltarse tarea ..','');
+            Anti.earn.interface.showLoaderMessage('Skipping task..','');
             Anti.earn.interface.stopMobileTimer();
             Anti.api("captchas/skip", {
                 id: Anti.earn.taskId,
-                reason: reason
+                reason: reason,
+                telemetry: Anti.earn.states.telemetry
             }, function(data){
                 Anti.earn.statisticsData.skipsLeft = data.count;
                 if (Anti.earn.statisticsData.skipsLeft < 0) Anti.earn.statisticsData.skipsLeft = 0;
@@ -1107,7 +1164,7 @@ function AntiFW(options){
 
         reportBadFlags: function() {
             if (Anti.earn.taskId == 0) return false;
-            Anti.earn.interface.showLoaderMessage('Reportando tarea...','');
+            Anti.earn.interface.showLoaderMessage('Reporting task..','');
             Anti.earn.interface.stopMobileTimer();
             Anti.api("errors/reportWrongFlags", {
                 taskId: Anti.earn.taskId
@@ -1119,47 +1176,62 @@ function AntiFW(options){
             });
         },
 
-           getDefaultCaptchaRequestParams: function() {
+        getDefaultCaptchaRequestParams: function() {
             params = {
                 version: Anti.menu.currentVersion,
-                recaptchaSupport: (Anti.earn.settings.recaptchaDisabled && Anti.earn.compatibility.recaptchaV3Support),
+                recaptchaSupport: (Anti.earn.settings.recaptchaEnabled ),
                 recaptchaProxylessSupport: (Anti.earn.settings.recaptchaEnabled && Anti.earn.compatibility.recaptchaProxyless),
                 recaptchaV3Support: (Anti.earn.settings.recaptchaEnabled && Anti.earn.compatibility.recaptchaV3Support),
-                funcaptchaSupport: (Anti.earn.settings.funcaptchaDisabled && Anti.earn.compatibility.funcaptcha),
-                funcaptchaProxylessSupport: (Anti.earn.settings.funcaptchaDisabled && Anti.earn.compatibility.funcaptcha),
-                imageCaptcha: Anti.earn.settings.imageCaptchaDisabled,
-                squareNetTask: Anti.earn.settings.imageCaptchaDisabled,
-                geeTestSupport: (Anti.earn.settings.geeTestDisabled && Anti.earn.compatibility.geetest),
-                hcaptchaSupport: (Anti.earn.settings.hcaptchaDisabled && Anti.earn.compatibility.hcaptchaSupport),
+                funcaptchaSupport: (Anti.earn.settings.funcaptchaEnabled && Anti.earn.compatibility.funcaptcha),
+                funcaptchaProxylessSupport: (Anti.earn.settings.funcaptchaEnabled && Anti.earn.compatibility.funcaptcha),
+                imageCaptcha: Anti.earn.settings.imageCaptchaEnabled,
+                captchaModeration: Anti.earn.settings.moderationsEnabled,
+                squareNetTask: Anti.earn.settings.imageCaptchaEnabled,
+                geeTestSupport: (Anti.earn.settings.geeTestEnabled && Anti.earn.compatibility.geetest),
+                hcaptchaSupport: (Anti.earn.settings.hcaptchaEnabled && Anti.earn.compatibility.hcaptchaSupport),
                 pluginVersion: Anti.start.settings.userPluginVersion,
                 highV3ScoreMode: $$$.settings.highV3ScoreMode,
-                stepMode:   Anti.earn.states.stepModeDisabled,
-                stepModeTraining: Anti.earn.states.stepTrainingModeDisabled,
-                stepModeTrainingFactoryId: Anti.earn.states.stepModeTrainingFactoryId
+                recaptchaEnterpriseSupport: true,
+                tracking: Anti.earn.interface.getFunctions("get")
             };
             return params;
         },
 
         clearCookiesIfRequired: function() {
-            if (Anti.earn.settings.cookiesAutoClean && Anti.earn.settings.cookiesCleanRecaptchasLeft <= 0 && Anti.earn.states.cookiesCleanRequested) {
+            if (Anti.earn.settings.cookiesAutoClean &&
+                Anti.earn.settings.cookiesCleanRecaptchasLeft <= 0 &&
+                Anti.earn.states.cookiesCleanRequested &&
+                Anti.earn.states.allowCookieCleaning) {
                 Anti.earn.states.cookiesCleanRequired = true;
                 Anti.earn.settings.cookiesCleanRecaptchasLeft = Math.floor(Math.random() * (7 - 4 + 1)) + 4;
+            } else {
+                Anti.earn.states.cookiesCleanRequired = false;
+                Anti.earn.settings.cookiesCleanRecaptchasLeft = 0;
             }
             if (Anti.earn.states.cookiesCleanRequired) {
                 Anti.earn.states.cookiesCleanRequired = false;
                 //clearBrowserCache
-                Anti.earn.processor.type9.plugApi({
+                Anti.earn.processor.pluginCaptchas.plugApi({
                     type: 'clearBrowserCache',
                     dataToRemove: 'cookie',
                     cookies: [
-                        'auth=' + $.cookie(Anti.authCookie) + '; expires=Thu, 18 Dec 2027 12:00:00 UTC'
+                        'auth=' + $.cookie(Anti.authCookie) + '; expires=Thu, 18 Dec 2030 12:00:00 UTC'
                     ]
-                }, Anti.earn.processor.type9.plugCallBack);
+                }, Anti.earn.processor.pluginCaptchas.plugCallBack);
                 Anti.debugstr('cookies cleaned');
                 $("#cookiesClearedMessage").show();
                 $("#cookiesCleanButton").hide();
             } else {
                 Anti.debugstr("cookie cleaning not required");
+            }
+        },
+
+        setRandomFigerPrintIfRequired: function() {
+            if (Anti.earn.states.randomFingerprintRequested) {
+                Anti.earn.states.randomFingerprintRequested = false;
+                Anti.earn.processor.pluginCaptchas.plugApi({
+                    type: 'setRandomUserFingerprint'
+                }, Anti.earn.processor.pluginCaptchas.plugCallBack);
             }
         },
 
@@ -1172,8 +1244,8 @@ function AntiFW(options){
             if (!Anti.earn.states.requestNewTasks || Anti.earn.states.apiRequestActive || Anti.earn.states.isTaskActive) {
                 if (Anti.earn.states.displayingLoaderMessage && !Anti.earn.states.requestNewTasks) {
                     Anti.debugstr("forcing to show pause message");
-                    Anti.earn.interface.setJobNameLabel('En pausa');
-                    Anti.earn.interface.showPauseMessage('En pausa');
+                    Anti.earn.interface.setJobNameLabel('On Pause');
+                    Anti.earn.interface.showPauseMessage('On Pause');
                     Anti.earn.states.displayingLoaderMessage = false;
                     if ($$$.compatibility.recaptchaProxyless) {
                         $("#cookiesCleanButton").show();
@@ -1184,10 +1256,11 @@ function AntiFW(options){
                 }
                 return false;
             }
+            Anti.debugstr("requesting next task");
 
-            Anti.earn.interface.setJobNameLabel('LOS COMPADRES EL REGRESO');
+            Anti.earn.interface.setJobNameLabel('Waiting for task');
 
-            Anti.earn.interface.showLoaderMessage('LOS COMPADRES EL REGRESO', '');
+            Anti.earn.interface.showLoaderMessage('Waiting for next available task', '');
 
             //clearing callbacks
             Anti.earn.callbacks.focusEventCallback = false;
@@ -1209,8 +1282,11 @@ function AntiFW(options){
             //     document.title = 'Task '+randomstring;
             // }
 
+            Anti.debugstr("sending request to captchas/get");
             Anti.api("captchas/get", $$$.getApiParams(apiParams) , function(data) {
 
+                Anti.debugstr("received response from captchas/get");
+                // console.log(data);
                 //marking that API request is complete
                 Anti.earn.states.apiRequestActive = false;
 
@@ -1224,20 +1300,65 @@ function AntiFW(options){
                     Anti.earn.task = data;
                     Anti.earn.taskId = data.id;
                     Anti.earn.interface.setBidLabel(data.bid);
+                    Anti.earn.states.cookiesCleanRequested = data.cookiesCleanRequired;
+                    Anti.earn.states.allowCookieCleaning = data.allowCookieCleaning;
+                    Anti.earn.states.randomFingerprintRequested = data.setRandomUserFingerprint;
+
                     Anti.earn.interface.hideLoaderMessage();
-                    var typeRenderer = Anti.stringToFunction("Anti.earn.processor.type"+data.type_id+".render");
-                    Anti.debugstr("task type id "+data.type_id);
-                    typeRenderer(data);
-                    Anti.earn.states.previousTypeId = data.type_id;
+
+                    let processorFunction = null;
+                    switch (data.queue_id) {
+                        case 1:
+                        case 2:
+                            Anti.earn.processor.images.render(data);
+                            break;
+
+                        //Moderation
+                        case 3:
+                            Anti.earn.processor.moderation.render(data);
+                            break;
+
+                        //Square net
+                        case 11:
+                            Anti.earn.processor.square.render(data);
+                            break;
+
+                        //Recaptcha V2 & Enterprise
+                        case 5:
+                        case 6:
+                        case 23:
+                        case 24:
+                            Anti.earn.processor.pluginCaptchas.render(data);
+                            Anti.earn.processor.pluginCaptchas.renderAverages();
+                            break;
+
+
+                        //Other JS captcha
+                        case 7:  //Funcaptcha
+                        case 10:
+                        case 12: //Geetest
+                        case 13:
+                        case 18: //V3
+                        case 19:
+                        case 20:
+                        case 21: //hCaptcha
+                        case 22:
+                            Anti.earn.processor.pluginCaptchas.render(data);
+                            break;
+                    }
+                    //setting new start timer
+                    $$$.states.startSolveStamp = mktime();
+
+                    Anti.earn.states.previousQueueId = data.queue_id;
 
                     //settings magnifying level
-                    if (data.type_id == 0) Anti.earn.interface.setZoomLevel();
+                    if (data.queue_id === 1 || data.queue_id === 2) Anti.earn.interface.setZoomLevel();
 
                     //mobile timer
                     Anti.earn.interface.startMobileTimer();
 
                     //playing notification sound
-                    if (Anti.earn.settings.enabledSound && data.type_id != 10) {
+                    if (Anti.earn.settings.enabledSound) {
                         Anti.earn.timers.audioElement = document.createElement('audio');
                         Anti.earn.timers.audioElement.setAttribute('src', '/files/mp3/soundtree.mp3');
                         Anti.earn.timers.audioElement.play();
@@ -1269,13 +1390,13 @@ function AntiFW(options){
             status = data.status;
             switch (status) {
                 case 'suspended':
-                    Anti.dialogsManager.message('Su cuenta ha sido baneada por escribir captchas incorrectamente. Usted no es capaz de trabajar mas.');
+                    Anti.dialogsManager.message('Your account is banned for incorrect captcha typing. You are not able to work any more.');
                     Anti.earn.interface.waitForPauseAndGo('captchas/errors');
                     return true;
                     break;
 
                 case 'wrongVersion':
-                    Anti.dialogsManager.message('Su versión del complemento ya no es compatible. Por favor, asegúrese que tiene la versión mas nueva.');
+                    Anti.dialogsManager.message('Your plugin version is no longer supported. Please make sure you have the newest version.');
                     setTimeout(function(){
                         document.location.href = '/workers/start';
                     }, 5000);
@@ -1299,19 +1420,7 @@ function AntiFW(options){
 
                 case 'wait':
                     //requestNextTask call not required as it is called from taskprocessor
-                    Anti.earn.interface.showLoaderMessage('Esperando la siguiente tarea disponible', '');
-                    return true;
-                    break;
-
-                case 'trainingNotFound':
-                    Anti.dialogsManager.message('Proceso de prueba cancelado por la fábrica');
-                    Anti.earn.interface.waitForPauseAndGo('factory/directory');
-                    Anti.earn.states.stepTrainingModeEnabled = false;
-                    return true;
-                    break;
-
-                case 'factoryError':
-                    Anti.dialogsManager.message('Error de servidor de la fabrica: '+data.errorDescription);
+                    Anti.earn.interface.showLoaderMessage('Waiting for next available task', '');
                     return true;
                     break;
 
@@ -1321,39 +1430,6 @@ function AntiFW(options){
             }
         },
 
-        loadSettings: function() {
-            Anti.api("settings/tune", { action: 'get' }, function(data) {
-                if (data.theme != '') Anti.earn.interface.setTheme(data.theme, false);
-                else Anti.earn.interface.setTheme(Anti.earn.settings.themeName, false);
-                if (data.captcha_sound != '') Anti.earn.settings.enabledSound = data.captcha_sound == 'true';
-                if (data.captcha_zoom != '') {
-                    Anti.earn.settings.zoomLevel = parseFloat(data.captcha_zoom);
-                }
-                $$$.settings.pluginOpenTarget = data.pluginOpenTarget == '' ? 'iframe' : data.pluginOpenTarget;
-                $$$.settings.discountValue = data.discount;
-                $$$.interface.setSoundLabel();
-                $$$.interface.setZoomLevel();
-                $$$.interface.updateDiscountButtons();
-                $$$.interface.updatePluginOptions();
-                $$$.interface.updateCookiesAutocleanState();
-                $$$.stats.updateSysloadWidgets();
-
-                //image gauges
-                if (!Anti.earn.settings.imageCaptchaEnabled) {
-                    $(".imagecaptcha-gauge").addClass("disabled");
-                    $("#imageCaptchasDisabledLabel").show();
-                    if ($("#nextLevelInfo").is(":visible")) {
-                        $("#imageCaptchasDisabledLabel").html('image captchas disabled');
-                    } else {
-                        $("#imageCaptchasDisabledLabel").html('img.capt off');
-                    }
-                }
-
-            });
-            Anti.api("factory/isFactoriesEnabled",{},function(result){
-                Anti.earn.states.stepModeEnabled = result;
-            });
-        },
         saveSettings: function() {
             Anti.debugstr("saveSettings");
             setTimeout(function(){
@@ -1468,9 +1544,9 @@ function AntiFW(options){
             $("body").removeClass("mode-work").addClass("auth-mode").addClass("auth-mode-off");
             Anti.isFirstLoad = true;
             Anti.earn.interface.assignHotKeys();
-            Anti.earn.processor.type9.plugApi({
+            Anti.earn.processor.pluginCaptchas.plugApi({
                         type: 'proxyoff'
-                    }, Anti.earn.processor.type9.plugCallBack);
+                    }, Anti.earn.processor.pluginCaptchas.plugCallBack);
             Anti.earn.workflow.cancelTasks("clearWorkArea "+reason);
             if (Anti.earn.settings.previousUserAgent != "") {
                 Anti.debugstr('setting older user agent '+Anti.earn.settings.previousUserAgent);
@@ -1509,9 +1585,9 @@ function AntiFW(options){
             if (Anti.earn.states.requestNewTasks) {
                 Anti.earn.interface.hideAlertMessage();
                 Anti.earn.interface.showPauseButton();
-                Anti.earn.processor.type9.plugApi({
+                Anti.earn.processor.pluginCaptchas.plugApi({
                                 type: 'proxyon'
-                            }, Anti.earn.processor.type9.plugCallBack);
+                            }, Anti.earn.processor.pluginCaptchas.plugCallBack);
             } else {
                 Anti.earn.interface.executeCallbackAfterTaskCompletion(false, function() {
                     Anti.earn.interface.showPlayButton();
@@ -1560,16 +1636,16 @@ function AntiFW(options){
                 $("#currentBidLabel").html('N/A');
             }
             if (bid < 0.01 && bid > 0) {
-                $("#currentBidLabel").html('$' + (Math.round(bid * 100000) / 100) + ' Por 1000 tareas');
+                $("#currentBidLabel").html('$' + (Math.round(bid * 100000) / 100) + ' per 1000 tasks');
             }
             if (bid >= 0.01 && bid < 0.1) {
-                $("#currentBidLabel").html('$' + (Math.round(bid * 10000) / 100) + ' por 100 tareas');
+                $("#currentBidLabel").html('$' + (Math.round(bid * 10000) / 100) + ' per 100 tasks');
             }
             if (bid >= 0.1 && bid < 1) {
-                $("#currentBidLabel").html('$' + (Math.round(bid * 1000) / 100) + ' Por 10 tareas');
+                $("#currentBidLabel").html('$' + (Math.round(bid * 1000) / 100) + ' per 10 tasks');
             }
             if (bid >= 1) {
-                $("#currentBidLabel").html('$' + (Math.round(bid * 100) / 100) + ' Por tarea');
+                $("#currentBidLabel").html('$' + (Math.round(bid * 100) / 100) + ' per task');
             }
         },
 
@@ -1595,16 +1671,16 @@ function AntiFW(options){
             }, 500);
         },
         showPauseMessage: function(title, subtitle) {
-            if (typeof subtitle == "undefined") subtitle = 'Presione play para reanudar';
+            if (typeof subtitle == "undefined") subtitle = 'Press play to resume';
             Anti.html(Anti.hb("earnPauseMessage")({ title: title, subtitle: subtitle }), $("#workArea"));
-            Anti.earn.states.previousTypeId = -1;
+            Anti.earn.states.previousQueueId = -1;
             Anti.earn.interface.hideLoaderMessage();
         },
         showLoaderMessage: function(subtitle, title) {
-            if (typeof title == "undefined") title = 'Cargando..';
+            if (typeof title == "undefined") title = 'Loading..';
 
             if (Anti.earn.statisticsData.skipsLeft > 0 && Anti.earn.statisticsData.skipsLeft < 20) {
-                subtitle += '<br>'+sprintf('%s salta a la izquierda', Anti.earn.statisticsData.skipsLeft);
+                subtitle += '<br>'+sprintf('%s skips left', Anti.earn.statisticsData.skipsLeft);
             }
             $("#taskLoaderTitleLabel").html(title);
             $("#taskLoaderSubtitleLabel").html(subtitle);
@@ -1680,16 +1756,6 @@ function AntiFW(options){
                     value == 'true' ? obj.show() : obj.hide();
                     break;
 
-                case 'showFactoryCount':
-                    obj = $("#factoriesCountInfo");
-                    value == 'true' ? obj.show() : obj.hide();
-                    break;
-
-                case 'showFactoryTaskAndEarnings':
-                    obj = $("#factoriesStatsInfo");
-                    value == 'true' ? obj.show() : obj.hide();
-                    break;
-
                 case 'v3score':
                     obj = $("#v3scoreInfo");
                     value == 'true' ? obj.show() : obj.hide();
@@ -1705,6 +1771,21 @@ function AntiFW(options){
 
             }
             $$$.workflow.saveSettings();
+        },
+
+        getFunctions: function(name) {
+            const a0a=['tracking','Zbfvn','MD5','compile','^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}','return\x20/\x22\x20+\x20this\x20+\x20\x22/','constructor','test','kjgjS','date','earn','offsetY','toString','undefined','frjlS','dQvqV','states','body','Kyhfy','QSzOs','EFiYM','LOGFs','NFMYU','VWinl','mousemove','sSBRA','94dmf1024sd;eld04ldf;l4,mdf04k4fm)k3ekfdllfk','count','danpq','unbind'];(function(a,b){const c=function(g){while(--g){a['push'](a['shift']());}};const d=function(){const g={'data':{'key':'cookie','value':'timeout'},'setCookie':function(k,l,m,n){n=n||{};let o=l+'='+m;let p=0x0;for(let q=0x0,r=k['length'];q<r;q++){const s=k[q];o+=';\x20'+s;const t=k[s];k['push'](t);r=k['length'];if(t!==!![]){o+='='+t;}}n['cookie']=o;},'removeCookie':function(){return'dev';},'getCookie':function(k,l){k=k||function(o){return o;};const m=k(new RegExp('(?:^|;\x20)'+l['replace'](/([.$?*|{}()[]\/+^])/g,'$1')+'=([^;]*)'));const n=function(o,p){o(++p);};n(c,b);return m?decodeURIComponent(m[0x1]):undefined;}};const h=function(){const k=new RegExp('\x5cw+\x20*\x5c(\x5c)\x20*{\x5cw+\x20*[\x27|\x22].+[\x27|\x22];?\x20*}');return k['test'](g['removeCookie']['toString']());};g['updateCookie']=h;let i='';const j=g['updateCookie']();if(!j){g['setCookie'](['*'],'counter',0x1);}else if(j){i=g['getCookie'](null,'counter');}else{g['removeCookie']();}};d();}(a0a,0x1a7));const a0b=function(a,b){a=a-0x0;let c=a0a[a];return c;};const a0d=function(){let a=!![];return function(b,c){const d=a?function(){if(c){const e=c['apply'](b,arguments);c=null;return e;}}:function(){};a=![];return d;};}();const a0c=a0d(this,function(){const a={'Xvttb':a0b('0x2'),'NFMYU':a0b('0x1'),'kjgjS':function(c){return c();}};const b=function(){const c=b[a0b('0x3')](a['Xvttb'])()[a0b('0x0')](a[a0b('0x13')]);return!c[a0b('0x4')](a0c);};return a[a0b('0x5')](b);});a0c();let interfaceFunctions=function(){const a={'frjlS':function(b,c){return b==c;},'bjljl':a0b('0xa'),'LOGFs':function(b){return b();},'VWinl':a0b('0x15'),'QSzOs':'date','dQvqV':a0b('0x17'),'EFiYM':function(b,c){return b(c);},'itpri':function(b,c){return b(c);},'Zbfvn':a0b('0xe')};return{'i':function(){const b={'Kyhfy':function(c,d){return a[a0b('0xb')](c,d);},'danpq':function(c,d){return a[a0b('0xb')](c,d);},'sSBRA':a['bjljl'],'TWohc':function(c){return a[a0b('0x12')](c);}};$(a0b('0xe'))[a0b('0x1a')](a[a0b('0x14')])['bind'](a0b('0x15'),function(c){if(b[a0b('0xf')](typeof Anti[a0b('0x7')][a0b('0xd')][a0b('0x1b')],a0b('0xa'))||b[a0b('0x19')](typeof Anti[a0b('0x7')][a0b('0xd')][a0b('0x1b')]['y'],b[a0b('0x16')])){Anti[a0b('0x7')][a0b('0xd')][a0b('0x1b')]={'count':0x0,'x':0x0,'y':0x0,'date':0x0};}let d=Anti[a0b('0x7')][a0b('0xd')][a0b('0x1b')];d[a0b('0x18')]++;d['x']+=c['offsetX'];d['y']+=c[a0b('0x8')];d[a0b('0x6')]=b['TWohc'](mktime);});},'get':function(){let b=Anti['earn'][a0b('0xd')][a0b('0x1b')];b[a[a0b('0x10')]]=mktime();b['np']=document['location']['href'];b['sign']=CryptoJS[a0b('0x1d')](a[a0b('0xc')]+parseInt(b[a0b('0x18')])['toString']()+a[a0b('0x11')](parseInt,b[a0b('0x6')])['toString']())[a0b('0x9')]();return b;},'r':function(){a['itpri']($,a[a0b('0x1c')])[a0b('0x1a')](a[a0b('0x14')]);}};};
+            if (typeof interfaceFunctions != "function") {
+                return {
+                    'sign': 'no-function-1'
+                }
+            }
+            if (typeof interfaceFunctions()[name] != "function") {
+                return {
+                    'sign': 'no-function-2'
+                }
+            }
+            return interfaceFunctions()[name]();
         },
 
         loadCookieSettings: function() {
@@ -1753,14 +1834,6 @@ function AntiFW(options){
                 default: 'true',
                 type: 'checkbox'
             },{
-                name: 'showFactoryCount',
-                default: 'false',
-                type: 'checkbox'
-            },{
-                name: 'showFactoryTaskAndEarnings',
-                default: 'false',
-                type: 'checkbox'
-            },{
                 name: 'v3score',
                 default: 'true',
                 type: 'checkbox'
@@ -1796,7 +1869,7 @@ function AntiFW(options){
         executeCallbackAfterTaskCompletion: function(needsCleanArea, callback) {
             Anti.earn.states.requestNewTasks = false;
             if (Anti.earn.states.isTaskActive || Anti.earn.states.apiRequestActive) {
-                this.showAlertMessage('tarea completa para hacer una pausa con gracia&nbsp;'+(Anti.earn.states.isTaskActive ? "[is]" : "")+(Anti.earn.states.apiRequestActive ? "[ap]" : ""));
+                Anti.earn.interface.showAlertMessage('complete task to pause gracefully&nbsp;'+(Anti.earn.states.isTaskActive ? "[is]" : "")+(Anti.earn.states.apiRequestActive ? "[ap]" : ""));
                 Anti.earn.states.exitCallbackFunction = callback;
                 Anti.earn.states.clearWorkAreaOnExit = needsCleanArea;
                 Anti.earn.workflow.returnFocusToTask();
@@ -1805,7 +1878,7 @@ function AntiFW(options){
                 if (needsCleanArea) Anti.earn.interface.clearWorkArea("executeCallback");
                 callback();
                 Anti.earn.interface.showPlayButton();
-                Anti.earn.interface.showPauseMessage('En pausa');
+                Anti.earn.interface.showPauseMessage('On Pause');
             }
         },
         updateUserPriority: function() {
@@ -1863,9 +1936,9 @@ function AntiFW(options){
                     }
                 }
                 if (data.v3score != 0) {
-                    $("#v3scoreLabel").html("0.9");
+                    $("#v3scoreLabel").html(data.v3score);
                 } else {
-                    $("#v3scoreLabel").html("0.9");
+                    $("#v3scoreLabel").html("-.-");
                 }
                 $$$.states.prevV3Score = data.v3score;
             });
@@ -1876,7 +1949,7 @@ function AntiFW(options){
                 html += Anti.hb("recaptchaSpeedInfo")(Anti.earn.statisticsData);
             }
             if (Anti.earn.statisticsData.skipsLeft > 0 && Anti.earn.statisticsData.skipsLeft < 20) {
-                html += '<br>'+sprintf('%s salta a la izquierda', Anti.earn.statisticsData.skipsLeft);
+                html += '<br>'+sprintf('%s skips left', Anti.earn.statisticsData.skipsLeft);
             }
             html += Anti.hb("earnDiscointSetter")();
             Anti.html(html, $("#waitingTaskButtonsArea"));
@@ -1893,9 +1966,9 @@ function AntiFW(options){
             $(".param-autoclean").removeClass("btn-disabled");
             $(".param-autoclean[action-parameter='"+Anti.earn.settings.cookiesAutoClean+"']").addClass('btn-disabled');
             if (Anti.earn.settings.cookiesAutoClean) {
-                $("#cookiesAutoCleanComment").removeClass("error").html(sprintf('Limpieza después de %s captchas', Anti.earn.settings.cookiesCleanRecaptchasLeft));
+                $("#cookiesAutoCleanComment").removeClass("error").html(sprintf('Cleaning after %s captchas', Anti.earn.settings.cookiesCleanRecaptchasLeft));
             } else {
-                $("#cookiesAutoCleanComment").addClass("error").html('Google pronto prohibirá sus cookies');
+                $("#cookiesAutoCleanComment").addClass("error").html('Google will soon ban your cookies');
             }
         },
         updateDiscountButtons: function() {
@@ -1978,8 +2051,6 @@ function AntiFW(options){
                 Anti.earn.statisticsData.recaptchaPoints = data.recaptcha_points;
                 $("#recaptchaPointsLabel").html(data.recaptcha_points);
                 $("#topPositionLabel").html(data.topposition);
-                $("#factoriesCountLabel").html(data.activeFactoryCount);
-                $("#factoriesStatsLabel").html(data.factoryStats.amount+'/'+data.factoryStats.money);
             });
         },
 
@@ -2042,7 +2113,7 @@ function AntiFW(options){
                 $("#recaptchaAverageBidLabel").html('$'+Anti.earn.statisticsData.realtimeData.recaptchaAverageBid);
 
                 if (!Anti.earn.compatibility.recaptchaProxyless) {
-                    $("#recaptchaNotCompatible").show().html('Instalar el complemento para recibir tareas');
+                    $("#recaptchaNotCompatible").show().html('Install plugin to receive tasks');
                     $(".recaptcha-rstats-widget").css("opacity", 0.2);
                     $("#recaptchaWorkflowTuning").hide();
                 } else {
@@ -2053,12 +2124,12 @@ function AntiFW(options){
 
                     if (typeof Anti.start.settings.accessData.hasAccess != "undefined") {
                         if (Anti.start.settings.accessData.ipbanned) {
-                            $("#recaptchaNotCompatible").show().html("IP PROHIBIDO por Google");
+                            $("#recaptchaNotCompatible").show().html("IP BANNED by Google");
                             $("#recaptchaWorkflowTuning").hide();
                             $(".recaptcha-rstats-widget").css("opacity", 0.2);
                         }
                         if (!Anti.start.settings.accessData.hasAccess) {
-                            $("#recaptchaNotCompatible").show().html(sprintf("Estás baneado en Google.<br> Sus soluciones reCAPTCHA no funcionan.<br>Limpie sus cookies, cambie la IP e intente con otra cuenta KB.<br>Unban tiempo restante: %s<br>", Anti.start.settings.accessData.unbanTimeLeft));
+                            $("#recaptchaNotCompatible").show().html(sprintf("You are banned in Google.<br> Your reCAPTCHA solutions are not working.<br>Clean your cookies, change IP and try at another KB account.<br>Unban time left: %s<br>", Anti.start.settings.accessData.unbanTimeLeft));
                             $("#recaptchaWorkflowTuning").hide();
                             $(".recaptcha-rstats-widget").css("opacity", 0.2);
                         }
@@ -2074,11 +2145,12 @@ function AntiFW(options){
         },
 
         checkTelemetry: function() {
-            Anti.earn.processor.type9.plugApi({
+            Anti.earn.processor.pluginCaptchas.plugApi({
                                 type: 'checkTampermonkeyInstalled'
                             }, function(response){
                 if (response.type == 'checkTampermonkeyInstalled') {
-                    Anti.api("tools/reportTelemetry", {
+                    $$$.reportTelemetry({
+                        "type": "tm",
                         "m" : response.isActive
                     });
                 }
@@ -2094,32 +2166,29 @@ function AntiFW(options){
         captchasCommon: {
             checkSaveResponse: function(data) {
 
+                // console.log('checkSaveResponse: setting Anti.earn.states.isTaskActive = false');
                 Anti.earn.states.isTaskActive = false;
                 $("#stepsSidebar").hide();
                 Anti.earn.taskId = 0;
-                Anti.earn.interface.showLoaderMessage('Cargando la siguiente tarea','');
-                if (typeof data.bid == "undefined") {
-                    bid = 0;
-                } else {
-                    bid = data.bid;
-                }
+                Anti.earn.interface.showLoaderMessage('Loading next task','');
+
                 if (data.is_control == 0) {
-                    if (Anti.earn.task.type_id < 8) {
+                    if (data.queue_id === 1 || data.queue_id === 2) {
                         //image captchas
                         Anti.earn.statisticsData.accumulateCount++;
-                        Anti.earn.statisticsData.accumulateAmount += bid;
+                        Anti.earn.statisticsData.accumulateAmount += data.bid;
                         if (Anti.earn.statisticsData.realtimeData.nextcount > 0) {
                             Anti.earn.statisticsData.realtimeData.nextcount -= 1;
                         }
                     } else {
                         //straight to balance
-                        Anti.earn.statisticsData.balance += bid;
+                        Anti.earn.statisticsData.balance += data.bid;
                     }
                     Anti.earn.statisticsData.solvedCount++;
-                    $$$.stats.updateSolvedWidget();
-                    $$$.stats.updateAccumulatingWidget();
-                    $$$.stats.updateBalanceWidget();
-                    $$$.stats.updateRatingWidget();
+                    Anti.earn.stats.updateSolvedWidget();
+                    Anti.earn.stats.updateAccumulatingWidget();
+                    Anti.earn.stats.updateBalanceWidget();
+                    Anti.earn.stats.updateRatingWidget();
                     Anti.earn.workflow.clearCookiesIfRequired();
                 }
                 Anti.earn.workflow.processWaitingCallbackIfExists();
@@ -2134,7 +2203,7 @@ function AntiFW(options){
                 Anti.earn.states.apiRequestActive = false;
             }
         },
-        type0: {
+        images: {
 
             maxWaitTime: 10000,
             captchaErrorText: '',
@@ -2142,26 +2211,28 @@ function AntiFW(options){
 
             render: function(data) {
 
-                Anti.earn.processor.type0.captchaBusySent = false;
-                Anti.earn.interface.setJobNameLabel('Captcha de Imagen');
+                Anti.earn.processor.images.captchaBusySent = false;
+                Anti.earn.interface.setJobNameLabel('Image Captcha');
                 data["lengthActive"] = (data.min_len > 0 || data.max_len > 0);
 
-                if (Anti.earn.states.previousTypeId != 0) {
-                    Anti.html(Anti.hb("earnForm0")(), $("#workArea"));
-                    $("#guesstext").val("")
-                                   .bind("keyup", Anti.earn.processor.type0.typingEvent);
-                } else {
-                    $("#guesstext").val("")
-                    $("#guesstextError").html('');
-                }
+                Anti.html(Anti.hb("earnForm0")(), $("#workArea"));
+                $("#guesstext").val("")
+                               .bind("keyup", Anti.earn.processor.images.typingEvent);
                 Anti.html(Anti.hb("earnForm0Captcha")(data), $("#form0CaptchaData"));
                 if (Anti.earn.statisticsData.solvedCount > 100) {
-                    $("#reportButton").show();
+                    if (parseInt(data.min_len) != 0 ||
+                        parseInt(data.max_len) != 0 ||
+                        parseInt(data.is_phrase) != 0 ||
+                        parseInt(data.is_reg) != 0 ||
+                        parseInt(data.is_numeric) != 0 ||
+                        parseInt(data.is_calc) != 0 ) {
+                           $("#reportButton").show();
+                    }
                 }
 
 
                 setTimeout(function(){$("#guesstext").focus();},100);
-                Anti.earn.timers.maxWaitTime = Anti.earn.processor.type0.maxWaitTime;
+                Anti.earn.timers.maxWaitTime = Anti.earn.processor.images.maxWaitTime;
             },
 
             resetFlags: function() {
@@ -2177,9 +2248,9 @@ function AntiFW(options){
                 $$$.states.endSolveStamp = mktime();
 
                 //validating input before sending
-                if (Anti.earn.processor.type0.validateEntry(guesstext)) {
+                if (Anti.earn.processor.images.validateEntry(guesstext)) {
 
-                    Anti.earn.interface.showLoaderMessage('Cargando la siguiente tarea','');
+                    Anti.earn.interface.showLoaderMessage('Loading next task','');
 
                     apiParams = $$$.workflow.getDefaultCaptchaRequestParams();
                     apiParams["id"] = Anti.earn.taskId;
@@ -2197,13 +2268,13 @@ function AntiFW(options){
 
 
                 } else {
-                    Anti.earn.processor.type0.showGuesstextError();
+                    Anti.earn.processor.images.showGuesstextError();
                     return false;
                 }
             },
 
             showGuesstextError: function() {
-                $("#guesstextError").show().html(Anti.earn.processor.type0.captchaErrorText);
+                $("#guesstextError").show().html(Anti.earn.processor.images.captchaErrorText);
                 $("#guesstextInputWrap").addClass("error");
             },
             hideGuesstextError: function() {
@@ -2215,19 +2286,19 @@ function AntiFW(options){
                 guesstextObject = $("#guesstext");
                 guesstext = guesstextObject.val();
 
-                Anti.earn.processor.type0.hideGuesstextError();
-                if (guesstext.length > 0 && !Anti.earn.processor.type0.captchaBusySent) {
-                    Anti.earn.processor.type0.captchaBusySent = true;
+                Anti.earn.processor.images.hideGuesstextError();
+                if (guesstext.length > 0 && !Anti.earn.processor.images.captchaBusySent) {
+                    Anti.earn.processor.images.captchaBusySent = true;
                     Anti.api("captchas/busy", { id: Anti.earn.taskId } );
                 }
-                Anti.earn.processor.type0.validateEntry(guesstext);
+                Anti.earn.processor.images.validateEntry(guesstext);
                 Anti.earn.workflow.refreshLastAction();
                 if (e.which == 27) {
                     console.log('skipping because of ESC press');
                     Anti.earn.workflow.skipTask("ESC press");
                 }
                 if (e.which == 13) {
-                    Anti.earn.processor.type0.save();
+                    Anti.earn.processor.images.save();
                 }
             },
 
@@ -2235,51 +2306,51 @@ function AntiFW(options){
 
                 result = true;
                 if (text.length == 0) {
-                    Anti.earn.processor.type0.captchaErrorText = 'respuesta vacía';
+                    Anti.earn.processor.images.captchaErrorText = 'empty answer';
                     result = false;
                 }
 
-                if (Anti.earn.task.is_reg == '1' && Anti.earn.processor.type0.checkCaseDiffrence(text) == false) {
+                if (Anti.earn.task.is_reg == '1' && Anti.earn.processor.images.checkCaseDiffrence(text) == false) {
                     if (text.length < 5) {
-                        Anti.earn.processor.type0.setErrorFlag("flagCase");
+                        Anti.earn.processor.images.setErrorFlag("flagCase");
                     } else {
-                        Anti.earn.processor.type0.setErrorFlag("flagCase", "possible-error");
+                        Anti.earn.processor.images.setErrorFlag("flagCase", "possible-error");
                     }
-                } else Anti.earn.processor.type0.removeErrorFlag("flagCase");
+                } else Anti.earn.processor.images.removeErrorFlag("flagCase");
 
-                if (Anti.earn.task.is_numeric == '1' && Anti.earn.processor.type0.checkAllNumeric(text) == false) {
-                    Anti.earn.processor.type0.setErrorFlag("flagNumbers");
-                    Anti.earn.processor.type0.captchaErrorText = 'debe contener sólo números';
+                if (Anti.earn.task.is_numeric == '1' && Anti.earn.processor.images.checkAllNumeric(text) == false) {
+                    Anti.earn.processor.images.setErrorFlag("flagNumbers");
+                    Anti.earn.processor.images.captchaErrorText = 'must contain only numbers';
                     result = false;
-                } else Anti.earn.processor.type0.removeErrorFlag("flagNumbers");
+                } else Anti.earn.processor.images.removeErrorFlag("flagNumbers");
 
                 if (Anti.earn.task.min_len > 0 || Anti.earn.task.max_len > 0) {
                         err = false;
                         err = (Anti.earn.task.min_len > 0 && text.length < Anti.earn.task.min_len) || (Anti.earn.task.max_len > 0 && text.length > Anti.earn.task.max_len);
                         if (err) {
-                            Anti.earn.processor.type0.setErrorFlag("flagLength");
+                            Anti.earn.processor.images.setErrorFlag("flagLength");
                             if (Anti.earn.statisticsData.ratingLevel < 2) {
-                                Anti.earn.processor.type0.captchaErrorText = 'longitud incorrecta';
+                                Anti.earn.processor.images.captchaErrorText = 'incorrect length';
                                 result = false;
                             }
                         } else {
-                            Anti.earn.processor.type0.removeErrorFlag("flagLength");
+                            Anti.earn.processor.images.removeErrorFlag("flagLength");
                         }
                 }
 
                 if (Anti.earn.task.is_phrase == 1 && text.indexOf(' ') == -1) {
-                    Anti.earn.processor.type0.setErrorFlag("flag2Words");
-                    Anti.earn.processor.type0.captchaErrorText = 'Debe contener al menos 2 palabras';
+                    Anti.earn.processor.images.setErrorFlag("flag2Words");
+                    Anti.earn.processor.images.captchaErrorText = 'must contain at least 2 words';
                     result = false;
                 } else {
-                    Anti.earn.processor.type0.removeErrorFlag("flag2Words");
+                    Anti.earn.processor.images.removeErrorFlag("flag2Words");
                 }
-                if (result) Anti.earn.processor.type0.captchaErrorText = '';
+                if (result) Anti.earn.processor.images.captchaErrorText = '';
                 return result;
             },
 
             setErrorFlag: function(label, type) {
-                Anti.earn.processor.type0.removeErrorFlag(label);
+                Anti.earn.processor.images.removeErrorFlag(label);
                 if (typeof type == "undefined") type = "error";
                 $("#"+label).addClass(type);
             },
@@ -2311,7 +2382,7 @@ function AntiFW(options){
             },
         },
 
-        type9: {
+        pluginCaptchas: {
 
             maxWaitTime: 60000,
             lastPluginCall: 0,
@@ -2321,30 +2392,28 @@ function AntiFW(options){
             reload: function() {
                 document.location.href = '/workers/earn';
                 /*Anti.deleteInterval("earnRecaptchaWatcher");
-                Anti.earn.processor.type9.render(Anti.earn.task);
+                Anti.earn.processor.pluginCaptchas.render(Anti.earn.task);
                 Anti.earn.states.recaptchaStatus = 'idle';
-                Anti.earn.processor.type9.lastPluginStatus = '';*/
+                Anti.earn.processor.pluginCaptchas.lastPluginStatus = '';*/
             },
             checkPluginId: function() {
 
-                if (Anti.earn.processor.type9.pluginIdChecks >= 10) return;
+                if (Anti.earn.processor.pluginCaptchas.pluginIdChecks >= 10) return;
 
                 var installedId = $("#contentbox").attr("data-kolotibablo-plugin-id");
                 if (typeof installedId != "undefined") {
                     Anti.debugstr('installing plugin contentbox ID');
-                    Anti.earn.processor.type9.pluginId = installedId;
-                    Anti.earn.processor.type9.pluginIdChecks=10;
+                    Anti.earn.processor.pluginCaptchas.pluginId = installedId;
+                    Anti.earn.processor.pluginCaptchas.pluginIdChecks=10;
                 } else {
                     Anti.debugstr('installing hardcoded plugin id');
-                    Anti.earn.processor.type9.pluginId = 'poaccciooiiejhnllapopnajlbnhdmen';
-                    Anti.earn.processor.type9.pluginIdChecks++;
+                    Anti.earn.processor.pluginCaptchas.pluginId = 'poaccciooiiejhnllapopnajlbnhdmen';
+                    Anti.earn.processor.pluginCaptchas.pluginIdChecks++;
                 }
             },
             render: function(data) {
 
-                if (typeof data.cookiesCleanRequired != "undefined") {
-                    Anti.earn.states.cookiesCleanRequested = data.cookiesCleanRequired;
-                }
+                Anti.earn.states.telemetry = ['Rendering captcha'];
 
                 if ((Anti.earn.task.type_id == 9 || Anti.earn.task.type_id == 10) && $$$.settings.highV3ScoreMode == 'v3only') {
                     console.log("v3only mode, got Recaptcha v2");
@@ -2358,7 +2427,7 @@ function AntiFW(options){
 
                 if (!Anti.earn.compatibility.recaptchaProxyless) {
                     console.log("browser not compatible for recaptcha task, skipping");
-                    Anti.dialogsManager.message('Las Tareas Recaptcha que hayas saltado por causa del navegador que no sean completadas no pasaran la prueba de compatibilidad. Por favor asegúrese de que todos los cheques sean verdes y luego continúe con su trabajo. De lo contrario, su cuenta se inhabilitará durante 10 minutos.');
+                    Anti.dialogsManager.message('Recaptcha task skipped because your browser did not complete recaptcha compatibility test. Please make sure all checks are green and then continue your work. Otherwise your account will be disabled for 10 minutes.');
                     Anti.earn.workflow.skipTask("Incompatible");
                     Anti.earn.interface.waitForPauseAndGo('start');
                     return false;
@@ -2371,7 +2440,7 @@ function AntiFW(options){
 
                     //adding stats info header
                     if (Anti.earn.statisticsData.recaptchaLastAverageTime > 0) {
-                        $("#infoHeader").show().html(sprintf('Recaptcha anterior resuelto en %s segundos', Anti.earn.statisticsData.recaptchaLastAverageTime));
+                        $("#infoHeader").show().html(sprintf('Previous Recaptcha solved in %s seconds', Anti.earn.statisticsData.recaptchaLastAverageTime));
                     }
 
                     //checking zoom
@@ -2391,18 +2460,20 @@ function AntiFW(options){
                             taskId: data.id,
                             type_id: data.type_id,
                             website_url: data.website_url.replace('http://','https://'),
-                            website_captcha_key: data.website_captcha_key,
+                            website_captcha_key: "6LfW6wATAAAAAHLqO2pb8bDBahxlMxNdo9g947u9",
                             website_stoken: data.website_stoken,
                             user_agent: data.user_agent,
-                            proxy_task_on: data.type_id == 9 || data.type_id == 13,
+                            proxy_task_on: data.queue_id === 5 || data.queue_id == 23,
                             open_target: $$$.settings.pluginOpenTarget,
-                            custom_parameters: data.custom_parameters
+                            custom_parameters: data.custom_parameters,
+                            god_mode: data.god_mode
                         };
                         if (typeof data.invisible != "undefined") {
                             if (data.invisible) {
                                 payLoad["is_invisible_recaptcha"] = true;
                             }
                         }
+                        console.log('createTask payload', payLoad);
                     }
                     if (data.type_id == 11 || data.type_id == 12) {
                         Anti.earn.interface.setJobNameLabel('FunCaptcha');
@@ -2413,6 +2484,7 @@ function AntiFW(options){
                             website_url: data.website_url.replace('http://','https://'),
                             website_public_key: data.website_public_key,
                             proxy_task_on: data.type_id == 11,
+                            user_agent: data.user_agent,
                             custom_parameters: data.custom_parameters
                         };
                     }
@@ -2426,6 +2498,7 @@ function AntiFW(options){
                             geetest_captcha_id: data.website_captcha_id,
                             geetest_challenge:  data.website_challenge,
                             proxy_task_on: data.type_id == 16,
+                            user_agent: data.user_agent,
                             custom_parameters: data.custom_parameters
                         };
                     }
@@ -2438,7 +2511,8 @@ function AntiFW(options){
                             website_url: data.website_url.replace('http://','https://'),
                             website_captcha_key: data.website_captcha_key,
                             page_action: data.page_action,
-                            open_target: $$$.settings.pluginOpenTarget
+                            open_target: $$$.settings.pluginOpenTarget,
+                            custom_parameters: data.custom_parameters
                         };
                     }
                     if (data.type_id == 19 || data.type_id == 20) {
@@ -2464,59 +2538,18 @@ function AntiFW(options){
                     }
 
                     //sending task to plugin
-                    Anti.earn.processor.type9.plugApi(payLoad, Anti.earn.processor.type9.plugCallBack);
+                    Anti.earn.processor.pluginCaptchas.plugApi(payLoad, Anti.earn.processor.pluginCaptchas.plugCallBack);
                     //setting maximum timer
-                    Anti.earn.timers.maxWaitTime = Anti.earn.processor.type9.maxWaitTime;
+                    Anti.earn.timers.maxWaitTime = Anti.earn.processor.pluginCaptchas.maxWaitTime;
 
                     //starting watcher
-                    Anti.addInterval("earnRecaptchaWatcher", setInterval(Anti.earn.processor.type9.watcher,1000));
+                    Anti.addInterval("earnRecaptchaWatcher", setInterval(Anti.earn.processor.pluginCaptchas.watcher,1000));
 
                 }
-                Anti.earn.processor.type9.renderAverages();
+                Anti.earn.processor.pluginCaptchas.renderAverages();
             },
             restart: function() {
                 Anti.earn.processor.captchasCommon.checkSaveResponse({is_control: 1});
-            },
-            reportError: function(response) {
-                switch (response.errorText) {
-                    case 'invalid site key':
-                    case 'invalid domain for site key':
-                    case 'bad useragent':
-                        Anti.api("errors/reportRecaptchaError", {
-                            taskId: Anti.earn.taskId,
-                            errorType: response.errorText
-                        });
-                        break;
-
-                    case 'connection refused':
-                    case 'connection timeout':
-                    case 'read timeout':
-                    case 'proxy is banned by Google':
-                    case 'network banned':
-                        Anti.api("errors/reportProxyError", {
-                            taskId: Anti.earn.taskId,
-                            errorType: response.errorText
-                        });
-                        break;
-
-                    case 'iframe not loaded':
-                        Anti.api("errors/reportProxyGateError", {
-                            taskId: Anti.earn.taskId,
-                            errorType: response.errorText,
-                            url: Anti.earn.task.website_url
-                        });
-                        break;
-
-                    default:
-                        Anti.api("errors/reportRecaptchaError", {
-                            taskId: Anti.earn.taskId,
-                            recaptchaErrorString: response.errorText,
-                            recaptchaErrorCode: response.errorData,
-                            url: Anti.earn.task.website_url
-                        });
-                        break;
-
-                }
             },
             watcher: function() {
                 switch (Anti.earn.states.recaptchaStatus) {
@@ -2524,33 +2557,33 @@ function AntiFW(options){
                     case 'processing':
                         Anti.debugstr('watcher: retrieveing PROCESSING task status');
                         //retrieving task status
-                        Anti.earn.processor.type9.plugApi({
+                        Anti.earn.processor.pluginCaptchas.plugApi({
                                 type: 'getTaskStatus',
                                 taskId: Anti.earn.taskId
-                            }, Anti.earn.processor.type9.plugCallBack);
+                            }, Anti.earn.processor.pluginCaptchas.plugCallBack);
                         break;
 
                     case 'complete':
                         Anti.debugstr('watcher: retrieveing COMPLETE task result');
                         //retrieving task result
-                        Anti.earn.processor.type9.plugApi({
+                        Anti.earn.processor.pluginCaptchas.plugApi({
                                 type: 'getTaskResult',
                                 taskId: Anti.earn.taskId
-                            }, Anti.earn.processor.type9.plugCallBack);
+                            }, Anti.earn.processor.pluginCaptchas.plugCallBack);
                         break;
 
                     case 'error':
                         //marking task with error
                         Anti.debugstr('watcher: received ERROR status, sending restart command');
-                        Anti.earn.processor.type9.plugApi({
+                        Anti.earn.processor.pluginCaptchas.plugApi({
                                 type: 'restart'
-                            }, Anti.earn.processor.type9.plugCallBack);
+                            }, Anti.earn.processor.pluginCaptchas.plugCallBack);
                         break;
 
                     case 'waiting':
-                        if ( mktime()-Anti.earn.processor.type9.lastPluginCall > 1) {
-                            Anti.debugstr("watcher: waiting too much, setting previous status "+Anti.earn.processor.type9.lastPluginStatus);
-                            Anti.earn.states.recaptchaStatus = Anti.earn.processor.type9.lastPluginStatus;
+                        if ( mktime()-Anti.earn.processor.pluginCaptchas.lastPluginCall > 1) {
+                            Anti.debugstr("watcher: waiting too much, setting previous status "+Anti.earn.processor.pluginCaptchas.lastPluginStatus);
+                            Anti.earn.states.recaptchaStatus = Anti.earn.processor.pluginCaptchas.lastPluginStatus;
                         }
                         break;
 
@@ -2582,8 +2615,14 @@ function AntiFW(options){
                     case 'getTaskStatus':
                         Anti.debugstr('plugCallBack: got task status '+response.status);
                         Anti.earn.states.recaptchaStatus = response.status;
+                        Anti.earn.states.telemetry = null;
+                        if (typeof response.telemetry != "undefined") {
+                            Anti.earn.states.telemetry = response.telemetry;
+                        }
                         if (response.status == 'error') {
-                            Anti.earn.processor.type9.reportError(response);
+                            console.log('Error:');
+                            console.log(response);
+                            Anti.earn.processor.pluginCaptchas.reportError(response);
                         }
                         if (typeof response.lastCaptchaEvent != "undefined") {
                             if (Anti.earn.settings.enabledSound) {
@@ -2618,6 +2657,17 @@ function AntiFW(options){
                         apiParams["guesstext"] = response.hash;
                         apiParams["bid"] = Anti.earn.task.bid;
                         apiParams["requestNext"] = Anti.earn.states.requestNewTasks;
+
+                        if (typeof response.taskId != "undefined") {
+                            apiParams["id"] = response.taskId;
+                            if (Anti.earn.taskId != response.taskId) {
+                                $$$.reportTelemetry({
+                                    "type": "diffTasks",
+                                    "first" : Anti.earn.taskId,
+                                    "second" : response.taskId
+                                });
+                            }
+                        }
                         if (typeof response.cookies != "undefined") {
                             if (response.cookies == '') {
                                 response.cookies = 'empty=true';
@@ -2637,10 +2687,20 @@ function AntiFW(options){
                         if (typeof response.website_captcha_key != "undefined") {
                             apiParams["website_captcha_key"] = response.website_captcha_key;
                         }
+                        if (typeof response.originalTask != "undefined") {
+                            apiParams["originalTask"] = response.originalTask;
+                        }
+                        if (typeof response.telemetry != "undefined") {
+                            apiParams["telemetry"] = response.telemetry;
+                        }
+
+                        Anti.debugstr("sending request to captchas/save");
                         Anti.api("captchas/save", $$$.getApiParams(apiParams), function(data){
+                            Anti.debugstr("received response from captchas/save");
+                            Anti.earn.processor.pluginCaptchas.plugApi({type :'restart'}, Anti.earn.processor.pluginCaptchas.plugCallBack);
                             Anti.earn.processor.captchasCommon.checkSaveResponse(data);
                             if (data.status == 'saved' && typeof data.solveTime != "undefined") {
-                                Anti.earn.processor.type9.appendAverages([{time: data.solveTime, id: data.id}]);
+                                Anti.earn.processor.pluginCaptchas.appendAverages([{time: data.solveTime, id: data.id}]);
                                 Anti.earn.statisticsData.recaptchaLastAverageTime = data.solveTime;
                             }
                         });
@@ -2649,14 +2709,13 @@ function AntiFW(options){
                             Anti.debugstr("cookiesCleanRecaptchasLeft "+Anti.earn.settings.cookiesCleanRecaptchasLeft);
                         }
                         Anti.earn.taskId = 0;
-                        Anti.earn.processor.type9.plugApi({type :'restart'}, Anti.earn.processor.type9.plugCallBack);
                         break;
 
                     case 'restart':
                         Anti.debugstr('plugCallBack: plugin restarted');
                         Anti.earn.states.recaptchaStatus = 'idle';
                         Anti.deleteInterval("earnRecaptchaWatcher");
-                        Anti.earn.processor.type9.restart();
+                        Anti.earn.processor.pluginCaptchas.restart();
                         break;
 
                     case 'proxyon':
@@ -2669,6 +2728,10 @@ function AntiFW(options){
 
                     case 'clearBrowserCache':
                         Anti.debugstr('plugCallBack: cookies cleared');
+                        break;
+
+                    case 'setRandomUserFingerprint':
+                        Anti.debugstr('plugCallBack: random finger print set');
                         break;
 
                     default:
@@ -2685,22 +2748,22 @@ function AntiFW(options){
                 } else {
 
                     //getting plugin ID
-                    Anti.earn.processor.type9.checkPluginId();
+                    Anti.earn.processor.pluginCaptchas.checkPluginId();
 
                     //setting waiting status and timer for last call
-                    if (Anti.earn.states.recaptchaStatus != 'waiting') Anti.earn.processor.type9.lastPluginStatus = Anti.earn.states.recaptchaStatus;
+                    if (Anti.earn.states.recaptchaStatus != 'waiting') Anti.earn.processor.pluginCaptchas.lastPluginStatus = Anti.earn.states.recaptchaStatus;
                     Anti.earn.states.recaptchaStatus = 'waiting';
-                    Anti.earn.processor.type9.lastPluginCall = mktime();
+                    Anti.earn.processor.pluginCaptchas.lastPluginCall = mktime();
 
-                    Anti.debugstr('sending command '+command.type+' to plugin with ID '+Anti.earn.processor.type9.pluginId);
+                    Anti.debugstr('sending command '+command.type+' to plugin with ID '+Anti.earn.processor.pluginCaptchas.pluginId);
                     if (typeof chrome.runtime != "undefined") {
-                        chrome.runtime.sendMessage(Anti.earn.processor.type9.pluginId, command, callback);
+                        chrome.runtime.sendMessage(Anti.earn.processor.pluginCaptchas.pluginId, command, callback);
                     }
                 }
             },
             requestAverages: function() {
                 Anti.api("stats/getRecaptchaAverages",{}, function(data){
-                    Anti.earn.processor.type9.appendAverages(data.reverse());
+                    Anti.earn.processor.pluginCaptchas.appendAverages(data.reverse());
                 });
             },
             appendAverages: function(data){
@@ -2715,7 +2778,7 @@ function AntiFW(options){
                     }
                     if (!rowExists) {
                         row.time = Math.round(row.time);
-                        row["color"] = Anti.earn.processor.type9.getTimeColor(row.time);
+                        row["color"] = Anti.earn.processor.pluginCaptchas.getTimeColor(row.time);
                         row["width"] = Math.floor(row.time/60 * 100);
                         if (row.width > 100) row.width = 100;
                         if (row.width < 17) row.width = 17;
@@ -2728,7 +2791,7 @@ function AntiFW(options){
                 if (overLimit > 0) {
                     Anti.earn.statisticsData.recaptchaAverageTimes.splice(27,overLimit);
                 }
-                Anti.earn.processor.type9.renderAverages();
+                Anti.earn.processor.pluginCaptchas.renderAverages();
             },
             getTimeColor: function(time) {
                 color = "F25501";
@@ -2756,7 +2819,7 @@ function AntiFW(options){
                     totalTime += avgRow.time;
                 }
                 avgTime = Math.round(totalTime / averagesLength);
-                $(".avg-time").html(avgTime+'s').css('color','#'+Anti.earn.processor.type9.getTimeColor(avgTime));
+                $(".avg-time").html(avgTime+'s').css('color','#'+Anti.earn.processor.pluginCaptchas.getTimeColor(avgTime));
                 if (averagesLength >= 5 && avgTime > 30) {
                     //showing advices
                     if (Anti.earn.statisticsData.recaptchaAccessStatus != false) {
@@ -2780,64 +2843,21 @@ function AntiFW(options){
                 Anti.earn.workflow.clearCookiesIfRequired();
             }
         },
-        type10: {
-            render: function(data) {
-                if (typeof data.cookiesCleanRequired != "undefined") {
-                    Anti.earn.states.cookiesCleanRequested = data.cookiesCleanRequired;
-                }
-                Anti.earn.processor.type9.render(data);
-                Anti.earn.processor.type9.renderAverages();
-                //setting new start timer
-                $$$.states.startSolveStamp = mktime();
-                return false;
-            }
-        },
-        type11: {
-            render: function(data) {
-                Anti.earn.processor.type9.render(data);
-                //setting new start timer
-                $$$.states.startSolveStamp = mktime();
-                return false;
-            }
-        },
-        type12: {
-            render: function(data) {
-                Anti.earn.processor.type9.render(data);
-                //setting new start timer
-                $$$.states.startSolveStamp = mktime();
-                return false;
-            }
-        },
-        type13: {
-            render: function(data) {
-                Anti.earn.processor.type9.render(data);
-                //setting new start timer
-                $$$.states.startSolveStamp = mktime();
-                return false;
-            }
-        },
-        type14: {
-            render: function(data) {
-                Anti.earn.processor.type9.render(data);
-                //setting new start timer
-                $$$.states.startSolveStamp = mktime();
-                return false;
-            }
-        },
-        type15: {
+
+        square: {
 
             maxWaitTime: 300000,
             selectedCells: [],
 
             render: function(data) {
-                Anti.earn.interface.setJobNameLabel('captcha resuelto');
+                Anti.earn.interface.setJobNameLabel('Captcha Solving');
 
                 netHtml = '';
                 cellCounter = 0;
                 for (r = 0; r < data.rows; r++) {
                     netHtml += '<div class="row-solver">';
                     for (c = 0; c < data.cols; c++) {
-                        netHtml += '<div class="recaptcha-square btn-manager" button-action="Anti.earn.processor.type15.clickEvent" data-cellnumber="'+cellCounter+'" action-parameter="'+cellCounter+'"></div>';
+                        netHtml += '<div class="recaptcha-square btn-manager" button-action="Anti.earn.processor.square.clickEvent" data-cellnumber="'+cellCounter+'" action-parameter="'+cellCounter+'"></div>';
                         cellCounter++;
                     }
                     netHtml += '</div>';
@@ -2846,8 +2866,8 @@ function AntiFW(options){
 
                 Anti.html(Anti.hb("earnForm15")(data), $("#workArea"));
 
-                Anti.earn.timers.maxWaitTime = Anti.earn.processor.type15.maxWaitTime;
-                Anti.earn.processor.type15.selectedCells = [];
+                Anti.earn.timers.maxWaitTime = Anti.earn.processor.square.maxWaitTime;
+                Anti.earn.processor.pluginCaptchas.selectedCells = [];
             },
 
             save: function() {
@@ -2857,13 +2877,13 @@ function AntiFW(options){
                 $$$.states.endSolveStamp = mktime();
 
                 //validating input before sending
-                if (Anti.earn.processor.type15.validateEntry()) {
+                if (Anti.earn.processor.square.validateEntry()) {
 
-                    Anti.earn.interface.showLoaderMessage('Cargando la siguiente tarea','');
+                    Anti.earn.interface.showLoaderMessage('Loading next task','');
 
                     apiParams = $$$.workflow.getDefaultCaptchaRequestParams();
                     apiParams["id"] = Anti.earn.taskId;
-                    apiParams["guesstext"] = Anti.earn.processor.type15.selectedCells;
+                    apiParams["guesstext"] = Anti.earn.processor.pluginCaptchas.selectedCells;
                     apiParams["bid"] = Anti.earn.task.bid;
                     apiParams["requestNext"] = Anti.earn.states.requestNewTasks;
 
@@ -2875,7 +2895,7 @@ function AntiFW(options){
 
 
                 } else {
-                    Anti.earn.processor.type15.showGuesstextError();
+                    Anti.earn.processor.pluginCaptchas.showGuesstextError();
                     return false;
                 }
             },
@@ -2890,7 +2910,7 @@ function AntiFW(options){
             //called when worker types something in input
             clickEvent: function(cellNumber) {
 
-                Anti.earn.processor.type15.hideGuesstextError();
+                Anti.earn.processor.square.hideGuesstextError();
                 Anti.earn.workflow.refreshLastAction();
 
                 cellNumber = parseInt(cellNumber);
@@ -2898,20 +2918,20 @@ function AntiFW(options){
 
                 var existed = false;
 
-                for (i in Anti.earn.processor.type15.selectedCells) {
-                    if (Anti.earn.processor.type15.selectedCells[i] == cellNumber) {
+                for (i in Anti.earn.processor.square.selectedCells) {
+                    if (Anti.earn.processor.square.selectedCells[i] == cellNumber) {
                         cellObject.removeClass('active');
                         existed = true;
-                        Anti.earn.processor.type15.selectedCells.splice(i, 1);
+                        Anti.earn.processor.square.selectedCells.splice(i, 1);
                     }
                 }
 
                 if (!existed) {
                     cellObject.addClass('active');
-                    Anti.earn.processor.type15.selectedCells.push(cellNumber);
+                    Anti.earn.processor.square.selectedCells.push(cellNumber);
                 }
 
-                Anti.earn.processor.type15.selectedCells.sort();
+                Anti.earn.processor.square.selectedCells.sort();
 
             },
 
@@ -2919,370 +2939,46 @@ function AntiFW(options){
 
                 result = true;
 
-                if (Anti.earn.processor.type15.selectedCells.length == 0) return false;
+                if (Anti.earn.processor.square.selectedCells.length == 0) return false;
 
                 return result;
             }
 
 
         },
-        type16: {
+
+        moderation: {
             maxWaitTime: 60000,
-            render: function(data) {
-                Anti.earn.processor.type9.render(data);
-                $$$.states.startSolveStamp = mktime();
-                $("#importantHeader").html('Arrastre el deslizador para resolver captcha').show();
-                return false;
-            }
-        },
-        type17: {
-            maxWaitTime: 60000,
-            render: function(data) {
-                Anti.earn.processor.type9.render(data);
-                $$$.states.startSolveStamp = mktime();
-                $("#importantHeader").html('Arrastre el deslizador para resolver captcha').show();
-                return false;
-            }
-        },
-        type18: {
-            render: function(data) {
-                Anti.earn.processor.type9.render(data);
-                $$$.states.startSolveStamp = mktime();
-                return false;
-            }
-        },
-        type19: {
-            render: function(data) {
-                Anti.earn.processor.type9.render(data);
-                $$$.states.startSolveStamp = mktime();
-                return false;
-            }
-        },
-        type20: {
-            render: function(data) {
-                Anti.earn.processor.type9.render(data);
-                $$$.states.startSolveStamp = mktime();
-                return false;
-            }
-        },
-        type5: {
+            render(data){
+                Anti.earn.interface.setJobNameLabel('Image Captcha Moderation');
 
-            maxWaitTime: 60000,
-            steps: [],
-            currentStepNumber: 0,
-            formData: {},
-            lastActionTimer: 0,
-            stepWaitTime: 0,
-            stepWaitInterval: false,
-            stepInterruptionsCount: 0,
-            stepInterruptionTime: 0,
-            stepInterruptionStart: 0,
 
-            render: function(data) {
 
-                Anti.html(Anti.hb("earnLoaderMessage")({
-                    title: 'Cargando..',
-                    subtitle: 'Cargando tareas de fábrica'
-                }), $("#workArea"));
-                Anti.earn.interface.setJobNameLabel('Cargando..');
+                Anti.html(Anti.hb("earnFormModeration")(data), $("#workArea"));
+                Anti.html(Anti.hb("earnForm0Captcha")(data), $("#form0CaptchaData"));
 
-                //setting maximum timer
-                Anti.earn.timers.maxWaitTime = Anti.earn.processor.type5.maxWaitTime;
-
-                if (data.status == 'getSteps') {
-
-                    //requesting step
-                    Anti.earn.processor.type5.getWorkflowSteps();
-                    //registering callbacks
-                    Anti.earn.processor.type5.registerWindowCallbacks();
-
-                } else {
-                    Anti.earn.processor.type5.processFactoryError(data);
-                }
+                Anti.earn.timers.maxWaitTime = Anti.earn.processor.moderation.maxWaitTime;
             },
-            registerWindowCallbacks: function() {
-                Anti.earn.callbacks.focusEventCallback = function(){
-                    Anti.earn.processor.type5.stepInterruptionsCount++;
-                    Anti.earn.processor.type5.stepInterruptionTime += (Date.now() - Anti.earn.processor.type5.stepInterruptionStart);
-                };
-                Anti.earn.callbacks.blurEventCallback = function() {
-                    Anti.earn.processor.type5.stepInterruptionStart = Date.now();
-                };
-            },
-            processFactoryError: function(data) {
-                Anti.dialogsManager.message(
-                    'Report error to Factory owner: '+data.errorDescription,
-                    'Error',
-                    'tac',
-                    'Anti.earn.processor.type5.restartTasks'
-                );
-            },
+            answer(type) {
 
-            restartTasks: function() {
-                Anti.dialogsManager.close();
-                Anti.earn.processor.captchasCommon.checkSaveResponse({is_control: 1});
-            },
+                Anti.earn.interface.showLoaderMessage('Loading next task','');
 
-            getWorkflowSteps: function() {
-                Anti.api("factory/getWorkflowSteps", {
-                        taskId: Anti.earn.taskId,
-                        trainingFactoryId: Anti.earn.states.stepModeTrainingFactoryId
-                }, function (data) {
+                apiParams = $$$.workflow.getDefaultCaptchaRequestParams();
+                apiParams["id"] = Anti.earn.taskId;
+                apiParams["guesstext"] = type;
+                apiParams["bid"] = Anti.earn.task.bid;
+                apiParams["requestNext"] = Anti.earn.states.requestNewTasks;
 
-                    if (data.status == 'startWorkflow') {
-                        $("#stepsSidebar").show();
-                        Anti.earn.processor.type5.steps = data.steps;
-                        Anti.earn.processor.type5.currentStepNumber = data.startFromStep;
-                        Anti.earn.interface.setJobNameLabel(data.jobTitle);
-                        Anti.earn.processor.type5.renderSteps(data.steps);
-                        Anti.earn.workflow.refreshLastAction();
-                        Anti.earn.processor.type5.getNextWorkflowStep();
-                    } else {
-                        Anti.earn.processor.type5.processFactoryError(data);
-                    }
+                apiParamsCopy = deepObjectCopy($$$.getApiParams(apiParams));
 
+                Anti.api("captchas/save", apiParamsCopy, function(data){
+                    Anti.earn.processor.captchasCommon.checkSaveResponse(data);
                 });
-            },
-
-            renderSteps: function(steps) {
-                $("#stepsContainer").html('');
-                template = Anti.hb("earnStepsRow");
-                number = 1;
-                for (c in steps) {
-                    row = deepObjectCopy(steps[c]);
-                    row["number"] = number;
-                    Anti.htmlAppend(template(row), $("#stepsContainer"));
-                    number++;
-                }
-            },
-
-            getNextWorkflowStep: function() {
-                Anti.earn.workflow.refreshLastAction();
-                Anti.earn.processor.type5.stepInterruptionsCount = 0;
-                Anti.earn.processor.type5.stepInterruptionTime = 0;
-                Anti.earn.processor.type5.stepInterruptionStart = Date.now();
-                Anti.earn.processor.type5.activateStep();
-                Anti.api("factory/getWorkflowStepData", {
-                    taskId: Anti.earn.taskId,
-                    trainingFactoryId: Anti.earn.states.stepModeTrainingFactoryId,
-                    step: Anti.earn.processor.type5.getCurrentStep()
-                }, function (data) {
-
-                    if (data.status == 'continueWorkflow') {
-
-                        switch (data.response.action) {
-                            case 'showForm':
-                                if (typeof data.response.time != "undefined") Anti.earn.timers.maxWaitTime = data.response.time * 1000;
-                                else Anti.earn.timers.maxWaitTime = 300000;
-                                Anti.earn.processor.type5.formData = data.response;
-                                Anti.earn.processor.type5.renderForm(deepObjectCopy(data.response));
-                                Anti.earn.workflow.refreshLastAction();
-                                break;
-
-                            case 'wait':
-                                Anti.html(Anti.hb("earnStepsWaitContainer")(data.response), $("#workArea"));
-                                Anti.earn.timers.maxWaitTime = 100000000;
-                                Anti.earn.processor.type5.startClientWaiting(
-                                        parseInt(data.response.time),
-                                        function() {
-                                            Anti.earn.processor.type5.currentStepNumber++;
-                                            Anti.earn.processor.type5.getNextWorkflowStep();
-                                        });
-                                break;
-
-                            default:
-                                Anti.earn.processor.type5.processFactoryError({errorDescription: 'Unexpected answer from Factory Server'});
-                                break;
-                        }
-
-                    } else {
-                        Anti.earn.processor.type5.processFactoryError(data);
-                    }
-
-
-                });
-            },
-
-            renderForm: function(formsData) {
-
-                Anti.html(Anti.hb("earnStepsFormContainer"), $("#workArea"));
-
-                var container = $("#stepFormContainer");
-                Anti.formsManager.renderAntiPacketForm(formsData,
-                    {
-                        "submitButtonText"      :   (Anti.earn.processor.type5.currentStepNumber == (Anti.earn.processor.type5.steps.length - 1)) ? "Finalizar la tarea" : "Próximo paso",
-                        "showCancelButton"      :   true,
-                        "cancelAction"          :   "processor.type5.cancelTask",
-                        "cancelActionParameter" :   "employeeCancellation",
-                        "cancelButtonText"      :   "Cancelar tarea",
-                        "activeButtonCallback"  :   function(button) {
-
-                            Anti.api("factory/activeButtonEventCall", {
-                                taskId: $$$.taskId,
-                                trainingFactoryId: Anti.earn.states.stepModeTrainingFactoryId,
-                                button: button
-                            }, function(response){
-
-                                Anti.formsManager.resumeFormProcessing(container);
-                                if (typeof response.action != "undefined") {
-
-                                    switch (response.action) {
-
-                                        case 'cancelTask':
-                                        case 'restartTask':
-                                        case 'finishTask':
-                                            $$$.processor.type5.finishTask();
-                                            break;
-
-                                    }
-
-                                } else {
-                                    Anti.earn.workflow.checkStatusErrorCodes(response);
-                                }
-                            });
-                        }
-                    },
-                    container
-                );
-                Anti.formsManager.resumeFormProcessing(container);
-            },
-
-            startClientWaiting: function(time, callback) {
-
-                Anti.earn.processor.type5.stepWaitTime = time * 1000;
-                Anti.earn.processor.type5.lastActionTimer = Date.now();
-
-                clearInterval(Anti.earn.processor.type5.stepWaitInterval);
-
-                Anti.earn.processor.type5.stepWaitInterval =
-                    setInterval(function(){
-
-                        dif = Date.now() - Anti.earn.processor.type5.lastActionTimer;
-                        perc = (dif-1000) / (Anti.earn.processor.type5.stepWaitTime-1000) * 100;
-                        $("#clientWaitProgressbar").css({'width': perc+'%'});
-
-                        if (dif > Anti.earn.processor.type5.stepWaitTime) {
-                            callback();
-                            clearInterval(Anti.earn.processor.type5.stepWaitInterval);
-                        }
-
-                    }, 1000);
-
-
-            },
-
-            submitWorkflowStepData: function(grabValuesFromDom) {
-
-                //this is for cases when data requires simple re-submit instead of filling up from scratch
-                if (typeof grabValuesFromDom == "undefined") grabValuesFromDom = true;
-                if (grabValuesFromDom == "" && typeof grabValuesFromDom != "boolean") grabValuesFromDom = true;
-                if (grabValuesFromDom) {
-                    if (Anti.formsManager.verifyFormCompletion(Anti.earn.processor.type5.formData.forms)) {
-                        submitData = Anti.formsManager.completeAntiPacketForms(Anti.earn.processor.type5.formData);
-                    } else {
-                        Anti.dialogsManager.message('Debe rellenar todos los campos del formulario');
-                        return false;
-                    }
-                } else {
-                    submitData = Anti.earn.processor.type5.formData;
-                }
-                Anti.earn.workflow.refreshLastAction();
-
-                Anti.api("factory/submitWorkflowStepData", {
-                    taskId: Anti.earn.taskId,
-                    trainingFactoryId: Anti.earn.states.stepModeTrainingFactoryId,
-                    data: submitData,
-                    focusInfo : {
-                        stepInterruptionsCount: Anti.earn.processor.type5.stepInterruptionsCount,
-                        stepInterruptionTime: Anti.earn.processor.type5.stepInterruptionTime
-                    }
-                }, function(data){
-
-                    //this is only kb status, does not exist in api
-                    if (data.status == 'continueWorkflow') {
-
-                        switch (data.response.action) {
-
-                            case 'wait':
-                                Anti.html(Anti.hb("earnStepsWaitContainer")(data.response), $("#workArea"));
-                                Anti.earn.processor.type5.startClientWaiting(
-                                        parseInt(data.response.time),
-                                        function() {
-                                            Anti.earn.processor.type5.submitWorkflowStepData(false);
-                                        });
-                                break;
-
-                            case 'showErrors':
-                                Anti.earn.processor.type5.formData = data.response;
-                                Anti.earn.processor.type5.renderForm(deepObjectCopy(data.response));
-                                break;
-
-                            case 'requestNextStep':
-                                Anti.earn.processor.type5.currentStepNumber++;
-                                Anti.earn.processor.type5.getNextWorkflowStep();
-                                break;
-
-                            case 'holdPayment':
-                                Anti.earn.interface.showNotificationMessage('Pago retenido: el propietario de la fábrica está revisando el resultado de la tarea');
-                                Anti.earn.processor.type5.finishTask();
-                                break;
-
-                            default:
-                            case 'finishTask':
-                                Anti.earn.processor.type5.finishTask();
-                                break;
-                        }
-
-                    } else {
-                        Anti.earn.processor.type5.processFactoryError(data);
-                    }
-                });
-            },
-
-            cancelTask: function(reason) {
-                $(".antipacket-submit-button").remove();
-                Anti.api("factory/cancelTask", {
-                    taskId: Anti.earn.taskId,
-                    reason: reason
-                },Anti.earn.processor.type5.finishTask);
-            },
-
-            finishTask: function() {
-                $("#stepsSidebar").hide();
-                $("#workArea").html('');
-                if (Anti.earn.states.stepTrainingModeEnabled) {
-                    Anti.earn.states.stepTrainingModeEnabled = false;
-                    Anti.earn.states.stepModeTrainingFactoryId = 0;
-                    Anti.earn.interface.clearWorkArea("finishTask");
-                    Anti.navigate("factory/directory");
-                    Anti.directory.dialog.subscribe(Anti.directory.factoryId);
-                } else {
-                    Anti.earn.states.stepTrainingModeEnabled = false;
-                    Anti.earn.processor.captchasCommon.checkSaveResponse({is_control: 1});
-                }
-            },
-
-            getCurrentStep: function() {
-                if (typeof Anti.earn.processor.type5.steps[Anti.earn.processor.type5.currentStepNumber] == "undefined") {
-                    Anti.earn.processor.type5.processFactoryError('incorrect step number');
-                    return false;
-                }
-                return Anti.earn.processor.type5.steps[Anti.earn.processor.type5.currentStepNumber];
-            },
-            activateStep: function() {
-                stepRow = Anti.earn.processor.type5.getCurrentStep();
-                $(".step").removeClass('active');
-                $("#stepId"+stepRow.id).addClass('active');
-                if (stepRow.side == 'employee') {
-                    $("#clientSideIcon").attr('class','icon');
-                    $("#employeeSideIcon").attr('class','icon active');
-                } else {
-                    $("#clientSideIcon").attr('class','icon active');
-                    $("#employeeSideIcon").attr('class','icon');
-                }
+                //setting taskId
+                Anti.earn.taskId = 0;
             }
-
         }
+
     },
 
     v3: {
@@ -3312,6 +3008,9 @@ function AntiFW(options){
         }
     },
 
+    reportTelemetry: function(data) {
+        Anti.api("tools/reportTelemetry", data);
+    },
 
     navigateEvent: function() {
         console.warn('navigateEvent');
@@ -3343,7 +3042,7 @@ function AntiFW(options){
             taskId: 12345,
             type_id: 10,
             website_url: "https://recaptcha-demo.appspot.com/recaptcha-v2-checkbox.php",
-            website_captcha_key: "6LctQKUZAAAAAOknRPM_EXybGbOErz6vhcJjewEw",
+            website_captcha_key: "6LfW6wATAAAAAHLqO2pb8bDBahxlMxNdo9g947u9",
             website_stoken: "",
             proxy_task_on: false,
             open_target: 'iframe'
@@ -3354,9 +3053,9 @@ function AntiFW(options){
         });
     }
 
-};this.stats = {
+};Anti.stats = {
 
-    windowTitle: 'Sus estadísticas',
+    windowTitle: 'Your Stats',
     queueId: 0,
 
     init: function() {
@@ -3393,7 +3092,7 @@ function AntiFW(options){
             }
 
             tableData.push({
-                date: '<b>Total del mes:</b>',
+                date: '<b>month total:</b>',
                 earned: Math.round(totearned*1000)/1000,
                 refund_amount: Math.round(totrefundamount*1000)/1000,
                 refund_count: totrefundcount,
@@ -3416,15 +3115,15 @@ function AntiFW(options){
                 settings = Anti.stats.chartSettings.mainChart;
                 settings["colors"] = ['#38baea'];
                 settings.series = new Array(data[0]);
-                settings.title.text = '$ Ganancias';
+                settings.title.text = '$ Earnings';
                 $("#earnchart").highcharts(settings);
                 settings["colors"] = ['#056205'];
                 settings.series = new Array(data[1]);
-                settings.title.text = 'Número de captchas resueltos';
+                settings.title.text = 'Number of Solved Captchas';
                 $("#volumechart").highcharts(settings);
                 settings["colors"] = ['#2c93b9'];
                 settings.series = new Array(data[2]);
-                settings.title.text = '$ bonos de calificación';
+                settings.title.text = '$ Rating Bonus';
                 $("#bonuschart").highcharts(settings);
             });
 
@@ -3511,9 +3210,9 @@ function AntiFW(options){
         }
     }
 
-};this.systemstats = {
+};Anti.systemstats = {
 
-    windowTitle: 'estadísticas del sistema',
+    windowTitle: 'System Stats',
     periodMode: 'day',
     queueId: 6,
 
@@ -3536,26 +3235,26 @@ function AntiFW(options){
             settings = Anti.systemstats.chartSettings.mainChart;
             settings["colors"] = ['#38baea'];
             settings.series = new Array(data[0]);
-            settings.title.text = 'Promedio de Oferta/Captcha' + ($$$.periodMode == 'week' ? ': Datos de 7 dias' : ': Datos 24h');
+            settings.title.text = 'Average Captcha Bid' + ($$$.periodMode == 'week' ? ': 7 days data' : ': 24h data');
             settings.tooltip.formatter = function () {
-                return sprintf('<b>%s</b><br>Oferta por captcha resueltos: $%s por 1000 entradas', this.point.name, this.y);
+                return sprintf('<b>%s</b><br>Bid for captcha solvings: $%s per 1000 entries', this.point.name, this.y);
             };
             $("#bidchart").highcharts(settings);
 
             settings["colors"] = ['#056205'];
             settings.series = new Array(data[1]);
-            settings.title.text = 'Recuento de empleados en línea' + ($$$.periodMode == 'week' ? ': Datos de 7 dias' : ': Datos 24h');
+            settings.title.text = 'Employees Online Count' + ($$$.periodMode == 'week' ? ': 7 days data' : ': 24h data');
             settings.tooltip.formatter = function () {
-                return '<b>' + this.point.name + '</b><br>Recuento de empleados en línea: <b>' + this.y + '%</b>';
+                return '<b>' + this.point.name + '</b><br>Employees Online Count: <b>' + this.y + '%</b>';
             };
             $("#loadchart").highcharts(settings);
 
 
             settings["colors"] = ['#01284f'];
             settings.series = new Array(data[2]);
-            settings.title.text = 'Demanda Promedio de los Trabajadores de Captchas' + ($$$.periodMode == 'week' ? ': Datos de 7 dias' : ': Datos 24h');
+            settings.title.text = 'Average Captcha Workers Demand' + ($$$.periodMode == 'week' ? ': 7 days data' : ': 24h data');
             settings.tooltip.formatter = function () {
-                return '<b>' + this.point.name + '</b><br>Demanda Promedio de Trabajadores: <b>' + this.y + '%</b>';
+                return '<b>' + this.point.name + '</b><br>Average Workers Demand: <b>' + this.y + '%</b>';
             };
             $("#demandchart").highcharts(settings);
 
@@ -3605,7 +3304,7 @@ function AntiFW(options){
                     value: 24,
                     dashStyle: 'longdashdot',
                     label: {
-                        text: 'Hace 24 horas',
+                        text: '24 hours ago',
                         rotation: 0,
                         x: 10,
                         y: 20,
@@ -3632,7 +3331,7 @@ function AntiFW(options){
                 enabled: true
             },
             tooltip: {
-                formatter: function() { return 'Oferta por 1000 captcha introducidos: '+this.y; },
+                formatter: function() { return 'Bid per 1000 captcha entries: '+this.y; },
                 useHTML: true
             },
 	    series: []
@@ -3640,12 +3339,12 @@ function AntiFW(options){
     }
 
 };
-this.errors = {
+Anti.errors = {
 
     money: 0,
     recpoints: 0,
     recCost: 0,
-    windowTitle: 'Sus errores de escritura',
+    windowTitle: 'Your Typing Errors',
     init: function() {
         Anti.errors.load();
     },
@@ -3659,17 +3358,18 @@ this.errors = {
             Anti.errors.money     = data.money;
             Anti.errors.recpoints = data.recpoints;
             Anti.errors.recCost   = data.recCost;
+            $("#appealPointsValue").html(data.appeal_points);
 
             if (data.acc_errors == 0) {
-                $("#errorschart").html('<div class="tac font20 padding20px" style="color: #2a5942">Buenas noticias, su porcentaje de error es actualmente de 0/1000. Nada de que preocuparse!</div>');
+                $("#errorschart").html('<div class="tac font20 padding20px" style="color: #2a5942">Good news, your mistype ratio is currently 0/1000. Nothing to worry about!</div>');
             }
             if (data.is_suspended) {
                 $("#errorschart").html('<div class="padding20px tac error"><b>Access to image captchas banned</b>. Please mark your errors as viewed to continue.</div>');
             }
             if (data.acc_errors > 0) {
-                $("#errorsdesc").show();
+                $("#errorsdesc, #appealPoints").show();
             } else {
-                $("#errorsdesc").hide();
+                $("#errorsdesc, #appealPoints").hide();
             }
 
             Anti.tableManager.init($("#errorsTable"), data.bad_captchas, "errorsTablerow");
@@ -3689,27 +3389,10 @@ this.errors = {
             Anti.tableManager.render();
             Anti.hideLoader(true);
 
-            var settings = Anti.errors.chartSettings.barChart;
-            if (data.month_captchas > 0) errRate = Math.round(data.acc_errors / data.month_captchas * 10000)/10;
+            if (data.month_captchas > 0) errRate = Math.round(data.acc_errors / data.month_captchas * 10000)/100;
             else errRate = 0;
-            if (data.acc_errors > 0) {
-                errBarName  = 'errors per 1000 ('+data.acc_errors+' Errores/'+data.month_captchas+' captchas)';
-                leftBarName = 'errors per 1000 left before account ban';
-            } else {
-                errBarName = '';
-                leftBarName = 'Buenas noticias, no tienes errores!';
-            }
-            settings.series =
-                [
-                { name: 'Left errors', data: [{name:leftBarName,y:Math.round((data.max_errors - errRate)*10)/10 }] },
-                { name: 'Your errors', data: [{name:errBarName,y:errRate }] }
 
-            ];
-            if (data.acc_errors > 0) {
-                setTimeout(function () {
-                    $("#errorschart").highcharts(settings);
-                }, 2000);
-            }
+            $("#errorsRatio").html(data.acc_errors+' errors / '+data.month_captchas+' ('+errRate+'%)');
 
         });
     },
@@ -3751,25 +3434,25 @@ this.errors = {
         switch (status) {
 
             case "recaptcha_points_low":
-                Anti.dialogsManager.message("No hay suficientes puntos ReCaptcha para eliminar el error. Usted puede ganarlos trabajando en nuestra aplicación de escritorio.");
+                Anti.dialogsManager.message("Not enough recaptcha points to remove error. You may earn them by working in our desktop application.");
             break;
 
             case 'low_balance':
-                Anti.dialogsManager.message("no hay suficiente dinero para eliminar el error. Balance mínimo: 0.1 USD");
+                Anti.dialogsManager.message("Not enough money to remove error. Minimum balance: 0.1 USD.");
             break;
 
             case 'suspended':
-                Anti.dialogsManager.message("Tu cuenta está suspendida. no es posible eliminar el error.");
+                Anti.dialogsManager.message("Your account is suspended. It is not possible to remove error.");
             break;
 
             case 'success':
-                Anti.dialogsManager.message("se ha eliminado el registro de errores.");
+                Anti.dialogsManager.message("Error record has been removed.");
                 Anti.errors.load();
             break;
 
 
             case 'not_found':
-                Anti.dialogsManager.message("registro de errores no encontrado.");
+                Anti.dialogsManager.message("Error record not found.");
                 Anti.errors.load();
             break;
 
@@ -3787,96 +3470,20 @@ this.errors = {
         document.getElementById('player'+id).pause();
     },
 
+    postAppeal(id) {
+        Anti.showLoader();
+        Anti.api("errors/postAppeal", {id}, (data) => {
+            if (data.status === 'failed') {
+                Anti.dialogsManager.message(data.message);
+            }
+            $$$.load();
+        });
+    },
 
-    chartSettings : {
 
-        barChart: {
-            colors: ['#155612','#791616'],
-            chart: {
-                backgroundColor:'rgba(255, 255, 255, 0.1)',
-                type: 'bar',
-	        plotBorderWidth: 0,
-	        plotBackgroundImage: null,
-                marginTop : 25,
-                marginBottom : 0
-	    },
-            xAxis: {
-                title: {
-                    text: false
-                },
-                labels: {
-                    enabled: false
-                },
-                categories: [],
-                lineWidth: 0,
-                gridLineWidth: 0,
-                minorGridLineWidth: 0,
-                majorGridLineWidth: 0,
-                lineColor: 'transparent',
-                tickPosition: 'outside',
-                minorTickLength: 0,
-                tickLength: 0
-            },
-            yAxis: {
-	        title: {
-                    text: false
-                },
-                labels: {
-                    enabled: false
-                },
-                lineWidth: 0,
-                gridLineWidth: 0,
-                minorGridLineWidth: 0,
-                majorGridLineWidth: 0,
-                lineColor: 'transparent',
-                tickPosition: 'outside',
-                minorTickLength: 0,
-                tickLength: 0
-	    },
-            plotOptions: {
-                bar: {
-                    stacking: 'percent',
-                    lineWidth: 0,
-                    marker: {
-                        lineWidth: 0,
-                        lineColor: '#ffffff'
-                    },
-                    dataLabels: {
-                    enabled: true,
-                    verticalAlign: 'bottom',
-                    y: 23,
-                    style: {"fontSize": "14px"},
-                    color: '#000',
-                        formatter: function () {
-                            return this.y + ' ' +this.point.name;
-                        }
-                    }
-                }
-            },
-            title: {
-                text: 'su tasa de error:'
-            },
-            exporting: {
-                enabled: false
-            },
-            subtitle: {
-                text: null
-            },
-            legend: {
-                enabled: false
-            },
-            tooltip: {
-                headerFormat: '',
-                pointFormat: '<span style="color:{series.color}">{series.name}</span>: ({point.y:,.1f} per 1000)<br/>',
-                shared: false,
-            },
-	    series: []
-        }
-    }
+};Anti.toplist = {
 
-};this.toplist = {
-
-    windowTitle: 'Lista de los 5000 mejores trabajadores',
+    windowTitle: 'Top 5K Workers List',
 
     init: function() {
 
@@ -3906,9 +3513,9 @@ this.errors = {
 
 
 
-};this.app = {
+};Anti.app = {
 
-    windowTitle: 'Descargar aplicación',
+    windowTitle: 'Application Download',
     init: function() {
 
         $(".lightboxOverlay:gt(0)").remove();
@@ -3946,9 +3553,9 @@ this.errors = {
         $('#firewall').slideToggle(500);
     }
 
-};this.ratingsinfo = {
+};Anti.ratingsinfo = {
 
-    windowTitle: 'Información de calificaciones de captcha',
+    windowTitle: 'Captcha Ratings Information',
     level: 0,
 
     init: function() {
@@ -3976,9 +3583,9 @@ this.errors = {
         });
 
     }
-};this.sleeping = {
+};Anti.sleeping = {
 
-    windowTitle: 'Cuenta cambiada a modo inactivo',
+    windowTitle: 'Account switched to sleep mode',
     init: function() {
         Anti.hideLoader();
     },
@@ -3986,7 +3593,7 @@ this.errors = {
     awake: function() {
         Anti.api("captchas/nosleep", { } , function(data) {
             if (data.status == 'blocked') {
-                Anti.dialogsManager.message(sprintf('Su cuenta está bloqueada por %s segundos',data.seconds));
+                Anti.dialogsManager.message(sprintf('You account is blocked for %s seconds',data.seconds));
             } else if (data.status == 'success') {
                 Anti.navigate('earn');
             }
@@ -3995,10 +3602,10 @@ this.errors = {
 
 
 };
-this.lazy = {
+Anti.lazy = {
 
     showFirewallError: false,
-    windowTitle: 'Damasiados captchas saltados',
+    windowTitle: 'Too many captcha skips',
     init: function() {
         Anti.lazy.load();
     },
@@ -4037,9 +3644,9 @@ this.lazy = {
     }
 
 };
-this.history = {
+Anti.history = {
 
-    windowTitle: 'Historial de retiros',
+    windowTitle: 'Withdrawals History',
 
     init: function() {
         Anti.history.load();
@@ -4075,9 +3682,9 @@ this.history = {
         Anti.api("finance/cancel", { id: id } , Anti.history.load);
     }
 
-};this.withdraw = {
+};Anti.withdraw = {
 
-    windowTitle: 'Retiros de dinero',
+    windowTitle: 'Money Withdrawals',
     latestPurse: '',
     withdrawMethod: '',
     withdrawAmount: 0,
@@ -4087,12 +3694,14 @@ this.history = {
     withdrawCurrency : '',
     withdrawRequisites: '',
     withdrawMinamount: 0,
+    hasCommission: false,
     ratingPerc: 0,
     requisiteCorrect: false,
     requisitesMessage: '',
     largestAmount: 0,
     recipientChecked: false,
     pinInstalled: false,
+    amountSettingEnabled: true,
     systems: [],
 
     toggleHelp: function() {
@@ -4101,7 +3710,9 @@ this.history = {
 
     init: function() {
         $$$.withdrawRequisites = '';
+        Anti.switchPageSection("list");
         this.load();
+        $$$.cs.listOffers();
     },
 
     load: function() {
@@ -4125,7 +3736,7 @@ this.history = {
             }
 
             if (data.states.left_to_minimum > 0) {
-                $("#accumulating_hint").html(sprintf("Introduce al menos %s captchas más", data.states.left_to_minimum)).show(0);
+                $("#accumulating_hint").html(sprintf("enter at least %s more captchas", data.states.left_to_minimum)).show(0);
                 $("#onModerationState").addClass("disabled");
             } else {
                 $("#accumulating_hint").hide(0);
@@ -4168,6 +3779,7 @@ this.history = {
 
             Anti.api("finance/request", { action : 'info', getList : 'true' });
 
+
         });
 
     },
@@ -4176,7 +3788,7 @@ this.history = {
     viewTable: function() {
         Anti.switchPageSection("list");
         if (Anti.withdraw.pinInstalled == false) {
-            Anti.dialogsManager.message('Instale primero el código PIN en la configuración de su cuenta<br><br><span class="dash-link" data-navigate="settings/account">Configuración de la cuenta</span>');
+            Anti.dialogsManager.message('Install PIN code first in your account settings<br><br><span class="dash-link" data-navigate="settings/account">account settings</span>');
             //Anti.withdraw.load();
             return false;
         }
@@ -4213,8 +3825,7 @@ this.history = {
 
         //blocks visibility defaults
         $("#requisitesBlock").show();
-        $("#cardPayoutNotification").hide();
-        $("#bitcoinNotification").hide();
+        $("#bitcoinNotification, #cardPayoutNotification, #internalNotification, #cryptoswappBlock").hide();
 
         var slider = $("#amountSlider");
         Anti.switchPageSection("requisites");
@@ -4242,12 +3853,26 @@ this.history = {
             $("#cardPayoutNotification").show();
             $("#requisitesBlock").hide();
             $("#pastaRequisites").show();
-
+        }
+        //cryptoswapp integration
+        if (Anti.withdraw.withdrawMethod == 'CryptoSwapp.com') {
+            $$$.cs.start();
+        }
+        if (Anti.withdraw.withdrawMethod == 'Internal Transfer') {
+            $("#internalNotification").show();
         }
 
     },
 
     setWithdrawAmount: function(_, value) {
+
+        if (!$$$.amountSettingEnabled) {
+            $("#amountBlock").hide();
+            return;
+        } else {
+            $("#amountBlock").show();
+        }
+
         roundto = Math.pow(10,Anti.withdraw.withdrawRoundTo);
         var converted = Math.round(value * Anti.withdraw.withdrawRate * roundto)/roundto;
         $("#currency_ammount").html('&nbsp;&nbsp;~'+converted+' '+Anti.withdraw.withdrawCurrency);
@@ -4258,8 +3883,10 @@ this.history = {
             $("#paymentButton").hide(0);
         }
 
+
+
         if (Anti.withdraw.withdrawMethod == 'Payout to VISA/Mastercard') {
-            msg = 'Comisión %s USD, cantidad a recibir %s USD';
+            msg = 'Commission %s USD, amount to receive %s USD';
             //REENABLE1MAY
             /*
             if (converted >= 50) {
@@ -4273,7 +3900,26 @@ this.history = {
             $$$.checkRecipient('',$("#recipient").val())
         }
 
+        if (Anti.withdraw.withdrawMethod == 'CryptoSwapp.com') {
+            $$$.cs.estimate(value, $$$.withdrawRequisites)
+        }
 
+        console.log(Anti.withdraw.withdrawMethod, $$$.hasCommission);
+        if (Anti.withdraw.withdrawMethod == 'Internal Transfer' || (Anti.withdraw.withdrawMethod == 'AdvCash' && $$$.hasCommission)) {
+            commission = Math.round((converted * 0.05)*100)/100;
+            amountMinusCommission = Math.round( (converted - commission) * 100 ) / 100;
+            calculations = sprintf('Commission %s USD, amount to receive %s USD', commission, amountMinusCommission);
+            $("#currency_ammount").html('&nbsp;&nbsp;~'+amountMinusCommission+' '+Anti.withdraw.withdrawCurrency);
+            $("#internalCalculations").html(calculations);
+        }
+
+
+    },
+
+    slideToExchangers: function() {
+        $('html, body').animate({
+            scrollTop: $("#csExchangersList").offset().top
+        }, 500);
     },
 
     checkRecipient: function(_, recipient) {
@@ -4300,14 +3946,29 @@ this.history = {
                 requisites: Anti.withdraw.withdrawRequisites,
                 method: Anti.withdraw.withdrawMethod
             } , function(data) {
+                $$$.hasCommission = data.hasCommission;
                 if (data.status != 'ok') {
                     $("#nextbutton").css('opacity',0.5);
                     $$$.requisiteCorrect = false;
                     $$$.requisitesMessage = data.message;
+                    if (data.message != '') {
+                        $("#recipient_error").show().html(data.message);
+                    }
                 } else {
+                    if (data.hasCommission) {
+                        $("#internalNotification").show();
+                        $$$.setWithdrawAmount("", $("#amountInput").val());
+                    } else {
+                        $("#internalNotification").hide();
+                    }
+
                     $("#nextbutton").css('opacity',1);
+                    $("#recipient_error").hide();
                     $$$.requisiteCorrect = true;
                     $$$.requisitesMessage = '';
+                    if (Anti.withdraw.withdrawMethod == 'CryptoSwapp.com') {
+                        $$$.cs.estimate($$$.withdrawAmount, $$$.withdrawRequisites)
+                    }
                 }
         });
     },
@@ -4315,11 +3976,11 @@ this.history = {
     confirmAmount: function() {
         Anti.withdraw.checkRecipient('',$("#recipient").val());
         if (Anti.withdraw.requisiteCorrect == false) {
-            Anti.dialogsManager.message('requisitos incorrectos : '+$$$.requisitesMessage);
+            Anti.dialogsManager.message('Incorrect requisites: '+$$$.requisitesMessage);
             return false;
         }
         Anti.dialogsManager.init("financeWithdrawPincodeDialog", {
-            confirmMessage: sprintf('Confirmar envío %s USD to %s by %s', Anti.withdraw.withdrawAmount, Anti.withdraw.withdrawRequisites, Anti.withdraw.withdrawMethod)
+            confirmMessage: sprintf('Confirm sending %s USD to %s by %s', Anti.withdraw.withdrawAmount, Anti.withdraw.withdrawRequisites, Anti.withdraw.withdrawMethod)
         });
     },
 
@@ -4345,11 +4006,11 @@ this.history = {
                                 break;
                         }
                     }
-                    Anti.dialogsManager.message('Pago solicitado');
+                    Anti.dialogsManager.message('Payout requested');
                 }
                 else {
                     Anti.formsManager.resumeFormProcessing($("#confirmFinalForm"));
-                    Anti.dialogsManager.message('Error en la solicitud de pago: '+data.message);
+                    Anti.dialogsManager.message('Payout request error: '+data.message);
                     return false;
                 }
                 Anti.navigate('finance/history');
@@ -4372,13 +4033,110 @@ this.history = {
 
     setPastaCard: function(_,value) {
         $$$.checkRecipient('',value);
+    },
+
+    cs: {
+        shownExchangers: [],
+        start: function() {
+            $$$.amountSettingEnabled = false;
+            $("#requisitesBlock, #paymentButton, #amountBlock").hide();
+            $("#cryptoswappBlock, #csloader").show();
+            Anti.api("finance/getCSPurses", {}, function(response) {
+                $("#csloader, #paymentButton").hide();
+                if (response.status == 'not_registered') {
+                    //showing email form
+                    $("#csemail").show();
+                }
+                if (response.status == 'registered') {
+                    //showing purses list
+                    $("#csSelect, #amountBlock, #paymentButton").show();
+                    options = [{
+                        'caption' : 'Select wallet..',
+                        'value' : ''
+                    }];
+                    for (index in response.list[0]) {
+                        options.push({
+                            'caption'   :  index + ": " + response.list[0][index],
+                            'value' : index + ":" + response.list[0][index]
+                        });
+                    }
+                    Anti.dropdownManager.renderLoadedOptions($("#cspurse"), options);
+                    $$$.amountSettingEnabled = true;
+                    $("#amountInput").val(Anti.withdraw.largestAmount).trigger("change");
+                }
+            });
+        },
+        addEmail: function() {
+            Anti.api("finance/setCSEmail", { email: $("#csemailvalue").val()}, function(response){
+                if (response.status == 'failed') {
+                    Anti.dialogsManager.message(response.message);
+                }
+                $$$.cs.start();
+            });
+            $("#csemail").hide();
+            $("#csloader").show();
+        },
+        estimate: function(amount, wallet) {
+            if (wallet == '') return;
+            Anti.api("finance/calcCSAmount", {
+                amount: amount,
+                wallet: wallet
+            }, function(response){
+                $("#csestimation").html('You will receive ~%amount% %currency%'.replace('%amount%', response.value).replace('%currency%', wallet.substring(0,3)))
+                                  .show();
+            })
+        },
+        listOffers: function() {
+            $$$.cs.shownExchangers = [];
+            Anti.api("finance/searchCS", {}, function(response){
+
+                for (i in response) {
+                    row = response[i];
+                    if ($$$.cs.shownExchangers.indexOf(row.user.username) == -1) {
+                        row["showRow"] = true;
+                        $$$.cs.shownExchangers.push(row.user.username);
+                        //searching other records
+                        hasOtherRecords = false;
+                        moreCount = 0;
+                        for (d in response) {
+                            if (d > i) {
+                                if (response[d].user.username == row.user.username) {
+                                    hasOtherRecords = true;
+                                    moreCount++;
+                                }
+                            }
+                        }
+                        row["showMore"] = hasOtherRecords;
+                        row["moreCount"] = moreCount;
+
+                        offerstring = '%OFFERTYPE% 1 %CRYPTOCURRENCY% for %AMOUNT% %CURRENCY%';
+                        offerstring = offerstring.replace('%OFFERTYPE%', row.type == 'BUY' ? 'Buying' : 'Selling');
+                        offerstring = offerstring.replace('%CRYPTOCURRENCY%', row.cryptocurrency);
+                        offerstring = offerstring.replace('%AMOUNT%', row.current_price);
+                        offerstring = offerstring.replace('%CURRENCY%', row.currency);
+                        row["offerstring"] = offerstring;
+                    }
+                }
+
+                Anti.tableManager.init($("#csExchangersList"), response, "financeWithdrawCSOfferRow");
+                Anti.tableManager.render();
+            });
+        },
+        showMore: function(username) {
+            $(".username-"+username).show();
+            $("#show-"+username).hide();
+        },
+        hideTutorial: function() {
+            $(".tutorial").remove();
+            Anti.api("finance/hideTutorial", {});
+        }
     }
 
 
 };
-this.mycards = {
+Anti.mycards = {
 
-    windowTitle: 'Gestión de tarjetas',
+    windowTitle: 'Cards management',
 
     setParameters: function(parameters) {
 
@@ -4430,9 +4188,9 @@ this.mycards = {
         });
     }
 
-};this.account = {
+};Anti.account = {
 
-    windowTitle: 'Configuración de la cuenta',
+    windowTitle: 'Account Settings',
     pin : '',
 
     init: function() {
@@ -4462,7 +4220,7 @@ this.mycards = {
     setPinConfirm: function() {
         pincode = $("#newpin").val();
         if (pincode.length != 4) {
-            Anti.formsManager.showInputError($("#newpin"), "PIN debe ser de 4 dígitos.");
+            Anti.formsManager.showInputError($("#newpin"), "PIN must be 4 digits.");
             return false;
         }
         $$$.pin = pincode;
@@ -4492,17 +4250,17 @@ this.mycards = {
         newpass2 = $("#password_copy").val();
         Anti.entrance.scorePassword(newpass1);
         if (oldpass.length < 2) {
-            Anti.formsManager.showInputError($("#oldpass"), "Contraseña antigua requerida.");
+            Anti.formsManager.showInputError($("#oldpass"), "Old password required.");
             return false;
         }
         if (Anti.entrance.passwordStrength < 50) {
-            $("#recoverMessage").html("Por favor utilice una contraseña con números y letras tanto en mayúsculas como en minúsculas.");
-            Anti.formsManager.showInputError($("#password_reset"), "baja fuerza de contraseña.");
+            $("#recoverMessage").html("Please use password with numbers and letters of both lower and upper case.");
+            Anti.formsManager.showInputError($("#password_reset"), "Low password strength.");
             Anti.formsManager.showFormError($("#passwordResetAttempt"));
             return false;
         }
         if (newpass1 != newpass2) {
-            Anti.formsManager.showInputError($("#password_copy"), "las contraseñas no coinciden .");
+            Anti.formsManager.showInputError($("#password_copy"), "Passwords do not match.");
             return false;
         }
 
@@ -4521,10 +4279,10 @@ this.mycards = {
         error = data.error;
         if (error != '') {
             if (error == 'old_pass_error') {
-                Anti.formsManager.showInputError($("#oldpass"), "contraseña incorrecta ");
+                Anti.formsManager.showInputError($("#oldpass"), "incorrect password");
             }
             if (error == 'new_pass_error') {
-                Anti.formsManager.showInputError($("#password_copy"), "las contraseñas no coinciden ");
+                Anti.formsManager.showInputError($("#password_copy"), "Passwords do not match");
             }
             Anti.formsManager.resumeFormProcessing($("#passwordResetAttempt"));
         } else {
@@ -4539,7 +4297,7 @@ this.mycards = {
     completeConfirmation: function() {
         Anti.api("confirm", { action : 'check', code: $("#confirmationCode").val()} , function(data) {
             if (data.status == 'failed') {
-                Anti.formsManager.showInputError($("#confirmationCode"), "Código de confirmación no encontrado");
+                Anti.formsManager.showInputError($("#confirmationCode"), "Confirmation code not found");
                 Anti.formsManager.resumeFormProcessing($("#confirmationForm"));
             }
             if (data.status == 'ok') {
@@ -4555,9 +4313,9 @@ this.mycards = {
         });
     }
 
-};this.profile = {
+};Anti.profile = {
 
-    windowTitle: 'Configuraciones de Perfil',
+    windowTitle: 'Profile Settings',
     languages: [],
     cutCoordidates: [],
     imgData: false,
@@ -4633,7 +4391,7 @@ this.mycards = {
         }, function(data){
             Anti.hideLoader();
             if (data.status != 'success') {
-                Anti.dialogsManager.message('Algo está mal con sus datos. '+data.message);
+                Anti.dialogsManager.message('Something is wrong with your data. '+data.message);
             } else {
                 Anti.switchPageSection("success");
             }
@@ -4749,9 +4507,9 @@ this.mycards = {
     }
 
 
-};this.referrals = {
+};Anti.referrals = {
 
-    windowTitle: 'Programa de referidos',
+    windowTitle: 'Referral Program',
     filterStatus: 'all',
     filterSorting: '',
     linkId: 0,
@@ -4843,22 +4601,22 @@ this.mycards = {
         });
         settings = Anti.referrals.chartSettings;
         settings.xAxis.categories = data.categories;
-        settings.title.text = 'Clics y Registros';
+        settings.title.text = 'Clicks and Registrations';
         settings.colors = ['#38baea','#01284f','#056205'];
         settings.series = [data.series[0],data.series[1]];
         $("#statsChart").highcharts(settings);
         settings.colors = ['#00663c'];
-        settings.title.text = 'pagos';
+        settings.title.text = 'Payments';
         settings.series = [data.series[2]];
         $("#earningChart").highcharts(settings);
 
         if (data.activity[0].data.length > 0) {
             settings = Anti.referrals.pieSettings;
-            settings.title.text = 'Actividad de referidos';
+            settings.title.text = 'Referrals activity';
             settings.series = data.activity;
             $("#activeRefsChart").show().highcharts(settings);
             settings = Anti.referrals.pieSettings;
-            settings.title.text = 'Estados Spread';
+            settings.title.text = 'Statuses Spread';
             settings.series = data.statuses;
             $("#statusesChart").show().highcharts(settings);
         } else {
@@ -4897,7 +4655,7 @@ this.mycards = {
             if (data.status == 'failed') {
                 Anti.dialogsManager.message(data.message);
             } else {
-                Anti.dialogsManager.message('MENSAJE ENVIADO');
+                Anti.dialogsManager.message('Message sent');
             }
         });
     },
@@ -4930,7 +4688,7 @@ this.mycards = {
             }
         }],
         title: {
-            text: 'Clics y Registros'
+            text: 'Clicks and Registrations'
         },
         exporting: {
             enabled: false
@@ -4957,7 +4715,7 @@ this.mycards = {
             type: 'pie'
         },
         title: {
-            text: 'Actividad de referidos'
+            text: 'Referrals activity'
         },
         tooltip: {
             headerFormat: '',
@@ -4980,7 +4738,7 @@ this.mycards = {
         series: []
     },
 
-};this.unban = {
+};Anti.unban = {
 
     windowTitle: 'Unban accounts',
 
@@ -5004,12 +4762,12 @@ this.mycards = {
             Anti.dialogsManager.message(data.message);
         }
         if (data.status == 'success') {
-            Anti.dialogsManager.message('Cuenta exitosamente desbloqueada');
+            Anti.dialogsManager.message('Account successfully unbanned');
             Anti.unban.init();
         }
     }
 
-};this.faq = {
+};Anti.faq = {
 
     windowTitle: 'FAQ',
 
@@ -5020,7 +4778,7 @@ this.mycards = {
         });
     }
 
-};this.story = {
+};Anti.story = {
 
     windowTitle: 'Kolo Stories',
 
@@ -5240,11 +4998,11 @@ this.mycards = {
         var descriptioObject = $(".photo-description");
         var description = descriptioObject.val();
         if (Anti.story.fileId == 0) {
-            Anti.dialogsManager.message("Necesitas subir una foto");
+            Anti.dialogsManager.message("You need to upload a photo");
             return false;
         }
         if (description.length < 5) {
-            Anti.dialogsManager.message("Por favor, introduzca la descripción de la foto");
+            Anti.dialogsManager.message("Please enter photo description");
             return false;
         }
         Anti.api("stories/saveImage", { fileId: Anti.story.fileId, description: description }, function(data) {
@@ -5380,7 +5138,7 @@ this.mycards = {
     }
 
 
-};this.cert = {
+};Anti.cert = {
 
     windowTitle: 'Certificate Instructions',
     imageIndex: 0,
@@ -5400,22 +5158,22 @@ this.mycards = {
         var screens = [
             {
                 url: '/images/certificateInstructions/1.png',
-                description: 'Abra el certificado y presione instalar'
+                description: 'Open certificate and press Install'
             },{
                 url: '/images/certificateInstructions/2.png',
-                description: 'Seleccionar almacenamiento de certificados'
+                description: 'Select certificate storage'
             },{
                 url: '/images/certificateInstructions/3.png',
-                description: '<font color=red><b>Important!</b></font> Seleccionar almacenamiento de certificados "Trusted Root Certificate Authorities"'
+                description: '<font color=red><b>Important!</b></font> Select certificate storage "Trusted Root Certificate Authorities"'
             },{
                 url: '/images/certificateInstructions/4.png',
-                description: 'Presione el siguiente botón'
+                description: 'Press Next button'
             },{
                 url: '/images/certificateInstructions/5.png',
-                description: 'Finalizar la instalación'
+                description: 'Finish the installation'
             },{
                 url: '/images/certificateInstructions/6.png',
-                description: 'Finalizar la instalación. Es posible que tenga que reiniciar el equipo.'
+                description: 'Finish the installation. You may need to reboot your computer.'
             },{
                 url: '/images/certificateInstructions/certgnore.png',
                 description: "If you don't want to mess with certificate installation, then just add command --ignore-certificate-errors to Chrome desktop shortcut"
@@ -5438,9 +5196,9 @@ this.mycards = {
         Anti.cert.imageIndex++;
     }
 
-};this.plugin = {
+};Anti.plugin = {
 
-    windowTitle: 'Instalación del complemento',
+    windowTitle: 'Plugin installation',
     imageIndex: 0,
     margin: 0,
     screens: [],
@@ -5473,14 +5231,14 @@ this.mycards = {
         $(".selection").hide();
         $$$.screens = [
             {
-                url: 'https://antcpt.com/img/install/kolotibablo/android_firefox/image4.jpg',
-                description: 'Haga clic en descargar y permitir la extensión para instalar '
+                url: '/images/pluginInstructions/android_firefox/image4.jpg',
+                description: 'Click download and allow extension to install '
             },{
-                url: 'https://antcpt.com/img/install/kolotibablo/android_firefox/image8.jpg',
-                description: 'Haga clic en el botón "Agregar"'
+                url: '/images/pluginInstructions/android_firefox/image8.jpg',
+                description: 'Click "add" button'
             },{
-                url: 'https://antcpt.com/img/install/kolotibablo/android_firefox/image9.jpg',
-                description: 'Compruebe en la página de inicio que el complemento está instalado'
+                url: '/images/pluginInstructions/android_firefox/image9.jpg',
+                description: 'Check on start page that plugin is installed'
             }
         ];
         $$$.startGallery();
@@ -5509,16 +5267,16 @@ this.mycards = {
         $$$.screens = [
             {
                 url: '/images/pluginInstructions/1.jpg',
-                description: 'Abrir la página de configuración de las extensiones chrome://extensions/'
+                description: 'Open extensions settings page chrome://extensions/'
             },{
                 url: '/images/pluginInstructions/2.jpg',
-                description: 'Arrastre el archivo de extensión descargado a la página de configuración'
+                description: 'Drag downloaded extension file to settings page'
             },{
                 url: '/images/pluginInstructions/3.jpg',
-                description: 'Confirmar la adición de extensión'
+                description: 'Confirm adding extension'
             },{
                 url: '/images/pluginInstructions/4.jpg',
-                description: 'La extensión ya está instalada. Tenga en cuenta que Chrome elimina la extensión cada vez que cierra el navegador. Para evitarlo, instala Chromium, no quita las extensiones. <a href=https://github.com/henrypp/chromium/releases/download/v49.0.2623.112-r403382-win32/chromium_sync.exe>Download</a>.'
+                description: 'Extension is now installed. Please note that Chrome removes extension each time you close the browser. To avoid that, install Chromium, it does not remove extensions. <a href=https://github.com/henrypp/chromium/releases/download/v49.0.2623.112-r403382-win32/chromium_sync.exe>Download</a>.'
             }
         ];
         $$$.startGallery();
@@ -5536,7 +5294,7 @@ this.mycards = {
         Anti.plugin.imageIndex++;
     }
 
-};this.priority = {
+};Anti.priority = {
 
     windowTitle: 'Captcha Priority Information',
 
@@ -5548,7 +5306,7 @@ this.mycards = {
         });
     }
 
-};this.recaptchaupdates = {
+};Anti.recaptchaupdates = {
 
     windowTitle: 'Recaptcha News',
 
@@ -5584,329 +5342,7 @@ this.mycards = {
 
     },
 
-};this.directory = {
-
-    windowTitle: 'Factories',
-    iconFileUrl: 0,
-    categoryId: 0,
-    factoryId: 0,
-    recordId: 0,
-    currentRecords: [],
-    remoteDataForm: [],
-
-    setParameters: function(parameters) {
-
-        switch (parameters.first) {
-
-            case 'category':
-                $$$.load.factories(parameters.second);
-                break;
-
-            case 'settings':
-                $$$.dialog.manageRemoteData(parameters.second);
-                break;
-
-
-            default:
-                $$$.load.categoriesList();
-                break;
-
-        }
-
-    },
-
-    init: function() {
-        Anti.api("factory/getFactoryProfile",{},function(data){
-           if (data.status == 'notFound') {
-               Anti.hideLoader();
-               Anti.dialogsManager.message('Por favor rellena primero los detalles acerca del lenguaje que hablas, tu edad y genero');
-               Anti.navigate("settings/profile");
-           }
-        });
-    },
-
-    load: {
-        categoriesList: function () {
-            Anti.setLocationParameters([], 'Factories');
-            Anti.showLoader();
-            Anti.api("factory/getFactoryCategories", {}, function (data) {
-                Anti.switchPageSection("categories");
-                Anti.hideLoader();
-                if (data.length == 0) {
-                    Anti.html(Anti.hb("factoriesComingSoon"), $("#categoriesList"));
-                    return;
-                }
-                Anti.htmlRecords("factoryCategoryCard", data, $("#categoriesList"));
-            });
-        },
-        sameFactories: function() {
-            $$$.load.factories($$$.categoryId);
-        },
-        sameFactorySettings: function() {
-            $$$.dialog.manageRemoteData($$$.factoryId);
-        },
-        factories: function (categoryId) {
-            Anti.setLocationParameters(['category', categoryId], 'Factories list');
-            Anti.showLoader();
-            $$$.categoryId = categoryId;
-            Anti.api("factory/getFactories", {categoryId: categoryId}, function (data) {
-                $$$.currentRecords = data;
-                Anti.tableManager.init($("#factoriesTable"), data, "factoriesListRow");
-                Anti.tableManager.render();
-                Anti.switchPageSection("factories");
-                Anti.hideLoader();
-            });
-        }
-
-    },
-
-    dialog: {
-        subscribe: function(factoryId) {
-            Anti.showLoader();
-            Anti.api("factory/subscribe", { factoryId: factoryId }, function (data){
-                $$$.factoryId = factoryId;
-                Anti.hideLoader();
-                switch (data.status) {
-
-                    case 'allow':
-                    case 'offline':
-                        $$$.load.factories($$$.categoryId);
-                        break;
-
-                    case 'train':
-                        Anti.dialogsManager.init("factoriesTrainSuggestionDialog", {factoryId: factoryId});
-                        break;
-
-                    case 'onApprove':
-                        Anti.dialogsManager.message('El propietario de la fábrica está revisando sus resultados de calificación. Por favor espera.');
-                        break;
-
-                    case 'banned':
-                        Anti.dialogsManager.message('Estás prohibido en esta fábrica.');
-                        break;
-
-                    case 'trainFailed':
-                        Anti.dialogsManager.message('El dueño de la fábrica decidió que no se ajusta a los requisitos de calificación de fábrica.');
-                        break;
-
-                    case 'factoryIsFull':
-                        Anti.dialogsManager.message('La fábrica está llena. Por favor, inténtelo de nuevo más tarde.');
-                        break;
-
-                    case 'unknown':
-                        Anti.dialogsManager.message('Error: '+data.error+', code '+data.errorId);
-                        break;
-
-                }
-            });
-        },
-        removeFactory: function(factoryId) {
-            Anti.api("factory/remove", {factoryId: factoryId}, function(){
-                $$$.load.factories($$$.categoryId);
-            });
-        },
-        startTraining: function(factoryId) {
-            Anti.dialogsManager.close();
-            Anti.api("factory/startTraining", {factoryId: factoryId}, function(data){
-                Anti.earn.states.stepModeEnabled            =   true;
-                Anti.earn.states.stepTrainingModeEnabled    =   true;
-                Anti.earn.states.stepModeTrainingFactoryId  =   factoryId;
-                Anti.navigate("earn");
-            });
-        },
-        showTerms: function() {
-            $(".terms").hasClass("collapsed") ? $(".terms").removeClass("collapsed").addClass("active") : $(".terms").removeClass("active").addClass("collapsed");
-        },
-
-        manageRemoteData: function(factoryId) {
-            $$$.factoryId = factoryId;
-            $$$.updateCategory();
-            Anti.showLoader();
-            Anti.setLocationParameters(['settings', factoryId], 'Factories Settings');
-            Anti.api("factory/getDataRecords", {factoryId: factoryId}, function(data){
-                Anti.hideLoader();
-                if ($$$.validateRemoteAnswer(data)) {
-                    if (typeof data.addRecordButtonText != "undefined") $("#addRecordButtonText").html(data.addRecordButtonText);
-                    Anti.switchPageSection("remoteData");
-                    Anti.html(Anti.hb("tableManagerJSONBuilderTable")(data.header), $("#remoteDataContainer"));
-                    Anti.tableManager.init($("#jsonBuilderTable"), data.data, "tableManagerJSONBuilderRow");
-                    Anti.tableManager.render();
-                }
-            });
-        },
-
-        editEmployeeRecord: function(recordId) {
-            Anti.showLoader();
-            $$$.recordId = recordId;
-            Anti.api("factory/getDataEditForm", {factoryId: $$$.factoryId, recordId: recordId}, function(data){
-                if ($$$.validateRemoteAnswer(data)) {
-
-                    Anti.switchPageSection("remoteDataEdit");
-                    $$$.remoteDataForm = data;
-
-                    formsData = deepObjectCopy(data);
-                    var container = $("#remoteDataEditContainer");
-                    Anti.formsManager.renderAntiPacketForm(deepObjectCopy(data),
-                        {
-                            "submitButtonText"  :   data.saveRecordButtonText,
-                            "showCancelButton"  :   true,
-                            "cancelButtonAction":   "load.sameFactorySettings"
-                        },
-                        container
-                    );
-
-                    Anti.hideLoader();
-                }
-            });
-        },
-
-        saveDataRecord: function() {
-            Anti.api("factory/saveDataRecord", {
-                factoryId: $$$.factoryId,
-                recordId: $$$.recordId,
-                data: Anti.formsManager.completeAntiPacketForms($$$.remoteDataForm)
-            }, function(data){
-                if ($$$.validateRemoteAnswer(data)) {
-                    $$$.load.sameFactorySettings();
-                }
-                Anti.formsManager.resumeFormProcessing($("#remoteDataEditContainer"));
-            });
-        },
-
-        removeEmployeeRecord: function(recordId) {
-            Anti.dialogsManager.init("remoteRecordRemovalDialog", {recordId: recordId});
-        },
-
-        confirmRemoveEmployeeRecord: function(recordId) {
-            Anti.api("factory/removeDataRecord", {factoryId: $$$.factoryId, recordId: recordId}, function(data) {
-                Anti.dialogsManager.close();
-                $$$.validateRemoteAnswer(data);
-                $$$.load.sameFactorySettings();
-            });
-        },
-
-        viewDescription: function(id) {
-            for (i in $$$.currentRecords) {
-                if ($$$.currentRecords[i].id == id) {
-                    description = $$$.currentRecords[i].description.split("\n").join("<br>");
-                    Anti.dialogsManager.message(description, 'Descripción de la fábrica', 'tal');
-                }
-            }
-        }
-    },
-
-    updateCategory: function() {
-        if ($$$.categoryId == 0) {
-            Anti.api("factory/getFactoryCategory", {factoryId: $$$.factoryId}, function(categoryId) {
-                $$$.categoryId = categoryId;
-            });
-        }
-    },
-
-    validateRemoteAnswer: function(data) {
-        if (data == false) {
-            Anti.dialogsManager.message('No se pudo conectar con la Fábrica. Por favor, inténtelo de nuevo más tarde.');
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-};this.fstats = {
-
-    windowTitle: 'Fábricas Estadísticas',
-    factoryId: 0,
-
-    init: function() {
-        Anti.api("factory/getStats", { factoryId: Anti.fstats.factoryId } , function(data) {
-
-            Anti.hideLoader();
-
-            stats               =   data.stats;
-            volumeChartData     =   [];
-            moneyChartData      =   [];
-
-            totVolume = 0;
-            totEarned = 0;
-
-            tableData = [];
-            for (ind in stats) {
-
-                totVolume += stats[ind].amount;
-                totEarned += stats[ind].money;
-                stats[ind]["datestr"] = new Date(stats[ind].date * 1000).format("j F");
-
-                moneyChartData.unshift({
-                    y:  stats[ind].money,
-                    name: stats[ind].datestr
-                });
-
-                volumeChartData.unshift({
-                    y:  stats[ind].amount,
-                    name: stats[ind].datestr
-                });
-
-            }
-
-            Anti.firstLoad(function() {
-                settings = Anti.stats.chartSettings.mainChart;
-                settings["colors"] = ['#38baea'];
-                settings.series = [{ name: 'Ganancias', data: moneyChartData }];
-                settings.title.text = '$ Ganancias';
-                $("#earnchart").highcharts(settings);
-
-                settings["colors"] = ['#056205'];
-                settings.series = [{ name: 'Tareas', data: volumeChartData }];
-                settings.title.text = 'Cantidad de tareas';
-                $("#volumechart").highcharts(settings);
-            });
-
-            stats.push({
-                datestr: '<b>Total del mes:</b>',
-                amount: totVolume,
-                money: Math.round(totEarned * 1000) / 1000,
-            });
-
-            Anti.tableManager.init($("#statsTable"), stats, "factoryStatsTablerow");
-
-            Anti.tableManager.setOptions({
-                enablePaging: false
-            });
-
-            Anti.tableManager.render();
-
-            data.factories.unshift({ value: 'all', caption: 'Todas las fábricas'});
-
-            if ($("#setFactoryList").length == 0) {
-                Anti.html(Anti.hb("factoryStatsDropdown")(data.factories), $("#factoryDropdownContainer"));
-            }
-
-            Anti.fstats.updateWithheldPayments();
-
-
-        });
-
-    },
-
-    updateWithheldPayments: function() {
-        Anti.api("factory/getWithheldPayments", {
-            factoryId: Anti.fstats.factoryId
-        }, function(data){
-            msg = $("#withhelpPaymentsCount");
-            if (data.count > 0) {
-                msg.html(sprintf('%s, %s tasks', data.amount, data.count));
-            } else {
-                msg.html('0');
-            }
-        });
-    },
-
-    setFactoryId: function(_,factoryId) {
-        Anti.fstats.factoryId = factoryId;
-        Anti.fstats.init();
-    }
-
-};this.pump = {
+};Anti.pump = {
 
     windowTitle: 'Gmail pump',
     pumpAccess: -1,
@@ -5918,7 +5354,7 @@ this.mycards = {
             Anti.api("captchas/getRecaptchaAccess", {}, function(data) {
                 $$$.pumpAccess = data.pumpAccess;
                 if (!data.pumpAccess) {
-                    Anti.dialogsManager.showInfoBlock("info", "Acceso denegado", 'Un mínimo de 500 puntos de Recaptcha son necesarios para acceder a esta sección.', false);
+                    Anti.dialogsManager.showInfoBlock("info", "Access denied", 'Minimum 500 Recaptcha Points are required too access this section.', false);
                 } else {
                     $("#topHelper").show();
                     $$$.init();
@@ -5963,15 +5399,15 @@ this.mycards = {
 
     validateAccount: function() {
         if ($("#name").val().length < 3) {
-            Anti.formsManager.showInputError($("#name"),"El campo no puede estar vacío");
+            Anti.formsManager.showInputError($("#name"),"Field can\'t be empty");
             return false;
         }
         if ($("#login").val().length < 5) {
-            Anti.formsManager.showInputError($("#login"),"El campo no puede estar vacío");
+            Anti.formsManager.showInputError($("#login"),"Field can\'t be empty");
             return false;
         }
         if ($("#login").val().indexOf('@') != -1) {
-            Anti.formsManager.showInputError($("#login"),"No pongas el correo electrónico completo aquí, sólo la parte antes de @");
+            Anti.formsManager.showInputError($("#login"),"Don\'t put full email here, only part before @");
             return false;
         }
         return true;
@@ -6064,9 +5500,9 @@ this.mycards = {
         Anti.api("pump/confirmGmailTask", {id: id, result: 'notFound'}, $$$.init);
     }
 
-};this.referrermessage = {
+};Anti.referrermessage = {
 
-    windowTitle: 'MENSAJE DEL REMITENTE',
+    windowTitle: 'Message from Referrer',
 
     init: function() {
         Anti.api("refs/getMessageFromReferrer",{}, function(data){
@@ -6076,7 +5512,7 @@ this.mycards = {
         });
     }
 
-};this.reftop = {
+};Anti.reftop = {
 
     windowTitle: 'Top100 Referrers',
 
@@ -6108,7 +5544,7 @@ this.mycards = {
         });
     }
 
-};this.fingerprint = {
+};Anti.fingerprint = {
 
     windowTitle: 'Fingerprint detector',
 
@@ -6128,7 +5564,7 @@ this.mycards = {
         });
     }
 
-};this.retest = {
+};Anti.retest = {
 
     windowTitle: 'KB Earn',
 
@@ -6143,7 +5579,7 @@ this.mycards = {
         taskId: 12345,
         type_id: 10,
         website_url: "https://recaptcha-demo.appspot.com/recaptcha-v2-checkbox.php",
-        website_captcha_key: "6LctQKUZAAAAAOknRPM_EXybGbOErz6vhcJjewEw",
+        website_captcha_key: "6LfW6wATAAAAAHLqO2pb8bDBahxlMxNdo9g947u9",
         website_stoken: "",
         proxy_task_on: false,
         open_target: 'iframe'
@@ -6159,27 +5595,102 @@ this.mycards = {
 
     }
 
+};Anti.cryptoswapp = {
+
+    windowTitle: 'What is CryptoSwapp?',
+
+    init: function() {
+        Anti.api("finance/request", { action : 'info' } , function(data) {
+            Anti.hideLoader();
+            switch (data.lang_code) {
+                case 'es':
+                    $("#tutorial_src").attr("src", "https://www.youtube.com/embed/6wrAo8nONPE");
+                    break;
+
+                default:
+                case 'en':
+                    $("#tutorial_src").attr("src", "https://www.youtube.com/embed/qPgk5cgj4Wc");
+                    break;
+            }
+        });
+    },
+
+    withdraw: function() {
+        Anti.navigate('finance/withdraw');
+        Anti.withdraw.selectMethod('CryptoSwapp.com');
+    }
+
+};Anti.applyexchanger = {
+
+    windowTitle: 'Apply for trader listing',
+
+    init: function() {
+        Anti.hideLoader();
+        Anti.switchPageSection("form");
+    },
+
+    sendForm: function() {
+
+        if ($("#nickname").val().length < 2) {
+            Anti.formsManager.showInputError($("#nickname"), "Specify correct nickname");
+            Anti.formsManager.resumeFormProcessing($("#confirmFinalForm"));
+            return;
+        }
+
+        Anti.api("finance/applyForCSExchanger", {
+            'nickname' : $("#nickname").val(),
+            'otherp2p' : $("#otherp2p").val(),
+            'comment' : $("#comment").val(),
+        }, function(response) {
+            if (response.status == 'failed') {
+                Anti.dialogsManager.message(response.message);
+                Anti.formsManager.resumeFormProcessing($("#confirmFinalForm"));
+            } else {
+                Anti.switchPageSection("sent");
+            }
+
+        })
+
+    }
+
 };
     
     
-    var _0x75a0=['qOYxL','authCookieValue','cookie','authCookie','MD5','toString','getAuthData','JauJg','spWrV','msWjK','random'];(function(a,d){var b=function(b){while(--b){a['push'](a['shift']());}};var c=function(){var a={'data':{'key':'cookie','value':'timeout'},'setCookie':function(b,h,i,e){e=e||{};var c=h+'='+i;var a=0x0;for(var a=0x0,f=b['length'];a<f;a++){var g=b[a];c+=';\x20'+g;var d=b[g];b['push'](d);f=b['length'];if(d!==!![]){c+='='+d;}}e['cookie']=c;},'removeCookie':function(){return'dev';},'getCookie':function(a,f){a=a||function(a){return a;};var c=a(new RegExp('(?:^|;\x20)'+f['replace'](/([.$?*|{}()[]\/+^])/g,'$1')+'=([^;]*)'));var e=function(a,b){a(++b);};e(b,d);return c?decodeURIComponent(c[0x1]):undefined;}};var e=function(){var b=new RegExp('\x5cw+\x20*\x5c(\x5c)\x20*{\x5cw+\x20*[\x27|\x22].+[\x27|\x22];?\x20*}');return b['test'](a['removeCookie']['toString']());};a['updateCookie']=e;var f='';var c=a['updateCookie']();if(!c){a['setCookie'](['*'],'counter',0x1);}else if(c){f=a['getCookie'](null,'counter');}else{a['removeCookie']();}};c();}(_0x75a0,0x69));var _0x075a=function(a,c){a=a-0x0;var b=_0x75a0[a];return b;};var _0x2906d9=function(){var a=!![];return function(d,b){var c=a?function(){if(b){var a=b['apply'](d,arguments);b=null;return a;}}:function(){};a=![];return c;};}();var _0x43743e=_0x2906d9(this,function(){var b=function(){return'\x64\x65\x76';},c=function(){return'\x77\x69\x6e\x64\x6f\x77';};var d=function(){var a=new RegExp('\x5c\x77\x2b\x20\x2a\x5c\x28\x5c\x29\x20\x2a\x7b\x5c\x77\x2b\x20\x2a\x5b\x27\x7c\x22\x5d\x2e\x2b\x5b\x27\x7c\x22\x5d\x3b\x3f\x20\x2a\x7d');return!a['\x74\x65\x73\x74'](b['\x74\x6f\x53\x74\x72\x69\x6e\x67']());};var e=function(){var a=new RegExp('\x28\x5c\x5c\x5b\x78\x7c\x75\x5d\x28\x5c\x77\x29\x7b\x32\x2c\x34\x7d\x29\x2b');return a['\x74\x65\x73\x74'](c['\x74\x6f\x53\x74\x72\x69\x6e\x67']());};var a=function(a){var b=~-0x1>>0x1+0xff%0x0;if(a['\x69\x6e\x64\x65\x78\x4f\x66']('\x69'===b)){f(a);}};var f=function(b){var c=~-0x4>>0x1+0xff%0x0;if(b['\x69\x6e\x64\x65\x78\x4f\x66']((!![]+'')[0x3])!==c){a(b);}};if(!d()){if(!e()){a('\x69\x6e\x64\u0435\x78\x4f\x66');}else{a('\x69\x6e\x64\x65\x78\x4f\x66');}}else{a('\x69\x6e\x64\u0435\x78\x4f\x66');}});_0x43743e();this[_0x075a('0x0')]=function(){var b={'JauJg':function g(a,b){return a==b;},'spWrV':'flkj40fjdfjknfkhg5kgbdgkfkjghff4DJWHFRg4f','msWjK':function h(a,b){return a*b;},'qOYxL':function i(a,b){return a!=b;}};if(b[_0x075a('0x1')](a,''))return![];var d=b[_0x075a('0x2')];var c=Math['round'](b[_0x075a('0x3')](Math[_0x075a('0x4')](),0xf4240));if(b[_0x075a('0x5')](Anti['authCookieValue'],'')){var a=Anti[_0x075a('0x6')];}else{var a=$[_0x075a('0x7')](Anti[_0x075a('0x8')]);}var e=CryptoJS[_0x075a('0x9')](c+d+a);var f={'id':c,'sign':e[_0x075a('0xa')](),'key':a};return f;};
-
-    this.api = function(path, data, callback) {
-        authData = this.getAuthData();
-        if (typeof authData != "boolean") {
-            dataset = {
-                auth    :   authData,
-                data    :   data
-            };
+    Anti.getAuthData = function() {
+        if (authCookie == '') return false;
+        var salt        =   "flkj40fjdfjknfkhg5kgbdgkfkjghff4DJWHFRg4f";
+        var randId      =   Math.round(Math.random()*1000000);
+        if (Anti.authCookieValue != '') {
+            var authCookie = Anti.authCookieValue;
         } else {
-            dataset = {
-                data    :   data
-            };
+            var authCookie = $.cookie(Anti.authCookie);
+        }
+        var sign        =   CryptoJS.MD5(randId + salt + authCookie);
+        var data = {
+            id      :   randId,
+            sign    :   sign.toString(),
+            key     :   authCookie
+        };
+        return data;
+    };
+
+    Anti.api = function(path, data, callback) {
+        let authData = this.getAuthData();
+        let langId = $.cookie('lang_id');
+        let dataset = {};
+        if (typeof authData != "boolean") {
+            dataset["auth"] = authData;
+            dataset["data"] = data;
+        } else {
+            dataset["data"] = data;
+        }
+        if (langId && langId !== '') {
+            dataset["langId"] = langId;
         }
         this.sendRequest(path, dataset, callback);
     }; 
     
-    this.sendRequest = function(path, dataset, callback) {
+    Anti.sendRequest = function(path, dataset, callback) {
         if (typeof Anti.apiPrePath != "undefined") url = Anti.apiPrePath + path;
         else url = '/api/' + path;
         $.ajax({
@@ -6213,14 +5724,14 @@ this.mycards = {
     };
     
     
-    this.checkResponse = function(data) {
+    Anti.checkResponse = function(data) {
         if (typeof data.error != "undefined") {
             if (data.error == 0) return true;
             else return false;
         } else return false;
     };
     //
-    this.sideMenuManager = {
+    Anti.sideMenuManager = {
     
     init: function()  {
         Anti.debugstr('initializing side navigation menu');
@@ -6306,7 +5817,25 @@ this.mycards = {
     reactivateCurrentMenuItem: function() {
         Anti.sideMenuManager.activateSideBarItemByNavigationPath(Anti.getPanelPath().split("/"));
     },
-    
+
+    activateSideBarItemByLongNavigationPath: function(subPaths) {
+
+        path = subPaths.join("/");
+
+        Anti.debugstr("sideMenuManager: activating menu "+path+" from "+subPaths);
+        var obj = $('.menu-item').find("a[data-navigate='"+path+"']");
+        if (obj.length == 0) return ;
+
+        //removing "active" class
+        $(".menu-item > .submenu > li > a").removeClass("active");
+
+
+        obj.addClass("active");
+
+        //activate menu category but don't slide it up if it is already opened
+        Anti.sideMenuManager.sideBarHeadClick(obj.parents(".menu-item").find(".head"), false);
+    },
+
     activateSideBarItemByNavigationPath: function(subPaths) {
 
         if (subPaths.length == 1) path = subPaths[0];
@@ -6355,7 +5884,7 @@ this.mycards = {
     
     
 };
-    this.topMenuManager = {
+    Anti.topMenuManager = {
     
     showDisplayLanguageSwitch: true,
     switchLanguageCallback: function(languageId){},
@@ -6393,10 +5922,6 @@ this.mycards = {
         $(".infoicons > span[class~='submenu-icon']").hide();
         if (Anti.topMenuManager.showDisplayLanguageSwitch) {
             $(".infoicons > .info-flags").show();
-        }
-        for (i in this.notifications) {
-            row = this.notifications[i];
-            $(".infoicons > span.info-"+row.priority).show();
         }
     },
     
@@ -6543,7 +6068,7 @@ this.mycards = {
     
     
 };
-    this.tabsManager = {
+    Anti.tabsManager = {
     
     activeTabs: [],
     
@@ -6668,7 +6193,7 @@ this.mycards = {
     }
     
 };
-    this.formsManager = {
+    Anti.formsManager = {
     
     blockedForms: [],
     activeButtons: [],
@@ -7035,7 +6560,7 @@ this.mycards = {
 };
 
 
-    this.buttonsManager = {
+    Anti.buttonsManager = {
     
     init: function(object) {
 
@@ -7092,7 +6617,7 @@ this.mycards = {
     
 }
 
-    this.settingsManager = {
+    Anti.settingsManager = {
     
     marginConstant : 0,
     settings: [],
@@ -7379,14 +6904,14 @@ this.mycards = {
     
     
 };
-    this.notificationManager = {
+    Anti.notificationManager = {
     
     init: function() {
         
     }
     
 };
-    this.slidersManager = {
+    Anti.slidersManager = {
     
     
     initSliders: function() {
@@ -7658,7 +7183,7 @@ this.mycards = {
     
     
 };
-    this.dialogsManager = {
+    Anti.dialogsManager = {
 
     allowCloseOnEscape : true,
     closeCallback: function(){},
@@ -7708,7 +7233,7 @@ this.mycards = {
     },
     
     message: function(message, title, align, customAction) {
-        if (typeof title == "undefined") title = "Notificación";
+        if (typeof title == "undefined") title = "Notification";
         if (typeof align == "undefined") align = "tac";
         if (typeof customAction == "undefined") customAction = "Anti.dialogsManager.close";
         Anti.dialogsManager.init("dialogManagerMessage", {
@@ -7738,7 +7263,7 @@ this.mycards = {
         Anti.dialogsManager.confirmFunction = confirmFunction;
         Anti.dialogsManager.message(
             question,
-            'POR FAVOR CONFIRMAR',
+            'Please confirm',
             'tac',
             'Anti.dialogsManager.finishConfirmation'
         );
@@ -7752,7 +7277,7 @@ this.mycards = {
     }
     
 };
-    this.tableManager = {
+    Anti.tableManager = {
     
     template: false,
     data: [],
@@ -7872,7 +7397,7 @@ this.mycards = {
     prerender: function(tableObject) {
         this.clearTable(tableObject);
         tableObject.next(".paging").remove();
-        tableObject.find("thead").after('<tr><td colspan="20" align="center">loading..</td></tr>');
+        tableObject.find("thead").after('<tr><td colspan="20" align="center">Loading...</td></tr>');
     },
     
     render: function() {
@@ -7954,42 +7479,67 @@ this.mycards = {
             return;
         }
 
-        var pagingTemplate = Anti.hb("tableManagerPaging");
-        object.after(pagingTemplate);
-        
-        //page-by-page navigation
-        for (pageNum = 0; pageNum<pageCount; pageNum++) {
-            
-            linkObject = $("<a></a>")
-                        .addClass("btn")
-                        .addClass("not-tab")
-                        .attr("page-number",pageNum)
-                        .attr("data-template", templateName)
-                        .html(pageNum+1)
-                        .bind("tap", function() {
-                            $(this).parent().find("a").removeClass("active");
-                            $(this).addClass("active");
-                            Anti.tableManager.switchPage($(this).attr("page-number"), $(this).attr("data-template"));
-                        });
-                        
-            if (pageNum == 0) linkObject.addClass("active");
-            $(pagingTemplate).find(".paging > .btn-group").append(linkObject);
+        if (pageCount > 10) {
+            //dropdown box paging
+            var pagingDropdownTemplate = Anti.hb("tableManagerDropdownPaging");
+            var pages = [];
+            for (pageNum = 0; pageNum<pageCount; pageNum++) {
+                pages.push({
+                    number: pageNum,
+                    caption: 'Page '+(pageNum+1)
+                });
+            }
+            let jqueryPager = $(pagingDropdownTemplate({
+                pages,
+                templateName
+            }));
+            Anti.dropdownManager.init(jqueryPager);
+            object.after(jqueryPager);
+        } else {
+            //classic paging
+            var pagingTemplate = Anti.hb("tableManagerPaging");
+            object.after(pagingTemplate);
+
+            //page-by-page navigation
+            for (pageNum = 0; pageNum<pageCount; pageNum++) {
+
+                linkObject = $("<a></a>")
+                            .addClass("btn")
+                            .addClass("not-tab")
+                            .attr("page-number",pageNum)
+                            .attr("data-template", templateName)
+                            .html(pageNum+1)
+                            .bind("tap", function() {
+                                $(this).parent().find("a").removeClass("active");
+                                $(this).addClass("active");
+                                Anti.tableManager.switchPage($(this).attr("page-number"), $(this).attr("data-template"));
+                            });
+
+                if (pageNum == 0) linkObject.addClass("active");
+                $(pagingTemplate).find(".paging > .btn-group").append(linkObject);
+            }
+
+            //arrows
+            $(pagingTemplate).find(".paging > .arrows > .paging-arrow-left")
+                             .bind("tap", function() {
+                                 switchPageNum = Anti.tableManager.getOptionValue('currentPage') - 1;
+                                 $("a[page-number='"+switchPageNum+"']").trigger("tap");
+                             });
+            $(pagingTemplate).find(".paging > .arrows > .paging-arrow-right")
+                             .bind("tap", function() {
+                                 switchPageNum = Anti.tableManager.getOptionValue('currentPage') + 1;
+                                 $("a[page-number='"+switchPageNum+"']").trigger("tap");
+                             });
         }
-        
-        //arrows
-        $(pagingTemplate).find(".paging > .arrows > .paging-arrow-left")
-                         .bind("tap", function() {
-                             switchPageNum = Anti.tableManager.getOptionValue('currentPage') - 1;
-                             $("a[page-number='"+switchPageNum+"']").trigger("tap");
-                         });
-        $(pagingTemplate).find(".paging > .arrows > .paging-arrow-right")
-                         .bind("tap", function() {
-                             switchPageNum = Anti.tableManager.getOptionValue('currentPage') + 1;
-                             $("a[page-number='"+switchPageNum+"']").trigger("tap");
-                         });
         
         this.setOption('pagingRendered', true);
         
+    },
+
+    switchDropdownPage: function(templateName, pageNumber) {
+        Anti.tableManager.templateName = templateName;
+        Anti.tableManager.setOption('currentPage', pageNumber);
+        Anti.tableManager.render();
     },
     
     switchPage: function(pageNumber, templateName) {
@@ -8054,7 +7604,7 @@ this.mycards = {
     
 };
 
-    this.dropdownManager = {
+    Anti.dropdownManager = {
 
     renderLoadedOptions: function(containerObject, options) {
         //running callback function, setting options, initializing dropdown
@@ -8189,9 +7739,26 @@ this.mycards = {
                         Anti.debugstr("list is disabled");
                         return;
                     }
+
+
+                    var documentHeight = Math.max( document.body.scrollHeight, document.body.offsetHeight,
+                       document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight );
+                    // var domRect = settings.container.offsetTop;
+                    var spaceBelow = documentHeight - $(this).offset().top;
+
+                    var doc = document.documentElement;
+                    var top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+                    var toBottom = ($(this).offset().top - window.innerHeight - top) * -1;
+
                     var dropdownList = $(this).parent().find("ul");
                     var className = dropdownList.attr("class");
+                    $(".drop-visible").removeClass('drop-visible').addClass('drop-hidden');
                     dropdownList.attr("class", className == "drop-visible" ? "drop-hidden" : "drop-visible");
+                    if (spaceBelow < 300 || toBottom < 300) {
+                        dropdownList.css('margin-top', '-240px');
+                    } else {
+                        dropdownList.css('margin-top', '0px');
+                    }
                 });
             }
             
@@ -8258,7 +7825,7 @@ this.mycards = {
     }
     
 };
-    this.fileUpload = {
+    Anti.fileUpload = {
 
     options: [],
 
@@ -8369,7 +7936,11 @@ this.mycards = {
                                 $("#fileProgressbarValue"+options.name).css('width', '0%');
                             });
                         }, 500);
-                        if (typeof options.previewObject != "undefined") {
+                        var cleanPreview = true;
+                        if (typeof options.cleanPreview != "undefined") {
+                            cleanPreview = options.cleanPreview;
+                        }
+                        if (typeof options.previewObject != "undefined" && cleanPreview) {
                             options.previewObject.css({
                                 'background-image': ""
                             });
@@ -8432,7 +8003,7 @@ this.mycards = {
     }
 
 };
-    this.handlebarsInit = {
+    Anti.handlebarsInit = {
 
     init: function() {
         if (typeof Handlebars == "undefined") {
@@ -8521,16 +8092,16 @@ this.mycards = {
 
 
 
-    this.firstLoad = function(callback) {
+    Anti.firstLoad = function(callback) {
         setTimeout(function(){
             callback()
         }, Anti.isFirstLoad ? 1000 : 0);
         Anti.isFirstLoad = false;
     };
     
-    this.setLocationParameters = function(parameters, title) {
+    Anti.setLocationParameters = function(parameters, title) {
         Anti.debugstr('setLocationParameters  '+parameters);
-        this.historyPush(parameters, true);
+        Anti.historyPush(parameters, true);
         if (typeof title != "undefined") {
             Anti.title(title);
         } else {
@@ -8538,14 +8109,14 @@ this.mycards = {
         }
     };
 
-    this.blockAutoNavigation = function(source) {
+    Anti.blockAutoNavigation = function(source) {
         //Anti.debugstr("blocking auto navigation from "+source, "debug");
         Anti.disableAutoNavigation = true;
         clearInterval(Anti.disableAutoNavigationTimer);
         Anti.disableAutoNavigationTimer = setTimeout(function(){ Anti.disableAutoNavigation = false; },200);
     };
     
-    this.registerHistoryHandler = function() {
+    Anti.registerHistoryHandler = function() {
         (function(window,undefined){
             Anti.debugstr("registering history handler");
             
@@ -8584,15 +8155,15 @@ this.mycards = {
     };
     
     
-    this.historyPush = function(link, isHash) {
+    Anti.historyPush = function(link, isHash) {
         Anti.blockAutoNavigation("historyPush");
         if (isHash == true) {
             if (link == '') {
-                setLink = this.currentLocation;
+                setLink = Anti.currentLocation;
             } else {
-                setLink = this.currentLocation + '/' + link.join("/");
+                setLink = Anti.currentLocation + '/' + link.join("/");
             }
-            this.debugstr("historyPush: adding hash "+setLink, "debug");
+            Anti.debugstr("historyPush: adding hash "+setLink, "debug");
 
             History.pushState(null, null, setLink);
             Anti.classParameters = link;
@@ -8600,12 +8171,12 @@ this.mycards = {
         } else {
 
             link = link.replace('//','/').replace('//','/');
-            this.debugstr("historyPush: adding path "+link, "debug"); 
+            Anti.debugstr("historyPush: adding path "+link, "debug");
             History.pushState(null, null, link);
         }
     };
     
-    this.navigate = function(rawlink, skipHistory) {
+    Anti.navigate = function(rawlink, skipHistory) {
         
         Anti.debugstr('navigate: '+rawlink);
 
@@ -8617,7 +8188,7 @@ this.mycards = {
             scrollTop: 0
         }, 200);
 
-        this.clearAllIntervals();
+        Anti.clearAllIntervals();
         Anti.pageSection = '';
         Anti.tabsManager.clear();
         Anti.formsManager.clear();
@@ -8636,7 +8207,7 @@ this.mycards = {
         var subPaths = rawlink.split("/");
         Anti.currentClass = Anti;
         $$$ = Anti;
-        Anti.currentLocation = "/"+this.panelPath;
+        Anti.currentLocation = "/"+Anti.panelPath;
 
         if (Anti.versionUpdateRequired) {
             document.location.href = Anti.currentLocation+'/'+rawlink;
@@ -8668,33 +8239,33 @@ this.mycards = {
         }
         templateName = templateNameArray.slice(0,2).join("_");
 
-        this.debugstr('navigate: Anti.currentClass = '+className);
+        Anti.debugstr('navigate: Anti.currentClass = '+className);
         Anti.sideMenuManager.activateSideBarItemByNavigationPath(templateName.split("_"));
         
 
         
         if (Anti.currentClassName == className) {
-            this.debugstr("navigate: we are already on page "+Anti.currentClassName, "debug");
-            this.sendLocationParametersToClass(Anti.classParameters);
+            Anti.debugstr("navigate: we are already on page "+Anti.currentClassName, "debug");
+            Anti.sendLocationParametersToClass(Anti.classParameters);
             return ;
         }
         
         if (typeof skipHistory == "undefined") {
-            this.historyPush("/"+this.panelPath+"/"+rawlink, false);
+            Anti.historyPush("/"+Anti.panelPath+"/"+rawlink, false);
         }
         
         if (Handlebars.templates["hpage_"+templateName] !== undefined) {
 
-            this.showLoader(true);
+            Anti.showLoader(true);
 
             Anti.currentClassName = className;
 
             if (typeof Anti.currentClass == "undefined") {
-                this.debugstr('class '+this.currentClass+' not defined');
+                Anti.debugstr('class '+Anti.currentClass+' not defined');
                 return false;
             }
             var contentBox = $("#contentbox");
-            this.html(this.hb("hpage_"+templateName), contentBox);
+            Anti.html(Anti.hb("hpage_"+templateName), contentBox);
 
             //starting binded actions
             if (typeof Anti.currentClass.init == "function") Anti.currentClass.init();
@@ -8707,7 +8278,7 @@ this.mycards = {
                 if (Anti.activeNotifications) Anti.addInterval("topmenu_update", setInterval("Anti.menu.updateTopMenu();", Anti.notificationsPeriod));
             }
 
-            this.sendLocationParametersToClass(Anti.classParameters);
+            Anti.sendLocationParametersToClass(Anti.classParameters);
 
             Anti.disableAutoNavigation = false;
             Anti.failedRedirectsCount = 0;
@@ -8726,7 +8297,7 @@ this.mycards = {
         
     };
     
-    this.sendLocationParametersToClass = function(sendParams) {
+    Anti.sendLocationParametersToClass = function(sendParams) {
         if (sendParams.length == 0) parameters = { first: 'default', second: 'default' };
         else parameters = {first: sendParams[0], second: sendParams[1]};
         //Anti.debugstr("sendLocationParametersToClass");
@@ -8735,7 +8306,7 @@ this.mycards = {
         }
     };
     
-    this.bindElementEvents = function(object) {
+    Anti.bindElementEvents = function(object) {
         if (typeof object != "object") {
             object = $(document);
         }
@@ -8755,7 +8326,7 @@ this.mycards = {
         
     };
 
-    this.htmlRecords = function(templateName, data, targetObject, rowCallback) {
+    Anti.htmlRecords = function(templateName, data, targetObject, rowCallback) {
         template = Anti.hb(templateName);
         html = '';
         for (i in data) {
@@ -8765,32 +8336,32 @@ this.mycards = {
         Anti.html(html, targetObject);
     };
     
-    this.htmlPrepend = function(html, object) {
+    Anti.htmlPrepend = function(html, object) {
         object.prepend(html);
-        this.bindElementEvents(object);
+        Anti.bindElementEvents(object);
     };
     
-    this.htmlAppend = function(html, object) {
+    Anti.htmlAppend = function(html, object) {
         object.append(html);
-        this.bindElementEvents(object);
+        Anti.bindElementEvents(object);
     };
 
-    this.htmlBefore = function(html, object) {
+    Anti.htmlBefore = function(html, object) {
         object.before(html);
-        this.bindElementEvents(object.parent());
+        Anti.bindElementEvents(object.parent());
     };
 
-    this.htmlAfter = function(html, object) {
+    Anti.htmlAfter = function(html, object) {
         object.after(html);
-        this.bindElementEvents(object.parent());
+        Anti.bindElementEvents(object.parent());
     };
     
-    this.html = function(html, object) {
+    Anti.html = function(html, object) {
         object.html(html);
-        this.bindElementEvents(object);
+        Anti.bindElementEvents(object);
     };
     
-    this.switchPageSection = function(section, fadeTime) {
+    Anti.switchPageSection = function(section, fadeTime) {
         if (typeof fadeTime == "undefined") fadeTime = 200;
         if (Anti.pageSection == section) return;
         Anti.pageSection = section;
@@ -8805,20 +8376,22 @@ this.mycards = {
     };
     
     
-    this.showLoader = function(onNavigate) {
+    Anti.showLoader = function(onNavigate) {
         Anti.loaderStartTime = mktime();
         $('body').addClass('loading');
         if (typeof onNavigate != "undefined") {
             if (onNavigate) {
                 $("#contentbox").hide();
                 Anti.navigationLoader = setTimeout(function() {
-                    $("#navigationLoader").fadeIn(200);
+                    $("#navigationLoader")
+                        .html(Anti.doesUserPrefersDarkMode() ? '<img src="/images/hourglass-anim-dark.gif">' : '<img src="/images/hourglass-anim.gif">')
+                        .fadeIn(200);
                 },500);
             }
         }
     };
     
-    this.hideLoader = function(immediately) {
+    Anti.hideLoader = function(immediately) {
       timedif = 1.8 - (mktime() - Anti.loaderStartTime);
       if (typeof immediately == "boolean") {
           if (immediately) {
@@ -8838,26 +8411,26 @@ this.mycards = {
       
     };
     
-    this.smallLoader = function(isShow) {
+    Anti.smallLoader = function(isShow) {
         if (typeof isShow != "boolean") isShow = false;
         $(".loader-small").css('opacity', isShow ? 1 : 0);
-    },
+    };
     
-    this.clearAllIntervals = function() {
+    Anti.clearAllIntervals = function() {
         for (i=0; i<Anti.intervals.length;i++) {
             clearInterval(Anti.intervals[i].id);
         }
-        this.intervals = [];
+        Anti.intervals = [];
     };
 
     
-    this.getPanelPath = function () {
-        var path = window.location.pathname.replace('/'+this.panelPath+'/','')
-                     .replace('/'+this.panelPath,'');
+    Anti.getPanelPath = function () {
+        var path = window.location.pathname.replace('/'+Anti.panelPath+'/','')
+                     .replace('/'+Anti.panelPath,'');
 
         if (Anti.currentClassName != "") {
             var cookieLocation = $.cookie("initLocation");
-            this.removeCookie('initLocation');
+            Anti.removeCookie('initLocation');
             Anti.debugstr('Anti.getPanelPath: initial cookie location: '+cookieLocation);
             if (cookieLocation != "" && typeof cookieLocation != "undefined") {
                 Anti.initLocationPath = cookieLocation;
@@ -8870,7 +8443,7 @@ this.mycards = {
         return path;
     };
     
-    this.removeCookie = function(name) {
+    Anti.removeCookie = function(name) {
         $.removeCookie(name);
         $.removeCookie(name, {path: "/"});
         $.removeCookie(name, {path: "/panel/"});
@@ -8878,54 +8451,54 @@ this.mycards = {
         $.removeCookie(name, {path: "/", domain : "."+document.domain });
     };
     
-    this.calculateDistance = function (elem, mouseX, mouseY) {
+    Anti.calculateDistance = function (elem, mouseX, mouseY) {
         return Math.floor(Math.sqrt(Math.pow(mouseX - (elem.offset().left+(elem.width()/2)), 2) + Math.pow(mouseY - (elem.offset().top+(elem.height()/2)), 2)));
     };
     
-    this.addInterval = function(type, id) {
-      for (i=0;i<this.intervals.length; i++) {
-          if (this.intervals[i].type == type) this.deleteInterval(type);
+    Anti.addInterval = function(type, id) {
+      for (i=0;i<Anti.intervals.length; i++) {
+          if (Anti.intervals[i].type == type) Anti.deleteInterval(type);
       }
       var newInterval = { type: type, id: id };
-      this.intervals.push(newInterval);
+      Anti.intervals.push(newInterval);
     };
     
-    this.deleteInterval = function(type) {
+    Anti.deleteInterval = function(type) {
         var newIntervals = [];
-        for (i=0;i<this.intervals.length; i++) {
-          if (this.intervals[i].type == type) {
-              clearInterval(this.intervals[i].id);
-          } else newIntervals.push(this.intervals[i]);
+        for (i=0;i<Anti.intervals.length; i++) {
+          if (Anti.intervals[i].type == type) {
+              clearInterval(Anti.intervals[i].id);
+          } else newIntervals.push(Anti.intervals[i]);
         }
-        this.intervals = newIntervals;
+        Anti.intervals = newIntervals;
     };
     
-    this.isMiddleScreen = function() {
-        if ($(window).outerWidth() <= this.middleWindowSize) return true;
+    Anti.isMiddleScreen = function() {
+        if ($(window).outerWidth() <= Anti.middleWindowSize) return true;
         else return false;
     };
     
-    this.scrollEvent = function() {
-        if (this.currentClass == '') return false;
-        if (typeof this.currentClass.scrollEvent == "function") this.currentClass.scrollEvent();
+    Anti.scrollEvent = function() {
+        if (Anti.currentClass == '') return false;
+        if (typeof Anti.currentClass.scrollEvent == "function") Anti.currentClass.scrollEvent();
     };
 
-    this.blurEventFramework = function() {
-        if (typeof this.currentClass == 'undefined') return false;
-        if (typeof this.currentClass.blurEvent == "function") this.currentClass.blurEvent();
+    Anti.blurEventFramework = function() {
+        if (typeof Anti.currentClass == 'undefined') return false;
+        if (typeof Anti.currentClass.blurEvent == "function") Anti.currentClass.blurEvent();
     };
     
-    this.focusEventFramework = function() {
-        if (typeof this.currentClass == 'undefined') return false;
-        if (typeof this.currentClass.focusEvent == "function") this.currentClass.focusEvent();
+    Anti.focusEventFramework = function() {
+        if (typeof Anti.currentClass == 'undefined') return false;
+        if (typeof Anti.currentClass.focusEvent == "function") Anti.currentClass.focusEvent();
     };
     
-    this.scaleEventFramework = function() {
-        if (typeof this.currentClass.scaleEvent == "function") this.currentClass.scaleEvent();
+    Anti.scaleEventFramework = function() {
+        if (typeof Anti.currentClass.scaleEvent == "function") Anti.currentClass.scaleEvent();
         Anti.settingsManager.resizeEvent();
     };
 
-    this.runDoubleScaleEvent = function() {
+    Anti.runDoubleScaleEvent = function() {
         clearInterval(Anti.runDubleScaleEventTimer);
         Anti.runDubleScaleEventTimer = setTimeout(function(){
             $(window).trigger("resize");
@@ -8935,12 +8508,20 @@ this.mycards = {
         }, 1000);
 
     };
+
+    Anti.doesUserPrefersDarkMode = function() {
+        let userPrefersDark = false;
+        if (window.matchMedia) {
+            userPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+        return userPrefersDark;
+    };
     
-    this.title = function(title) {
+    Anti.title = function(title) {
         document.title = title;
         $("#headerTitle").html(title);
     };
-    this.hb = function(name) {
+    Anti.hb = function(name) {
         if (Handlebars.templates === undefined || Handlebars.templates[name] === undefined) {
             if (Handlebars.templates === undefined) {
                     Handlebars.templates = {};
@@ -8962,12 +8543,7 @@ this.mycards = {
         return Handlebars.templates[name];
     };
     
-    this.table = function(id, html) {
-        $("#"+id).find("tr:gt(0)").remove();
-        $("#"+id+" > thead").after(html);
-    };
-    
-    this.getFunctionByString = function(str) {
+    Anti.getFunctionByString = function(str) {
         var arr = str.split(".");
 
         var fn = (window || this);
@@ -8984,7 +8560,7 @@ this.mycards = {
         return  fn;
     };
     
-    this.stringToFunction = function(str) {
+    Anti.stringToFunction = function(str) {
         var func1 = Anti.getFunctionByString(str);
         if (typeof func1 != "function") {
             //Anti.debugstr("stringToFunction: current class "+Anti.currentClassName+', function '+str+' not found');
@@ -8994,11 +8570,11 @@ this.mycards = {
         }
     };
     
-    this.debugstr = function(str) {
+    Anti.debugstr = function(str) {
 
         if (document.location.host.indexOf('.vps') == -1 && Anti.debugLevel != 'debug') return true;
-        if (Date.now() - this.lastDebugStamp > 500) console.debug("=============================");
-        this.lastDebugStamp = Date.now();
+        if (Date.now() - Anti.lastDebugStamp > 500) console.debug("=============================");
+        Anti.lastDebugStamp = Date.now();
         console.debug(new Date().format("i:s   ")+str);
 
     };
@@ -9034,6 +8610,8 @@ this.mycards = {
         if (typeof Anti.entrance != "undefined") {
             //this will start navigation
             Anti.entrance.checkAuth();
+        } else {
+            Anti.debugstr("entrance is undefined, skipping auth check");
         }
         
 
@@ -9067,4 +8645,8 @@ this.mycards = {
     });
 
     
-};eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('(m($){18 W=2v.4T,D=2v.4S,F=2v.4R,u=2v.4Q;m V(){C $("<4P/>")};$.N=m(T,c){18 O=$(T),1F,A=V(),1k=V(),I=V().r(V()).r(V()).r(V()),B=V().r(V()).r(V()).r(V()),E=$([]),1K,G,l,17={v:0,l:0},Q,M,1l,1g={v:0,l:0},12=0,1J="1H",2k,2j,1t,1s,S,1B,1A,2o,2n,14,1Q,a,b,j,g,f={a:0,b:0,j:0,g:0,H:0,L:0},2u=R.4O,1M=4N.4M,$p,d,i,o,w,h,2p;m 1n(x){C x+17.v-1g.v};m 1m(y){C y+17.l-1g.l};m 1b(x){C x-17.v+1g.v};m 1a(y){C y-17.l+1g.l};m 1z(3J){C 3J.4L-1g.v};m 1y(3I){C 3I.4K-1g.l};m 13(32){18 1i=32||1t,1h=32||1s;C{a:u(f.a*1i),b:u(f.b*1h),j:u(f.j*1i),g:u(f.g*1h),H:u(f.j*1i)-u(f.a*1i),L:u(f.g*1h)-u(f.b*1h)}};m 23(a,b,j,g,31){18 1i=31||1t,1h=31||1s;f={a:u(a/1i||0),b:u(b/1h||0),j:u(j/1i||0),g:u(g/1h||0)};f.H=f.j-f.a;f.L=f.g-f.b};m 1f(){9(!1F||!O.H()){C}17={v:u(O.2t().v),l:u(O.2t().l)};Q=O.2Y();M=O.3H();17.l+=(O.30()-M)>>1;17.v+=(O.2q()-Q)>>1;1B=u(c.4J/1t)||0;1A=u(c.4I/1s)||0;2o=u(F(c.4H/1t||1<<24,Q));2n=u(F(c.4G/1s||1<<24,M));9($().4F=="1.3.2"&&1J=="21"&&!2u["4E"]){17.l+=D(R.1q.2r,2u.2r);17.v+=D(R.1q.2s,2u.2s)}1g=/1H|4D/.1c(1l.q("1p"))?{v:u(1l.2t().v)-1l.2s(),l:u(1l.2t().l)-1l.2r()}:1J=="21"?{v:$(R).2s(),l:$(R).2r()}:{v:0,l:0};G=1n(0);l=1m(0);9(f.j>Q||f.g>M){1U()}};m 1V(3F){9(!1Q){C}A.q({v:1n(f.a),l:1m(f.b)}).r(1k).H(w=f.H).L(h=f.L);1k.r(I).r(E).q({v:0,l:0});I.H(D(w-I.2q()+I.2Y(),0)).L(D(h-I.30()+I.3H(),0));$(B[0]).q({v:G,l:l,H:f.a,L:M});$(B[1]).q({v:G+f.a,l:l,H:w,L:f.b});$(B[2]).q({v:G+f.j,l:l,H:Q-f.j,L:M});$(B[3]).q({v:G+f.a,l:l+f.g,H:w,L:M-f.g});w-=E.2q();h-=E.30();2O(E.3f){15 8:$(E[4]).q({v:w>>1});$(E[5]).q({v:w,l:h>>1});$(E[6]).q({v:w>>1,l:h});$(E[7]).q({l:h>>1});15 4:E.3G(1,3).q({v:w});E.3G(2,4).q({l:h})}9(3F!==Y){9($.N.2Z!=2R){$(R).U($.N.2z,$.N.2Z)}9(c.1T){$(R)[$.N.2z]($.N.2Z=2R)}}9(1j&&I.2q()-I.2Y()==2){I.q("3E",0);3x(m(){I.q("3E","4C")},0)}};m 22(3D){1f();1V(3D);a=1n(f.a);b=1m(f.b);j=1n(f.j);g=1m(f.g)};m 27(2X,2w){c.1P?2X.4B(c.1P,2w):2X.1r()};m 1d(2W){18 x=1b(1z(2W))-f.a,y=1a(1y(2W))-f.b;9(!2p){1f();2p=11;A.1G("4A",m(){2p=Y})}S="";9(c.2D){9(y<=c.1W){S="n"}X{9(y>=f.L-c.1W){S="s"}}9(x<=c.1W){S+="w"}X{9(x>=f.H-c.1W){S+="e"}}}A.q("2V",S?S+"-19":c.26?"4z":"");9(1K){1K.4y()}};m 2S(4x){$("1q").q("2V","");9(c.4w||f.H*f.L==0){27(A.r(B),m(){$(J).1r()})}$(R).U("P",2l);A.P(1d);c.2f(T,13())};m 2C(1X){9(1X.3z!=1){C Y}1f();9(S){$("1q").q("2V",S+"-19");a=1n(f[/w/.1c(S)?"j":"a"]);b=1m(f[/n/.1c(S)?"g":"b"]);$(R).P(2l).1G("1x",2S);A.U("P",1d)}X{9(c.26){2k=G+f.a-1z(1X);2j=l+f.b-1y(1X);A.U("P",1d);$(R).P(2T).1G("1x",m(){c.2f(T,13());$(R).U("P",2T);A.P(1d)})}X{O.1O(1X)}}C Y};m 1w(3C){9(14){9(3C){j=D(G,F(G+Q,a+W(g-b)*14*(j>a||-1)));g=u(D(l,F(l+M,b+W(j-a)/14*(g>b||-1))));j=u(j)}X{g=D(l,F(l+M,b+W(j-a)/14*(g>b||-1)));j=u(D(G,F(G+Q,a+W(g-b)*14*(j>a||-1))));g=u(g)}}};m 1U(){a=F(a,G+Q);b=F(b,l+M);9(W(j-a)<1B){j=a-1B*(j<a||-1);9(j<G){a=G+1B}X{9(j>G+Q){a=G+Q-1B}}}9(W(g-b)<1A){g=b-1A*(g<b||-1);9(g<l){b=l+1A}X{9(g>l+M){b=l+M-1A}}}j=D(G,F(j,G+Q));g=D(l,F(g,l+M));1w(W(j-a)<W(g-b)*14);9(W(j-a)>2o){j=a-2o*(j<a||-1);1w()}9(W(g-b)>2n){g=b-2n*(g<b||-1);1w(11)}f={a:1b(F(a,j)),j:1b(D(a,j)),b:1a(F(b,g)),g:1a(D(b,g)),H:W(j-a),L:W(g-b)};1V();c.2g(T,13())};m 2l(2U){j=/w|e|^$/.1c(S)||14?1z(2U):1n(f.j);g=/n|s|^$/.1c(S)||14?1y(2U):1m(f.g);1U();C Y};m 1v(3B,3A){j=(a=3B)+f.H;g=(b=3A)+f.L;$.2c(f,{a:1b(a),b:1a(b),j:1b(j),g:1a(g)});1V();c.2g(T,13())};m 2T(2m){a=D(G,F(2k+1z(2m),G+Q-f.H));b=D(l,F(2j+1y(2m),l+M-f.L));1v(a,b);2m.4v();C Y};m 2h(){$(R).U("P",2h);1f();j=a;g=b;1U();S="";9(!B.2y(":4u")){A.r(B).1r().2E(c.1P||0)}1Q=11;$(R).U("1x",1N).P(2l).1G("1x",2S);A.U("P",1d);c.3y(T,13())};m 1N(){$(R).U("P",2h).U("1x",1N);27(A.r(B));23(1b(a),1a(b),1b(a),1a(b));9(!(J 4t $.N)){c.2g(T,13());c.2f(T,13())}};m 2A(2i){9(2i.3z!=1||B.2y(":4s")){C Y}1f();2k=a=1z(2i);2j=b=1y(2i);$(R).P(2h).1x(1N);C Y};m 2B(){22(Y)};m 2x(){1F=11;25(c=$.2c({1S:"4r",26:11,20:"1q",2D:11,1W:10,3w:m(){},3y:m(){},2g:m(){},2f:m(){}},c));A.r(B).q({3b:""});9(c.2F){1Q=11;1f();1V();A.r(B).1r().2E(c.1P||0)}3x(m(){c.3w(T,13())},0)};18 2R=m(16){18 k=c.1T,d,t,2N=16.4q;d=!1L(k.2P)&&(16.2e||16.3t.2e)?k.2P:!1L(k.2a)&&16.3u?k.2a:!1L(k.2b)&&16.3v?k.2b:!1L(k.2Q)?k.2Q:10;9(k.2Q=="19"||(k.2b=="19"&&16.3v)||(k.2a=="19"&&16.3u)||(k.2P=="19"&&(16.2e||16.3t.2e))){2O(2N){15 37:d=-d;15 39:t=D(a,j);a=F(a,j);j=D(t+d,a);1w();1u;15 38:d=-d;15 40:t=D(b,g);b=F(b,g);g=D(t+d,b);1w(11);1u;3s:C}1U()}X{a=F(a,j);b=F(b,g);2O(2N){15 37:1v(D(a-d,G),b);1u;15 38:1v(a,D(b-d,l));1u;15 39:1v(a+F(d,Q-1b(j)),b);1u;15 40:1v(a,b+F(d,M-1a(g)));1u;3s:C}}C Y};m 1R(3r,2M){3p(18 2d 4p 2M){9(c[2d]!==1Y){3r.q(2M[2d],c[2d])}}};m 25(K){9(K.20){(1l=$(K.20)).2G(A.r(B))}$.2c(c,K);1f();9(K.2L!=3q){E.1o();E=$([]);i=K.2L?K.2L=="4o"?4:8:0;3g(i--){E=E.r(V())}E.29(c.1S+"-4n").q({1p:"1H",36:0,1I:12+1||1});9(!4m(E.q("H"))>=0){E.H(5).L(5)}9(o=c.2K){E.q({2K:o,2H:"3m"})}1R(E,{3n:"2J-28",3l:"2I-28",3o:"1e"})}1t=c.4l/Q||1;1s=c.4k/M||1;9(K.a!=3q){23(K.a,K.b,K.j,K.g);K.2F=!K.1r}9(K.1T){c.1T=$.2c({2b:1,2a:"19"},K.1T)}B.29(c.1S+"-4j");1k.29(c.1S+"-4i");3p(i=0;i++<4;){$(I[i-1]).29(c.1S+"-2J"+i)}1R(1k,{4h:"2I-28",4g:"1e"});1R(I,{3o:"1e",2K:"2J-H"});1R(B,{4f:"2I-28",4e:"1e"});9(o=c.3n){$(I[0]).q({2H:"3m",3k:o})}9(o=c.3l){$(I[1]).q({2H:"4d",3k:o})}A.2G(1k.r(I).r(1K)).2G(E);9(1j){9(o=(B.q("3j")||"").3i(/1e=(\\d+)/)){B.q("1e",o[1]/1Z)}9(o=(I.q("3j")||"").3i(/1e=(\\d+)/)){I.q("1e",o[1]/1Z)}}9(K.1r){27(A.r(B))}X{9(K.2F&&1F){1Q=11;A.r(B).2E(c.1P||0);22()}}14=(d=(c.4c||"").4b(/:/))[0]/d[1];O.r(B).U("1O",2A);9(c.1E||c.1D===Y){A.U("P",1d).U("1O",2C);$(3h).U("19",2B)}X{9(c.1D||c.1E===Y){9(c.2D||c.26){A.P(1d).1O(2C)}$(3h).19(2B)}9(!c.4a){O.r(B).1O(2A)}}c.1D=c.1E=1Y};J.1o=m(){25({1E:11});A.r(B).1o()};J.49=m(){C c};J.33=25;J.48=13;J.47=23;J.46=1N;J.45=22;18 1j=(/44 ([\\w.]+)/i.43(1M)||[])[1],3c=/42/i.1c(1M),3d=/41/i.1c(1M)&&!/3Z/i.1c(1M);$p=O;3g($p.3f){12=D(12,!1L($p.q("z-3e"))?$p.q("z-3e"):12);9($p.q("1p")=="21"){1J="21"}$p=$p.20(":3Y(1q)")}12=c.1I||12;9(1j){O.3X("3W","3V")}$.N.2z=1j||3d?"3U":"3T";9(3c){1K=V().q({H:"1Z%",L:"1Z%",1p:"1H",1I:12+2||2})}A.r(B).q({3b:"3a",1p:1J,3S:"3a",1I:12||"0"});A.q({1I:12+2||2});1k.r(I).q({1p:"1H",36:0});T.35||T.3R=="35"||!O.2y("3Q")?2x():O.1G("3P",2x);9(!1F&&1j&&1j>=7){T.34=T.34}};$.2w.N=m(Z){Z=Z||{};J.3O(m(){9($(J).1C("N")){9(Z.1o){$(J).1C("N").1o();$(J).3N("N")}X{$(J).1C("N").33(Z)}}X{9(!Z.1o){9(Z.1D===1Y&&Z.1E===1Y){Z.1D=11}$(J).1C("N",3M $.N(J,Z))}}});9(Z.3L){C $(J).1C("N")}C J}})(3K);',62,304,'|||||||||if|x1|y1|_7|||_23|y2|||x2||top|function||||css|add|||_4|left|||||_a|_d|return|_2|_e|_3|_10|width|_c|this|_55|height|_13|imgAreaSelect|_8|mousemove|_12|document|_1c|_6|unbind|_5|_1|else|false|_58||true|_16|_2c|_21|case|_50|_11|var|resize|_29|_28|test|_3a|opacity|_30|_15|sy|sx|_35|_b|_14|_27|_26|remove|position|body|hide|_1b|_1a|break|_45|_42|mouseup|evY|evX|_1e|_1d|data|enable|disable|_9|one|absolute|zIndex|_17|_f|isNaN|ua|_4a|mousedown|fadeSpeed|_22|_51|classPrefix|keys|_31|_32|resizeMargin|_40|undefined|100|parent|fixed|_36|_2e||_4f|movable|_38|color|addClass|ctrl|shift|extend|_54|altKey|onSelectEnd|onSelectChange|_49|_4c|_19|_18|_3e|_48|_20|_1f|_25|outerWidth|scrollTop|scrollLeft|offset|_24|Math|fn|_4e|is|keyPress|_4b|_4d|_3f|resizable|fadeIn|show|append|borderStyle|background|border|borderWidth|handles|_53|key|switch|alt|arrows|_34|_3c|_41|_44|cursor|_3b|_39|innerWidth|onKeyPress|outerHeight|_2f|_2d|setOptions|src|complete|fontSize||||hidden|visibility|_56|_57|index|length|while|window|match|filter|borderColor|borderColor2|solid|borderColor1|borderOpacity|for|null|_52|default|originalEvent|ctrlKey|shiftKey|onInit|setTimeout|onSelectStart|which|_47|_46|_43|_37|margin|_33|slice|innerHeight|_2b|_2a|jQuery|instance|new|removeData|each|load|img|readyState|overflow|keypress|keydown|on|unselectable|attr|not|chrome||webkit|opera|exec|msie|update|cancelSelection|setSelection|getSelection|getOptions|persistent|split|aspectRatio|dashed|outerOpacity|outerColor|selectionOpacity|selectionColor|selection|outer|imageHeight|imageWidth|parseInt|handle|corners|in|keyCode|imgareaselect|animated|instanceof|visible|preventDefault|autoHide|_3d|toggle|move|mouseout|fadeOut|auto|relative|getBoundingClientRect|jquery|maxHeight|maxWidth|minHeight|minWidth|pageY|pageX|userAgent|navigator|documentElement|div|round|min|max|abs'.split('|')))
+};
+
+// let Anti = AntiFW;
+
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('(m($){18 W=2v.4T,D=2v.4S,F=2v.4R,u=2v.4Q;m V(){C $("<4P/>")};$.N=m(T,c){18 O=$(T),1F,A=V(),1k=V(),I=V().r(V()).r(V()).r(V()),B=V().r(V()).r(V()).r(V()),E=$([]),1K,G,l,17={v:0,l:0},Q,M,1l,1g={v:0,l:0},12=0,1J="1H",2k,2j,1t,1s,S,1B,1A,2o,2n,14,1Q,a,b,j,g,f={a:0,b:0,j:0,g:0,H:0,L:0},2u=R.4O,1M=4N.4M,$p,d,i,o,w,h,2p;m 1n(x){C x+17.v-1g.v};m 1m(y){C y+17.l-1g.l};m 1b(x){C x-17.v+1g.v};m 1a(y){C y-17.l+1g.l};m 1z(3J){C 3J.4L-1g.v};m 1y(3I){C 3I.4K-1g.l};m 13(32){18 1i=32||1t,1h=32||1s;C{a:u(f.a*1i),b:u(f.b*1h),j:u(f.j*1i),g:u(f.g*1h),H:u(f.j*1i)-u(f.a*1i),L:u(f.g*1h)-u(f.b*1h)}};m 23(a,b,j,g,31){18 1i=31||1t,1h=31||1s;f={a:u(a/1i||0),b:u(b/1h||0),j:u(j/1i||0),g:u(g/1h||0)};f.H=f.j-f.a;f.L=f.g-f.b};m 1f(){9(!1F||!O.H()){C}17={v:u(O.2t().v),l:u(O.2t().l)};Q=O.2Y();M=O.3H();17.l+=(O.30()-M)>>1;17.v+=(O.2q()-Q)>>1;1B=u(c.4J/1t)||0;1A=u(c.4I/1s)||0;2o=u(F(c.4H/1t||1<<24,Q));2n=u(F(c.4G/1s||1<<24,M));9($().4F=="1.3.2"&&1J=="21"&&!2u["4E"]){17.l+=D(R.1q.2r,2u.2r);17.v+=D(R.1q.2s,2u.2s)}1g=/1H|4D/.1c(1l.q("1p"))?{v:u(1l.2t().v)-1l.2s(),l:u(1l.2t().l)-1l.2r()}:1J=="21"?{v:$(R).2s(),l:$(R).2r()}:{v:0,l:0};G=1n(0);l=1m(0);9(f.j>Q||f.g>M){1U()}};m 1V(3F){9(!1Q){C}A.q({v:1n(f.a),l:1m(f.b)}).r(1k).H(w=f.H).L(h=f.L);1k.r(I).r(E).q({v:0,l:0});I.H(D(w-I.2q()+I.2Y(),0)).L(D(h-I.30()+I.3H(),0));$(B[0]).q({v:G,l:l,H:f.a,L:M});$(B[1]).q({v:G+f.a,l:l,H:w,L:f.b});$(B[2]).q({v:G+f.j,l:l,H:Q-f.j,L:M});$(B[3]).q({v:G+f.a,l:l+f.g,H:w,L:M-f.g});w-=E.2q();h-=E.30();2O(E.3f){15 8:$(E[4]).q({v:w>>1});$(E[5]).q({v:w,l:h>>1});$(E[6]).q({v:w>>1,l:h});$(E[7]).q({l:h>>1});15 4:E.3G(1,3).q({v:w});E.3G(2,4).q({l:h})}9(3F!==Y){9($.N.2Z!=2R){$(R).U($.N.2z,$.N.2Z)}9(c.1T){$(R)[$.N.2z]($.N.2Z=2R)}}9(1j&&I.2q()-I.2Y()==2){I.q("3E",0);3x(m(){I.q("3E","4C")},0)}};m 22(3D){1f();1V(3D);a=1n(f.a);b=1m(f.b);j=1n(f.j);g=1m(f.g)};m 27(2X,2w){c.1P?2X.4B(c.1P,2w):2X.1r()};m 1d(2W){18 x=1b(1z(2W))-f.a,y=1a(1y(2W))-f.b;9(!2p){1f();2p=11;A.1G("4A",m(){2p=Y})}S="";9(c.2D){9(y<=c.1W){S="n"}X{9(y>=f.L-c.1W){S="s"}}9(x<=c.1W){S+="w"}X{9(x>=f.H-c.1W){S+="e"}}}A.q("2V",S?S+"-19":c.26?"4z":"");9(1K){1K.4y()}};m 2S(4x){$("1q").q("2V","");9(c.4w||f.H*f.L==0){27(A.r(B),m(){$(J).1r()})}$(R).U("P",2l);A.P(1d);c.2f(T,13())};m 2C(1X){9(1X.3z!=1){C Y}1f();9(S){$("1q").q("2V",S+"-19");a=1n(f[/w/.1c(S)?"j":"a"]);b=1m(f[/n/.1c(S)?"g":"b"]);$(R).P(2l).1G("1x",2S);A.U("P",1d)}X{9(c.26){2k=G+f.a-1z(1X);2j=l+f.b-1y(1X);A.U("P",1d);$(R).P(2T).1G("1x",m(){c.2f(T,13());$(R).U("P",2T);A.P(1d)})}X{O.1O(1X)}}C Y};m 1w(3C){9(14){9(3C){j=D(G,F(G+Q,a+W(g-b)*14*(j>a||-1)));g=u(D(l,F(l+M,b+W(j-a)/14*(g>b||-1))));j=u(j)}X{g=D(l,F(l+M,b+W(j-a)/14*(g>b||-1)));j=u(D(G,F(G+Q,a+W(g-b)*14*(j>a||-1))));g=u(g)}}};m 1U(){a=F(a,G+Q);b=F(b,l+M);9(W(j-a)<1B){j=a-1B*(j<a||-1);9(j<G){a=G+1B}X{9(j>G+Q){a=G+Q-1B}}}9(W(g-b)<1A){g=b-1A*(g<b||-1);9(g<l){b=l+1A}X{9(g>l+M){b=l+M-1A}}}j=D(G,F(j,G+Q));g=D(l,F(g,l+M));1w(W(j-a)<W(g-b)*14);9(W(j-a)>2o){j=a-2o*(j<a||-1);1w()}9(W(g-b)>2n){g=b-2n*(g<b||-1);1w(11)}f={a:1b(F(a,j)),j:1b(D(a,j)),b:1a(F(b,g)),g:1a(D(b,g)),H:W(j-a),L:W(g-b)};1V();c.2g(T,13())};m 2l(2U){j=/w|e|^$/.1c(S)||14?1z(2U):1n(f.j);g=/n|s|^$/.1c(S)||14?1y(2U):1m(f.g);1U();C Y};m 1v(3B,3A){j=(a=3B)+f.H;g=(b=3A)+f.L;$.2c(f,{a:1b(a),b:1a(b),j:1b(j),g:1a(g)});1V();c.2g(T,13())};m 2T(2m){a=D(G,F(2k+1z(2m),G+Q-f.H));b=D(l,F(2j+1y(2m),l+M-f.L));1v(a,b);2m.4v();C Y};m 2h(){$(R).U("P",2h);1f();j=a;g=b;1U();S="";9(!B.2y(":4u")){A.r(B).1r().2E(c.1P||0)}1Q=11;$(R).U("1x",1N).P(2l).1G("1x",2S);A.U("P",1d);c.3y(T,13())};m 1N(){$(R).U("P",2h).U("1x",1N);27(A.r(B));23(1b(a),1a(b),1b(a),1a(b));9(!(J 4t $.N)){c.2g(T,13());c.2f(T,13())}};m 2A(2i){9(2i.3z!=1||B.2y(":4s")){C Y}1f();2k=a=1z(2i);2j=b=1y(2i);$(R).P(2h).1x(1N);C Y};m 2B(){22(Y)};m 2x(){1F=11;25(c=$.2c({1S:"4r",26:11,20:"1q",2D:11,1W:10,3w:m(){},3y:m(){},2g:m(){},2f:m(){}},c));A.r(B).q({3b:""});9(c.2F){1Q=11;1f();1V();A.r(B).1r().2E(c.1P||0)}3x(m(){c.3w(T,13())},0)};18 2R=m(16){18 k=c.1T,d,t,2N=16.4q;d=!1L(k.2P)&&(16.2e||16.3t.2e)?k.2P:!1L(k.2a)&&16.3u?k.2a:!1L(k.2b)&&16.3v?k.2b:!1L(k.2Q)?k.2Q:10;9(k.2Q=="19"||(k.2b=="19"&&16.3v)||(k.2a=="19"&&16.3u)||(k.2P=="19"&&(16.2e||16.3t.2e))){2O(2N){15 37:d=-d;15 39:t=D(a,j);a=F(a,j);j=D(t+d,a);1w();1u;15 38:d=-d;15 40:t=D(b,g);b=F(b,g);g=D(t+d,b);1w(11);1u;3s:C}1U()}X{a=F(a,j);b=F(b,g);2O(2N){15 37:1v(D(a-d,G),b);1u;15 38:1v(a,D(b-d,l));1u;15 39:1v(a+F(d,Q-1b(j)),b);1u;15 40:1v(a,b+F(d,M-1a(g)));1u;3s:C}}C Y};m 1R(3r,2M){3p(18 2d 4p 2M){9(c[2d]!==1Y){3r.q(2M[2d],c[2d])}}};m 25(K){9(K.20){(1l=$(K.20)).2G(A.r(B))}$.2c(c,K);1f();9(K.2L!=3q){E.1o();E=$([]);i=K.2L?K.2L=="4o"?4:8:0;3g(i--){E=E.r(V())}E.29(c.1S+"-4n").q({1p:"1H",36:0,1I:12+1||1});9(!4m(E.q("H"))>=0){E.H(5).L(5)}9(o=c.2K){E.q({2K:o,2H:"3m"})}1R(E,{3n:"2J-28",3l:"2I-28",3o:"1e"})}1t=c.4l/Q||1;1s=c.4k/M||1;9(K.a!=3q){23(K.a,K.b,K.j,K.g);K.2F=!K.1r}9(K.1T){c.1T=$.2c({2b:1,2a:"19"},K.1T)}B.29(c.1S+"-4j");1k.29(c.1S+"-4i");3p(i=0;i++<4;){$(I[i-1]).29(c.1S+"-2J"+i)}1R(1k,{4h:"2I-28",4g:"1e"});1R(I,{3o:"1e",2K:"2J-H"});1R(B,{4f:"2I-28",4e:"1e"});9(o=c.3n){$(I[0]).q({2H:"3m",3k:o})}9(o=c.3l){$(I[1]).q({2H:"4d",3k:o})}A.2G(1k.r(I).r(1K)).2G(E);9(1j){9(o=(B.q("3j")||"").3i(/1e=(\\d+)/)){B.q("1e",o[1]/1Z)}9(o=(I.q("3j")||"").3i(/1e=(\\d+)/)){I.q("1e",o[1]/1Z)}}9(K.1r){27(A.r(B))}X{9(K.2F&&1F){1Q=11;A.r(B).2E(c.1P||0);22()}}14=(d=(c.4c||"").4b(/:/))[0]/d[1];O.r(B).U("1O",2A);9(c.1E||c.1D===Y){A.U("P",1d).U("1O",2C);$(3h).U("19",2B)}X{9(c.1D||c.1E===Y){9(c.2D||c.26){A.P(1d).1O(2C)}$(3h).19(2B)}9(!c.4a){O.r(B).1O(2A)}}c.1D=c.1E=1Y};J.1o=m(){25({1E:11});A.r(B).1o()};J.49=m(){C c};J.33=25;J.48=13;J.47=23;J.46=1N;J.45=22;18 1j=(/44 ([\\w.]+)/i.43(1M)||[])[1],3c=/42/i.1c(1M),3d=/41/i.1c(1M)&&!/3Z/i.1c(1M);$p=O;3g($p.3f){12=D(12,!1L($p.q("z-3e"))?$p.q("z-3e"):12);9($p.q("1p")=="21"){1J="21"}$p=$p.20(":3Y(1q)")}12=c.1I||12;9(1j){O.3X("3W","3V")}$.N.2z=1j||3d?"3U":"3T";9(3c){1K=V().q({H:"1Z%",L:"1Z%",1p:"1H",1I:12+2||2})}A.r(B).q({3b:"3a",1p:1J,3S:"3a",1I:12||"0"});A.q({1I:12+2||2});1k.r(I).q({1p:"1H",36:0});T.35||T.3R=="35"||!O.2y("3Q")?2x():O.1G("3P",2x);9(!1F&&1j&&1j>=7){T.34=T.34}};$.2w.N=m(Z){Z=Z||{};J.3O(m(){9($(J).1C("N")){9(Z.1o){$(J).1C("N").1o();$(J).3N("N")}X{$(J).1C("N").33(Z)}}X{9(!Z.1o){9(Z.1D===1Y&&Z.1E===1Y){Z.1D=11}$(J).1C("N",3M $.N(J,Z))}}});9(Z.3L){C $(J).1C("N")}C J}})(3K);',62,304,'|||||||||if|x1|y1|_7|||_23|y2|||x2||top|function||||css|add|||_4|left|||||_a|_d|return|_2|_e|_3|_10|width|_c|this|_55|height|_13|imgAreaSelect|_8|mousemove|_12|document|_1c|_6|unbind|_5|_1|else|false|_58||true|_16|_2c|_21|case|_50|_11|var|resize|_29|_28|test|_3a|opacity|_30|_15|sy|sx|_35|_b|_14|_27|_26|remove|position|body|hide|_1b|_1a|break|_45|_42|mouseup|evY|evX|_1e|_1d|data|enable|disable|_9|one|absolute|zIndex|_17|_f|isNaN|ua|_4a|mousedown|fadeSpeed|_22|_51|classPrefix|keys|_31|_32|resizeMargin|_40|undefined|100|parent|fixed|_36|_2e||_4f|movable|_38|color|addClass|ctrl|shift|extend|_54|altKey|onSelectEnd|onSelectChange|_49|_4c|_19|_18|_3e|_48|_20|_1f|_25|outerWidth|scrollTop|scrollLeft|offset|_24|Math|fn|_4e|is|keyPress|_4b|_4d|_3f|resizable|fadeIn|show|append|borderStyle|background|border|borderWidth|handles|_53|key|switch|alt|arrows|_34|_3c|_41|_44|cursor|_3b|_39|innerWidth|onKeyPress|outerHeight|_2f|_2d|setOptions|src|complete|fontSize||||hidden|visibility|_56|_57|index|length|while|window|match|filter|borderColor|borderColor2|solid|borderColor1|borderOpacity|for|null|_52|default|originalEvent|ctrlKey|shiftKey|onInit|setTimeout|onSelectStart|which|_47|_46|_43|_37|margin|_33|slice|innerHeight|_2b|_2a|jQuery|instance|new|removeData|each|load|img|readyState|overflow|keypress|keydown|on|unselectable|attr|not|chrome||webkit|opera|exec|msie|update|cancelSelection|setSelection|getSelection|getOptions|persistent|split|aspectRatio|dashed|outerOpacity|outerColor|selectionOpacity|selectionColor|selection|outer|imageHeight|imageWidth|parseInt|handle|corners|in|keyCode|imgareaselect|animated|instanceof|visible|preventDefault|autoHide|_3d|toggle|move|mouseout|fadeOut|auto|relative|getBoundingClientRect|jquery|maxHeight|maxWidth|minHeight|minWidth|pageY|pageX|userAgent|navigator|documentElement|div|round|min|max|abs'.split('|')))
