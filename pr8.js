@@ -1,5 +1,5 @@
 
-var intervals = new Array();
+var intervals = new Array();.
 var minWindowSize       = 560;
 var middleWindowSize    = 780;
 function htmlspecialchars(str) {
