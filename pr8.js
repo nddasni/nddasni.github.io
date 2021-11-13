@@ -1,7 +1,7 @@
 
 var intervals = new Array();.
-var minWindowSize       = 560;
-var middleWindowSize    = 780;
+var minWindowSize       = 780;
+var middleWindowSize    = 1000;
 function htmlspecialchars(str) {
     return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
 }
